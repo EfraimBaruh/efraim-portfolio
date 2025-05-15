@@ -1,0 +1,247 @@
+.projects-container {
+  padding: 2rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.projects-grid {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  justify-content: center;
+}
+
+.projects-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.project-card {
+  flex: 0 0 calc(25% - 1.5rem); /* 25% for 4 cards, minus gap */
+  min-width: 280px;
+  max-width: 350px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
+  height: 200px; /* Reduced height for better proportions */
+  background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+  position: relative;
+  overflow: hidden;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-card:hover .image-overlay {
+  opacity: 1;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.tech-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  backdrop-filter: blur(4px);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.project-card:hover .tech-tag {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.project-card:hover .tech-tag:nth-child(1) { transition-delay: 0.1s; }
+.project-card:hover .tech-tag:nth-child(2) { transition-delay: 0.2s; }
+.project-card:hover .tech-tag:nth-child(3) { transition-delay: 0.3s; }
+.project-card:hover .tech-tag:nth-child(4) { transition-delay: 0.4s; }
+
+.project-content {
+  padding: 1.25rem;
+}
+
+/* Company Info Styles */
+.company-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.company-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.company-details h4 {
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  margin: 0;
+  font-weight: 600;
+}
+
+.position {
+  font-size: 0.8rem;
+  color: #666;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.project-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #1a1a1a;
+}
+
+.project-content p {
+  color: #666;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.learn-more {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  width: 100%;
+}
+
+.learn-more:hover {
+  background: #2d2d2d;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1600px) {
+  .project-card {
+    flex: 0 0 calc(33.333% - 1.5rem); /* 3 cards per row */
+  }
+}
+
+@media (max-width: 1200px) {
+  .project-card {
+    flex: 0 0 calc(50% - 1.5rem); /* 2 cards per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-container {
+    padding: 1rem;
+  }
+
+  .projects-grid {
+    padding: 1rem;
+    justify-content: flex-start;
+  }
+
+  .project-card {
+    flex: 0 0 280px;
+  }
+
+  .project-image {
+    height: 180px;
+  }
+
+  .project-content {
+    padding: 1rem;
+  }
+
+  .company-logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .company-details h4 {
+    font-size: 0.85rem;
+  }
+
+  .position {
+    font-size: 0.75rem;
+  }
+
+  .project-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .project-content p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Smooth Scrolling Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.project-card:nth-child(1) { animation-delay: 0.2s; }
+.project-card:nth-child(2) { animation-delay: 0.4s; }
+.project-card:nth-child(3) { animation-delay: 0.6s; }
+.project-card:nth-child(4) { animation-delay: 0.8s; } 
