@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Contact from './components/Contact';
 import Projects from './components/Projects';
+import Blog from './components/Blog';
 import './App.css';
 
 function App() {
@@ -58,6 +59,10 @@ function App() {
               </ul>
             </div>
           </div>
+        </section>
+
+        <section id="blog" className="blog">
+          <Blog />
         </section>
 
         <section id="contact" className="contact">
