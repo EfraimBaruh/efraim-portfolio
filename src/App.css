@@ -27,25 +27,51 @@ section {
 }
 
 .hero {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  color: white;
-  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  background-image: url('./assets/images/home.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  display: block;
+  text-align: left;
+  padding: 2.5rem 0 0 2.5rem;
 }
 
 .hero-content {
+  position: relative;
+  z-index: 2;
   max-width: 800px;
-  margin: 0 auto;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0;
 }
 
-.hero h1 {
-  font-size: 3rem;
+.hero-content h1 {
+  font-size: 3.5rem;
   margin-bottom: 1rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.hero h2 {
-  font-size: 1.5rem;
+.hero-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
   color: #7B1B38;
-  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .projects {
@@ -160,34 +186,49 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2rem;
+  .hero {
+    padding: 1.5rem 0 0 1.5rem;
   }
-  
-  .hero h2 {
-    font-size: 1.2rem;
+  .hero-content {
+    padding: 1rem 1.25rem;
   }
-  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero::before {
+    opacity: 0.12;
+    transform: scale(1.1);
+  }
+
   section {
     padding: 2rem 1rem;
   }
-  
+
   .about-content {
     gap: 1.5rem;
   }
-  
+
   .about-content > div {
     padding: 1.5rem;
   }
-  
+
   .about-content h3 {
     font-size: 1.3rem;
   }
-  
+
   .about-content li {
     font-size: 0.95rem;
   }
-  
+
   .about-content p {
     font-size: 1.1rem;
     padding: 1.5rem;
