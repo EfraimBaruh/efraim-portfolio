@@ -1,31 +1,51 @@
 import React from 'react';
+import './Social.css';
 
 function Social() {
-  return (
-    <section className="social">
-      <h2>About Me - Social</h2>
-      <div className="social-content">
-        <p>Beyond my professional life, I'm passionate about exploring different cultures and languages. Having lived in multiple countries, I've developed a deep appreciation for cultural diversity and global perspectives.</p>
-        
-        <div>
-          <h3>Languages</h3>
-          <ul>
-            <li>Turkish (Native)</li>
-            <li>English (C1 Level)</li>
-            <li>Russian (B1 Level)</li>
-            <li>Chinese (A2 Level)</li>
-          </ul>
-        </div>
+  const socialCards = [
+    {
+      title: "Cultural Exploration",
+      image: "cultural.jpg", // You'll need to add these images to your assets
+      description: "Exploring different cultures through travel and local experiences",
+      tags: ["Travel", "Culture", "Photography"]
+    },
+    {
+      title: "Language Learning",
+      image: "languages.jpg",
+      description: "My journey in learning multiple languages",
+      tags: ["Turkish", "English", "Russian", "Chinese"]
+    },
+    {
+      title: "Global Perspectives",
+      image: "global.jpg",
+      description: "Experiences from living in multiple countries",
+      tags: ["International", "Diversity", "Experience"]
+    }
+  ];
 
-        {/* Add more social content here, such as:
-        - Hobbies and interests
-        - Travel experiences
-        - Cultural activities
-        - Personal achievements
-        - Community involvement
-        */}
+  return (
+    <div className="social-container">
+      <h2 className="social-title">Social & Cultural</h2>
+      <div className="social-grid">
+        {socialCards.map((card, index) => (
+          <div className="social-card" key={index}>
+            <div className="social-image">
+              <div className="image-overlay">
+                <div className="tags">
+                  {card.tags.map((tag, tagIndex) => (
+                    <span key={tagIndex} className="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="social-content">
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 

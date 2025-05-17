@@ -21,7 +21,6 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-content">
-        <Link to="/" className="nav-logo">EB</Link>
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/projects">Projects</Link></li>
