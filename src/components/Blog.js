@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Blog.css';
 
 function Blog() {
+  const [activeSection, setActiveSection] = useState('');
+
   const blogPosts = [
     {
       id: 1,
@@ -136,22 +138,87 @@ public class GameEventListener : MonoBehaviour
     }
   ];
 
+  // Handle scroll to update active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('h3');
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 100) {
+          currentSection = section.id;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="blog" className="blog">
-      <h2>Development Blog</h2>
-      <div className="blog-posts">
-        {blogPosts.map(post => (
-          <article key={post.id} className="blog-post">
-            <h3>{post.title}</h3>
-            <span className="post-date">{post.date}</span>
-            <div 
-              className="post-content"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-          </article>
-        ))}
-      </div>
-    </section>
+    <div className="blog-container">
+      <main className="blog-content">
+        <section id="blog" className="blog">
+          <h2>Development Blog</h2>
+          
+          <nav className="blog-index">
+            <h3>Contents</h3>
+            <ul className="index-list">
+              {blogPosts.map(post => (
+                <li key={post.id}>
+                  <a 
+                    href={`#post-${post.id}`}
+                    className={activeSection === `post-${post.id}` ? 'active' : ''}
+                  >
+                    {post.title}
+                  </a>
+                  <ul className="sub-index-list">
+                    {post.content.match(/<h3>(.*?)<\/h3>/g)?.map((header, index) => {
+                      const headerText = header.replace(/<[^>]*>/g, '');
+                      const headerId = `post-${post.id}-section-${index}`;
+                      return (
+                        <li key={index}>
+                          <a 
+                            href={`#${headerId}`}
+                            className={activeSection === headerId ? 'active' : ''}
+                          >
+                            {headerText}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="blog-posts">
+            {blogPosts.map(post => (
+              <article id={`post-${post.id}`} key={post.id} className="blog-post">
+                <h3>{post.title}</h3>
+                <span className="post-date">{post.date}</span>
+                <div 
+                  className="post-content"
+                  dangerouslySetInnerHTML={{ 
+                    __html: post.content.replace(
+                      /<h3>(.*?)<\/h3>/g, 
+                      (match, content, offset) => {
+                        const index = post.content.substring(0, offset).match(/<h3>/g)?.length - 1;
+                        return `<h3 id="post-${post.id}-section-${index}">${content}</h3>`;
+                      }
+                    )
+                  }}
+                />
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 

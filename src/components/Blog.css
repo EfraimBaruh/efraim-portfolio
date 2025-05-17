@@ -1,5 +1,5 @@
 .blog {
-  padding: 4rem 2rem;
+  padding: 0 2rem 4rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -83,7 +83,117 @@
   font-size: 0.85rem;
 }
 
+.blog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.blog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.blog-index {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(123, 27, 56, 0.1);
+  border: 1px solid rgba(123, 27, 56, 0.1);
+  margin-bottom: 2rem;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.blog-index h3 {
+  color: #7B1B38;
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+}
+
+.index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-count: 2;
+  column-gap: 2rem;
+}
+
+.index-list > li {
+  margin-bottom: 1rem;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.index-list > li > a {
+  color: #7B1B38;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.sub-index-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0.5rem 0 0 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.sub-index-list li {
+  margin-bottom: 0.5rem;
+}
+
+.index-list a {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.index-list a:hover {
+  color: #7B1B38;
+  background: rgba(123, 27, 56, 0.05);
+}
+
+.index-list a.active {
+  color: #7B1B38;
+  background: rgba(123, 27, 56, 0.1);
+  font-weight: 500;
+}
+
+.blog-index::-webkit-scrollbar {
+  width: 8px;
+}
+
+.blog-index::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.blog-index::-webkit-scrollbar-thumb {
+  background: rgba(123, 27, 56, 0.2);
+  border-radius: 4px;
+}
+
+.blog-index::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 27, 56, 0.3);
+}
+
 @media (max-width: 1024px) {
+  .blog-container {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-index {
+    position: relative;
+    top: 0;
+    margin-bottom: 2rem;
+  }
+
   .blog-posts {
     grid-template-columns: 1fr;
     max-width: 800px;
@@ -93,7 +203,7 @@
 
 @media (max-width: 768px) {
   .blog {
-    padding: 3rem 1rem;
+    padding: 0 1rem 3rem 1rem;
   }
 
   .blog h2 {
@@ -123,5 +233,26 @@
 
   .post-content code {
     font-size: 0.8rem;
+  }
+
+  .blog-container {
+    padding: 0 1rem;
+  }
+
+  .blog-index {
+    max-height: 40vh;
+  }
+
+  .index-list {
+    column-count: 1;
+    column-gap: 0;
+  }
+
+  .index-list > li > a {
+    font-size: 1rem;
+  }
+
+  .sub-index-list {
+    padding-left: 0.75rem;
   }
 } 
