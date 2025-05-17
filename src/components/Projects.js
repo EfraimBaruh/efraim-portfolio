@@ -17,7 +17,7 @@ function Projects() {
       description: "An immersive golf simulation experience using Unity, featuring realistic physics and course environments.",
       technologies: ["Unity", "C#", "3D Modeling", "Physics"],
       image: "golf-sim.jpg",
-      videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
+      videoUrl: "https://www.youtube.com/embed/yKx0g9ECHBI",
       company: {
         name: "Rapsodo",
         logo: rapsodoLogo,
@@ -53,7 +53,7 @@ function Projects() {
       description: "Virtual reality simulations of university-level laboratory experiments, making science education more accessible.",
       technologies: ["VR", "Unity", "Education", "Interactive Learning"],
       image: "vr-lab.jpg",
-      videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
+      videoUrl: "https://www.youtube.com/embed/4ju-EpsM97Q",
       company: {
         name: "VRLabAcademy",
         logo: vrLabLogo,
@@ -64,24 +64,6 @@ function Projects() {
         "Created realistic physics simulations for chemical reactions",
         "Developed assessment and feedback systems for student learning",
         "Collaborated with educators to ensure educational accuracy"
-      ]
-    },
-    {
-      title: "AR Product Visualization",
-      description: "Augmented reality platform for interactive product visualization and virtual try-on experiences.",
-      technologies: ["AR", "Unity", "3D Modeling", "Computer Vision"],
-      image: "ar-product.jpg",
-      videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
-      company: {
-        name: "AR Solutions",
-        logo: arSolutionsLogo,
-        position: "AR Developer"
-      },
-      responsibilities: [
-        "Developed AR product visualization system for retail clients",
-        "Implemented real-time object tracking and recognition",
-        "Created interactive 3D product models and animations",
-        "Optimized AR performance for mobile devices"
       ]
     }
   ];
