@@ -3,7 +3,7 @@ import React from 'react';
 function About() {
   return (
     <section className="about">
-      <h2>About Me</h2>
+      <h2>Professional Background</h2>
       <div className="about-content">
         <p>I am a passionate Unity developer with extensive experience in AR/VR development, real-time simulations, and mobile game development. My journey in technology spans across multiple countries, including Turkey, the UK, and Sweden, giving me a diverse perspective on software development.</p>
         
@@ -26,16 +26,6 @@ function About() {
             <li>Machine Vision (C++)</li>
             <li>Version Control: Bitbucket, GitLab</li>
             <li>Project Management: Jira, Slack, MSTeams</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Languages</h3>
-          <ul>
-            <li>Turkish (Native)</li>
-            <li>English (C1 Level)</li>
-            <li>Russian (B1 Level)</li>
-            <li>Chinese (A2 Level)</li>
           </ul>
         </div>
       </div>
