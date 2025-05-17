@@ -1,0 +1,31 @@
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: #f5f5f5; /* or whatever background color you prefer */
+}
+
+.hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 80px 40px; /* Adjust these values to get the desired spacing from top and left */
+  max-width: 700px; /* Adjust this value based on your content needs */
+  text-align: left; /* Explicitly set text alignment to left */
+}
+
+.hero-content h1 {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.hero-content h2 {
+  margin-bottom: 20px;
+  color: #666; /* or whatever color you prefer */
+  text-align: left;
+}
+
+.hero-content p {
+  line-height: 1.6;
+  text-align: left;
+} 
