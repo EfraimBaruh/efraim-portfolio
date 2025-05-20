@@ -21,31 +21,14 @@ function Projects() {
       company: {
         name: "Rapsodo",
         logo: rapsodoLogo,
-        position: "Senior Unity Developer"
+        position: "Senior Unity Developer",
+        timeInterval: "2023 - Present"
       },
       responsibilities: [
         "Led the development of real-time physics simulation for golf ball trajectory",
         "Implemented advanced 3D modeling and texturing for golf courses",
         "Optimized performance for mobile devices",
         "Collaborated with the design team to create intuitive user interfaces"
-      ]
-    },
-    {
-      title: "3D Holographic Communication",
-      description: "Next-generation communication platform enabling real-time 3D holographic interactions across distances.",
-      technologies: ["AR/VR", "Unity", "3D Scanning", "Real-time Networking"],
-      image: "hologram.jpg",
-      videoUrl: "https://www.youtube.com/embed/KpMGg58Wa2U",
-      company: {
-        name: "Scalar Vision",
-        logo: scalarVisionLogo,
-        position: "AR/VR Developer"
-      },
-      responsibilities: [
-        "Developed real-time 3D scanning and reconstruction algorithms",
-        "Implemented network synchronization for multi-user holographic sessions",
-        "Created custom shaders for realistic holographic rendering",
-        "Optimized streaming performance for low-latency communication"
       ]
     },
     {
@@ -57,13 +40,33 @@ function Projects() {
       company: {
         name: "VRLabAcademy",
         logo: vrLabLogo,
-        position: "VR Developer"
+        position: "VR Developer",
+        timeInterval: "2020 - 2022"
       },
       responsibilities: [
         "Designed and implemented interactive VR laboratory environments",
         "Created realistic physics simulations for chemical reactions",
         "Developed assessment and feedback systems for student learning",
         "Collaborated with educators to ensure educational accuracy"
+      ]
+    },
+    {
+      title: "3D Holographic Communication",
+      description: "Next-generation communication platform enabling real-time 3D holographic interactions across distances.",
+      technologies: ["AR/VR", "Unity", "3D Scanning", "Real-time Networking"],
+      image: "hologram.jpg",
+      videoUrl: "https://www.youtube.com/embed/KpMGg58Wa2U",
+      company: {
+        name: "Scalar Vision",
+        logo: scalarVisionLogo,
+        position: "AR/VR Developer",
+        timeInterval: "2019 - 2020"
+      },
+      responsibilities: [
+        "Developed real-time 3D scanning and reconstruction algorithms",
+        "Implemented network synchronization for multi-user holographic sessions",
+        "Created custom shaders for realistic holographic rendering",
+        "Optimized streaming performance for low-latency communication"
       ]
     }
   ];
@@ -91,6 +94,7 @@ function Projects() {
                 <div className="company-details">
                   <h4>{project.company.name}</h4>
                   <span className="position">{project.company.position}</span>
+                  <span className="time-interval">{project.company.timeInterval}</span>
                 </div>
               </div>
               <h3>{project.title}</h3>

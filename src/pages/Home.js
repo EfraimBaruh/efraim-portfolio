@@ -6,11 +6,6 @@ function Home() {
   return (
     <section className="hero">
       <Model3D 
-        modelPath="/models/scene.gltf"
-        position={[0.6, -3, 4.2]}
-        scale={[1.5, 1.5, 1.5]}
-      />
-      <Model3D 
         modelPath="/models/R2D2.glb"
         position={[1.8, -3, 4.8]}
         scale={[1.5, 1.5, 1.5]}

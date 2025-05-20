@@ -12,6 +12,7 @@ function Model3D({
 }) {
   const mountRef = useRef(null);
   const mixerRef = useRef(null);
+  const modelRef = useRef(null);
 
   useEffect(() => {
     // Scene setup
@@ -50,6 +51,7 @@ function Model3D({
       (gltf) => {
         console.log('Model loaded successfully:', gltf);
         scene.add(gltf.scene);
+        modelRef.current = gltf.scene;
         
         console.log('Animations:', gltf.animations);
         
@@ -90,9 +92,9 @@ function Model3D({
 
     // Hologram blue, double-sided triangle
     const vertices = new Float32Array([
-      0, 0, 0,      // Vertex 1
-      1, 0, 0,      // Vertex 2
-      0.5, 1, 0     // Vertex 3 (forms a triangle in the XY plane)
+      0, 0, 0,             // Vertex A (angle 40°)
+      1, 0, 0,             // Vertex B (angle 40°)
+      0.4998, 0.4196, 0    // Vertex C (angle 100°)
     ]);
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
@@ -101,11 +103,13 @@ function Model3D({
       emissive: 0x00ffff,
       emissiveIntensity: 0.2,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.2,
       side: THREE.DoubleSide
     });
     const triangle = new THREE.Mesh(geometry, material);
-    triangle.position.set(2.5, -2, 5.5); // Adjust as needed
+    triangle.position.set(-0.2, -0.2, 4.8); // Adjust as needed
+    triangle.scale.set(3.2, 3.2, 1);
+    triangle.rotation.z = -Math.PI / 2;
     scene.add(triangle);
 
     // Animation loop
@@ -115,6 +119,11 @@ function Model3D({
 
       if (mixerRef.current) {
         mixerRef.current.update(clock.getDelta());
+      }
+
+      // Add continuous rotation for hologram model
+      if (isHologram && modelRef.current) {
+        modelRef.current.rotation.y += 0.005;
       }
 
       // Calculate flicker opacity ONCE
@@ -130,12 +139,12 @@ function Model3D({
         });
         // Apply the SAME flicker to the triangle
         if (triangle) {
-          triangle.material.opacity = flickerOpacity;
+          triangle.material.opacity = flickerOpacity - 0.3;
         }
       } else {
         // If not hologram, set triangle to base opacity
         if (triangle) {
-          triangle.material.opacity = 0.7;
+          triangle.material.opacity = 0.5;
         }
       }
 
