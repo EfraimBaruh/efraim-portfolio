@@ -1,3 +1,52 @@
+body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    rgb(16, 32, 39) 0%,
+    rgb(22, 44, 47) 50%,
+    rgb(18, 35, 40) 100%
+  );
+  position: relative;
+}
+
+/* Add a subtle noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: 1;
+}
+
+/* Add a subtle vignette effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Ensure content appears above the overlays */
+#root {
+  position: relative;
+  z-index: 3;
+}
+
 .blog {
   padding: 0 2rem 4rem 2rem;
   max-width: 1400px;
@@ -5,7 +54,7 @@
 }
 
 .blog h2 {
-  color: #7B1B38;
+  color: #ffffff;
   text-align: center;
   margin-bottom: 3rem;
   font-size: 2rem;
@@ -18,7 +67,7 @@
 }
 
 .blog-post {
-  background: white;
+  background: rgba(255, 255, 255, 0.17);
   border-radius: 12px;
   padding: 1.75rem;
   box-shadow: 0 4px 6px rgba(123, 27, 56, 0.1);
@@ -27,26 +76,26 @@
 }
 
 .blog-post h3 {
-  color: #7B1B38;
+  color: #ffffff;
   margin: 0 0 0.5rem 0;
   font-size: 1.5rem;
 }
 
 .post-date {
-  color: #666;
+  color: #ffffff;
   font-size: 0.85rem;
   display: block;
   margin-bottom: 1.25rem;
 }
 
 .post-content {
-  color: #333;
+  color: #d9d9d9;
   line-height: 1.5;
   font-size: 0.95rem;
 }
 
 .post-content h3 {
-  color: #7B1B38;
+  color: #ffffff;
   font-size: 1.2rem;
   margin: 1.25rem 0 0.75rem 0;
 }
@@ -69,7 +118,7 @@
 }
 
 .post-content pre {
-  background: #f8f9fa;
+  background: rgba(0, 0, 0, 0.17);
   padding: 0.75rem;
   border-radius: 8px;
   overflow-x: auto;
@@ -96,7 +145,7 @@
 }
 
 .blog-index {
-  background: white;
+  background: rgba(255, 255, 255, 0.17);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(123, 27, 56, 0.1);
@@ -107,7 +156,7 @@
 }
 
 .blog-index h3 {
-  color: #7B1B38;
+  color: #ffffff;
   margin: 0 0 1rem 0;
   font-size: 1.2rem;
 }
@@ -127,7 +176,7 @@
 }
 
 .index-list > li > a {
-  color: #7B1B38;
+  color: #dddddd;
   font-weight: 500;
   font-size: 1.1rem;
 }
@@ -145,7 +194,7 @@
 }
 
 .index-list a {
-  color: #666;
+  color: #e1e1e1d6;
   text-decoration: none;
   font-size: 0.95rem;
   transition: all 0.2s ease;
@@ -155,12 +204,12 @@
 }
 
 .index-list a:hover {
-  color: #7B1B38;
-  background: rgba(123, 27, 56, 0.05);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.162);
 }
 
 .index-list a.active {
-  color: #7B1B38;
+  color: #ffffff;
   background: rgba(123, 27, 56, 0.1);
   font-weight: 500;
 }
@@ -170,7 +219,7 @@
 }
 
 .blog-index::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #ffffffcb;
   border-radius: 4px;
 }
 
