@@ -4,24 +4,30 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
   padding: 1rem;
+  backdrop-filter: blur(5px);
 }
 
 .modal-content {
-  background: white;
+  background: linear-gradient(135deg, 
+    rgb(16, 32, 39) 0%,
+    rgb(22, 44, 47) 50%,
+    rgb(18, 35, 40) 100%
+  );
   border-radius: 12px;
   width: 100%;
   max-width: 900px;
   max-height: 85vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 4px 6px rgba(123, 27, 56, 0.1);
-  border: 1px solid rgba(123, 27, 56, 0.1);
+  box-shadow: 0 4px 20px rgba(32, 178, 170, 0.2);
+  border: 1px solid rgba(32, 178, 170, 0.3);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .modal-close {
@@ -31,7 +37,7 @@
   background: none;
   border: none;
   font-size: 1.75rem;
-  color: #7B1B38;
+  color: rgba(32, 178, 170, 0.9);
   cursor: pointer;
   width: 32px;
   height: 32px;
@@ -39,16 +45,17 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .modal-close:hover {
-  background-color: rgba(123, 27, 56, 0.1);
+  background-color: rgba(32, 178, 170, 0.2);
+  color: rgba(32, 178, 170, 1);
 }
 
 .modal-header {
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(123, 27, 56, 0.1);
+  border-bottom: 1px solid rgba(32, 178, 170, 0.2);
 }
 
 .modal-company-info {
@@ -62,21 +69,24 @@
   width: 40px;
   height: 40px;
   object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem;
 }
 
 .modal-company-info h3 {
-  color: #7B1B38;
+  color: rgba(32, 178, 170, 0.9);
   margin: 0;
   font-size: 1.1rem;
 }
 
 .modal-position {
-  color: #666;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.85rem;
 }
 
 .modal-header h2 {
-  color: #333;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   font-size: 1.5rem;
 }
@@ -92,19 +102,19 @@
 }
 
 .modal-section {
-  background: #f8f9fa;
+  background: rgba(255, 255, 255, 0.05);
   padding: 1.25rem;
   border-radius: 8px;
-  border: 1px solid rgba(123, 27, 56, 0.1);
+  border: 1px solid rgba(32, 178, 170, 0.2);
   min-height: fit-content;
 }
 
 .modal-section h4 {
-  color: #7B1B38;
+  color: rgba(32, 178, 170, 0.9);
   margin: 0 0 0.75rem 0;
   font-size: 1.2rem;
   padding-bottom: 0.4rem;
-  border-bottom: 2px solid #7B1B38;
+  border-bottom: 2px solid rgba(32, 178, 170, 0.5);
   display: inline-block;
 }
 
@@ -116,7 +126,7 @@
 
 .responsibilities-list li {
   padding: 0.35rem 0;
-  color: #555;
+  color: rgba(255, 255, 255, 0.8);
   display: flex;
   gap: 0.5rem;
   line-height: 1.5;
@@ -124,7 +134,7 @@
 }
 
 .responsibility-bullet {
-  color: #7B1B38;
+  color: rgba(32, 178, 170, 0.9);
   font-weight: bold;
 }
 
@@ -135,20 +145,22 @@
 }
 
 .modal-tech-tag {
-  background: rgba(123, 27, 56, 0.1);
-  color: #7B1B38;
+  background: rgba(32, 178, 170, 0.15);
+  color: rgba(32, 178, 170, 0.95);
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   font-size: 0.85rem;
+  border: 1px solid rgba(32, 178, 170, 0.3);
 }
 
 .modal-video-container {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 8px;
   background: #000;
+  border: 1px solid rgba(32, 178, 170, 0.2);
 }
 
 .modal-video-container iframe {

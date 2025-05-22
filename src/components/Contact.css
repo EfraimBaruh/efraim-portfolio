@@ -1,7 +1,7 @@
 .contact-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem 2rem 2rem;
   min-height: 100vh;
   background: linear-gradient(135deg, 
     rgb(16, 32, 39) 0%,
@@ -9,6 +9,9 @@
     rgb(18, 35, 40) 100%
   );
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Add the noise texture */
@@ -44,18 +47,22 @@
 
 .contact-container h2 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   color: rgba(255, 255, 255, 0.9);
   position: relative;
   z-index: 3;
+  font-size: 2.5rem;
 }
 
 .contact-container > p {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   color: rgba(255, 255, 255, 0.7);
   position: relative;
   z-index: 3;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-grid {
