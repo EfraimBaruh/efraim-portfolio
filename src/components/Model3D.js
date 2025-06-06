@@ -107,9 +107,9 @@ function Model3D({
       side: THREE.DoubleSide
     });
     const triangle = new THREE.Mesh(geometry, material);
-    triangle.position.set(-0.2, -0.2, 4.8); // Adjust as needed
+    triangle.position.set(1.15, -0.6, 4.8); // Adjust as needed
     triangle.scale.set(3.2, 3.2, 1);
-    triangle.rotation.z = -Math.PI / 2;
+    triangle.rotation.z = -Math.PI / 1.7;
     scene.add(triangle);
 
     // Animation loop

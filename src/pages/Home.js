@@ -7,14 +7,14 @@ function Home() {
     <section className="hero">
       <Model3D 
         modelPath="/models/R2D2.glb"
-        position={[1.8, -3, 4.8]}
+        position={[2.5, -3.35, 4.8]}
         scale={[1.5, 1.5, 1.5]}
         rotation={[0, -Math.PI / 3, 0]}
       />
       
       <Model3D 
-        modelPath="/models/R2D2.glb"
-        position={[0, -3, 4.8]}
+        modelPath="/models/EfraimBaruh.glb"
+        position={[0.5, -3, 4.8]}
         scale={[1.5, 1.5, 1.5]}
         rotation={[0, -Math.PI / 3, 0]}
         isHologram={true}

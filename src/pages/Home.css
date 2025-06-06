@@ -17,9 +17,9 @@
 .hero-content {
   position: relative;
   z-index: 2;
-  top: 80px;
+  top: 40px;
   left: 0;
-  padding: 80px 40px; /* Adjust these values to get the desired spacing from top and left */
+  padding: 40px 40px; /* Adjust these values to get the desired spacing from top and left */
   max-width: 700px; /* Adjust this value based on your content needs */
   text-align: left; /* Explicitly set text alignment to left */
 }
