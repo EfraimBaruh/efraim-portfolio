@@ -1,20 +1,16 @@
 .projects-container {
-  padding: 2rem;
+  padding: 8rem 2rem 4rem;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
   overflow: hidden;
   min-height: 100vh;
-  background: linear-gradient(135deg, 
-    rgb(16, 32, 39) 0%,
-    rgb(22, 44, 47) 50%,
-    rgb(18, 35, 40) 100%
-  );
+  background-color: #0D1117;
   position: relative;
   z-index: 0;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Noise overlay */
 .projects-container::before {
   content: '';
   position: absolute;
@@ -22,39 +18,35 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  background-image:
+    linear-gradient(rgba(95, 163, 140, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(95, 163, 140, 0.05) 1px, transparent 1px),
+    radial-gradient(1100px 650px at 90% -10%, rgba(95, 163, 140, 0.10), transparent 60%);
+  background-size: 48px 48px, 48px 48px, auto;
   pointer-events: none;
-  opacity: 0.15;
   z-index: 1;
 }
 
-/* Vignette overlay */
-.projects-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 0%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Make sure content is above overlays */
 .projects-container > * {
   position: relative;
   z-index: 3;
 }
 
-.projects-grid {
+.projects-container > h2 {
+  font-family: 'Spectral', Georgia, serif;
+  font-weight: 500;
+  font-size: 2.4rem;
+  color: #E4E7E9;
+  text-align: left;
+  max-width: 1400px;
+  margin: 0 auto 0.5rem;
+  padding: 0 2rem;
+}
+
+.projects-container .projects-grid {
   display: flex;
   gap: 1.5rem;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem 1rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -70,27 +62,26 @@
   flex: 0 0 calc(25% - 1.5rem);
   min-width: 280px;
   max-width: 350px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  background: #131A22;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   scroll-snap-align: start;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  color: rgba(255,255,255,0.9);
+  border: 1px solid #2E3F3A;
+  color: #E4E7E9;
 }
 
 .project-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 30px rgba(32, 178, 170, 0.2);
-  border-color: rgba(32, 178, 170, 0.3);
+  box-shadow: 0 8px 30px rgba(95, 163, 140, 0.15);
+  border-color: #5FA38C;
 }
 
 .project-image {
-  height: 200px; /* Reduced height for better proportions */
-  background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+  height: 200px;
+  background: linear-gradient(135deg, #0D1117 0%, #16222B 100%);
   position: relative;
   overflow: hidden;
 }
@@ -101,7 +92,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(13, 17, 23, 0.75);
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
@@ -122,12 +113,14 @@
 }
 
 .tech-tag {
-  background: rgba(32, 178, 170, 0.15);
-  color: rgba(32, 178, 170, 0.95);
+  background: rgba(95, 163, 140, 0.12);
+  border: 1px solid rgba(95, 163, 140, 0.35);
+  color: #A9D6C9;
   padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  backdrop-filter: blur(4px);
+  border-radius: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
   transform: translateY(20px);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -158,13 +151,13 @@
 .company-logo {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  background: #1a1a1a;
+  background: #0D1117;
+  border: 1px solid #2E3F3A;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .company-logo img {
@@ -174,46 +167,55 @@
 }
 
 .company-details h4 {
+  font-family: 'Spectral', Georgia, serif;
+  font-weight: 500;
   font-size: 0.9rem;
-  color: rgba(32, 178, 170, 0.9);
+  color: #5FA38C;
   margin: 0;
-  font-weight: 600;
 }
 
 .position {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.7);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: #7E8A93;
   display: block;
   margin-top: 0.2rem;
 }
 
 .project-content h3 {
+  font-family: 'Spectral', Georgia, serif;
+  font-weight: 500;
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: rgba(32, 178, 170, 0.9);
+  color: #E4E7E9;
 }
 
 .project-content p {
-  color: rgba(255,255,255,0.8);
+  color: #9CA7AD;
   margin-bottom: 1.25rem;
   line-height: 1.5;
   font-size: 0.9rem;
 }
 
 .learn-more {
-  background: rgba(32, 178, 170, 0.9);
-  color: white;
+  background: #5FA38C;
+  color: #0D1117;
   border: none;
-  padding: 0.7rem 1.25rem;
-  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2px;
   cursor: pointer;
-  font-weight: 500;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   transition: transform 0.2s ease, background-color 0.2s ease;
   width: 100%;
 }
 
 .learn-more:hover {
-  background: rgba(32, 178, 170, 1);
+  background: #74BBA3;
   transform: translateY(-2px);
 }
 
@@ -232,10 +234,15 @@
 
 @media (max-width: 768px) {
   .projects-container {
-    padding: 1rem;
+    padding: 6rem 1rem 2rem;
   }
 
-  .projects-grid {
+  .projects-container > h2 {
+    font-size: 1.8rem;
+    padding: 0 1rem;
+  }
+
+  .projects-container .projects-grid {
     padding: 1rem;
     justify-content: flex-start;
   }
@@ -262,7 +269,7 @@
   }
 
   .position {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   .project-content h3 {
@@ -297,7 +304,8 @@
 
 .time-interval {
   display: block;
-  color: rgba(255,255,255,0.7);
-  font-size: 0.9em;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #7E8A93;
+  font-size: 0.7rem;
   margin-top: 4px;
-} 
+}

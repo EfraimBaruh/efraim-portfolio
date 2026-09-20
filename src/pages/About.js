@@ -1,10 +1,11 @@
 import React from 'react';
+import './About.css';
 
 function About() {
   return (
-    <section className="about">
+    <section className="about-page">
       <h2>Professional Background</h2>
-      <div className="about-content">
+      <div className="about-page-content">
         <p>I am a passionate Unity developer with extensive experience in AR/VR development, real-time simulations, and mobile game development. My journey in technology spans across multiple countries, including Turkey, the UK, and Sweden, giving me a diverse perspective on software development.</p>
         
         <div>
