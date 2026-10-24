@@ -22,8 +22,10 @@ Shared principles (apply to every direction):
 ## A — "Studio Noir"
 *The avatar is lit like a portrait in a dark photo studio.*
 
-- **Palette:** `#0B0B0C` ink · `#16161A` surface · `#EDEBE6` bone text ·
-  `#8A8A8E` muted. Optional accent: none, or a faint warm `#C8B89A`.
+- **Palette (updated 2026-10-24: warm charcoal like Claude's dark sidebar,
+  near-black felt too heavy):** `#262624` ink · `#30302E` surface ·
+  `#F5F4EE` bone text · `#A3A29C` muted · `#C8B89A` faint warm accent
+  *(originally `#0B0B0C` / `#16161A` / `#EDEBE6` / `#8A8A8E`)*.
 - **Type:** a high-contrast serif for display (*Cormorant*, *Fraunces*), a neutral
   grotesk for UI (*Inter*, *Geist*).
 - **Hero:** full-bleed black, avatar three-quarter view, single key light plus a

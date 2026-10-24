@@ -1,11 +1,12 @@
-/* Studio Noir — see docs/DESIGN_DIRECTIONS.md */
+/* Studio Noir, warm charcoal — see docs/DESIGN_DIRECTIONS.md.
+   Keep in sync with src/content/palette.ts. */
 :root {
-  --ink: #0b0b0c;
-  --surface: #16161a;
-  --bone: #edebe6;
-  --muted: #8a8a8e;
+  --ink: #262624;
+  --surface: #30302e;
+  --bone: #f5f4ee;
+  --muted: #a3a29c;
   --accent: #c8b89a;
-  --hairline: rgb(237 235 230 / 0.12);
+  --hairline: rgb(245 244 238 / 0.12);
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;

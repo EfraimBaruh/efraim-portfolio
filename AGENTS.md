@@ -14,7 +14,7 @@ carry over.
 
 - Extracted content, career data, and asset specs: [`docs/KNOWLEDGE.md`](docs/KNOWLEDGE.md)
 - Design directions: [`docs/DESIGN_DIRECTIONS.md`](docs/DESIGN_DIRECTIONS.md).
-  **Chosen: A + C hybrid.** "Studio Noir" (near-black, rim-lit portrait,
+  **Chosen: A + C hybrid.** "Studio Noir" (warm charcoal `#262624`, not near-black; rim-lit portrait,
   serif/grotesk, bone-colored text) is the site-wide system. The "Point Cloud"
   assembly of the avatar is used **once**, as the intro and loading sequence.
 - Tech stack: [`docs/TECH_STACK.md`](docs/TECH_STACK.md). **Chosen: Next.js (App
@@ -60,6 +60,8 @@ skills) · Writing (MDX blog) · Contact.
   `prefers-reduced-motion` path, a non-WebGL fallback (a static render of the
   avatar), mobile layout at 375px, and a Lighthouse performance score of 90+ on
   content pages.
+- Palette lives in `src/app/globals.css` (CSS tokens) and `src/content/palette.ts`
+  (hex values for the 3D scene). Change both together; no hardcoded colors.
 - Content lives in typed data files or MDX, not hard-coded in components.
 - Don't ship placeholder content (missing images, lorem ipsum, fake cards).
 - Third-party models need CC-BY attribution, or better, don't use them.

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { palette } from "@/content/palette";
 
 /**
  * Patches a glTF PBR material so fragments above `reveal` (world Y) are
@@ -13,7 +14,7 @@ export function applyReveal(material: THREE.Material, initial: number): { value:
 
   material.onBeforeCompile = (shader) => {
     shader.uniforms.uReveal = reveal;
-    shader.uniforms.uEdgeColor = { value: new THREE.Color("#c8b89a") };
+    shader.uniforms.uEdgeColor = { value: new THREE.Color(palette.accent) };
 
     shader.vertexShader = shader.vertexShader
       .replace("#include <common>", "#include <common>\nvarying vec3 vRevealWorld;")

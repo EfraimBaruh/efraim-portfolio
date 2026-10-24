@@ -3,6 +3,7 @@
 import { type RefObject, useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { palette } from "@/content/palette";
 import { sampleSurface } from "./sampleSurface";
 
 // Timeline in seconds from the moment the scan finishes loading.
@@ -55,7 +56,7 @@ const vertexShader = /* glsl */ `
     // Points dissolve as the solid surface sweeps up past them.
     float worldTargetY = (modelMatrix * vec4(position, 1.0)).y;
     float revealFade = smoothstep(uReveal - 0.1, uReveal + 0.02, worldTargetY);
-    vAlpha = mix(0.55, 1.0, p) * revealFade;
+    vAlpha = mix(0.3, 1.0, p) * revealFade;
   }
 `;
 
@@ -74,17 +75,17 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-/** Targets on the scan surface plus random start positions in a loose cylinder. */
+/** Targets on the scan surface plus random start positions in a loose column around the figure. */
 function buildGeometry(source: THREE.Object3D, count: number) {
   const { positions, normals, minY, maxY } = sampleSurface(source, count);
   const height = maxY - minY;
   const starts = new Float32Array(count * 3);
   const seeds = new Float32Array(count);
   for (let i = 0; i < count; i++) {
-    const r = height * (0.35 + Math.random() * 0.55);
+    const r = height * (0.12 + Math.random() * 0.3);
     const a = Math.random() * Math.PI * 2;
     starts[i * 3] = Math.cos(a) * r;
-    starts[i * 3 + 1] = minY + Math.random() * height * 1.15;
+    starts[i * 3 + 1] = minY + Math.random() * height * 1.05;
     starts[i * 3 + 2] = Math.sin(a) * r;
     seeds[i] = Math.random();
   }
@@ -130,7 +131,7 @@ export default function PointCloudIntro({ source, count, revealRef, onAssembled 
           uPixelRatio: { value: 1 },
           uHeight: { value: new THREE.Vector2(...(geometry.userData.height as [number, number])) },
           uKeyDir: { value: new THREE.Vector3(-2.5, 3, 2.5).normalize() },
-          uColor: { value: new THREE.Color("#edebe6") },
+          uColor: { value: new THREE.Color(palette.bone) },
         },
       }),
     [geometry],
