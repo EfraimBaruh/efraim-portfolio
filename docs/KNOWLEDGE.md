@@ -89,6 +89,8 @@ Both are short and could be revived as MDX posts.
 ### 3D models (`public/models/`)
 
 **`EfraimBaruh-compressed.glb`: Efraim's 3D-scan avatar (3.1 MB) ★ primary asset**
+*(v2: moved to `assets/source/EfraimBaruh-scan.glb`; the site now serves the rigged
+`public/models/EfraimBaruh-rigged.glb`, see `docs/RIGGING.md`.)*
 - Generator: glTF-Transform v3.10.1
 - Required extensions: `EXT_meshopt_compression`, `KHR_mesh_quantization`,
   `EXT_texture_webp` (also `KHR_materials_specular`)

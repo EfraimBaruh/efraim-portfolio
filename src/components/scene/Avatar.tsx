@@ -8,9 +8,11 @@ import PointCloudIntro from "./PointCloudIntro";
 import { applyReveal } from "./revealMaterial";
 import { localBounds } from "./sampleSurface";
 import { markIntroSeen, shouldPlayIntro } from "./introState";
+import { useHostBehavior } from "./useHostBehavior";
 
-// 3D scan of Efraim — static mesh (no rig yet), meshopt + quantized + WebP.
-const AVATAR_URL = "/models/EfraimBaruh-compressed.glb";
+// Efraim's 3D scan, rigged by scripts/avatar/rig_avatar.py: relaxed rest pose,
+// 22-bone skeleton, "Idle" loop. Meshopt + quantized + WebP.
+const AVATAR_URL = "/models/EfraimBaruh-rigged.glb";
 const TARGET_HEIGHT = 1.8;
 const SWEEP_DURATION = 1.7;
 const REVEAL_HIDDEN = -0.2;
@@ -37,7 +39,7 @@ export type AvatarMode = keyof typeof POSES;
 
 export default function Avatar({ mode }: { mode: AvatarMode }) {
   // useGLTF wires up the meshopt decoder; draco is unused by this asset.
-  const { scene } = useGLTF(AVATAR_URL, false);
+  const { scene, animations } = useGLTF(AVATAR_URL, false);
   // Desktop: portrait sits right of the name. Mobile: centered behind it.
   const wide = useThree((state) => state.size.width >= 768);
 
@@ -52,6 +54,9 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
   // Initial placement only; afterwards useFrame damps toward the active pose,
   // so props must not change with `mode` (R3F would snap them).
   const [initialPose] = useState(() => POSES[mode]);
+
+  // Idle + head tracking start once the scan has fully assembled.
+  useHostBehavior({ scene, animations, body: rig, active: introFinished });
 
   // Normalize: feet on the ground, centered, ~1.8 m tall.
   const { scale, offset } = useMemo(() => {

@@ -1,5 +1,49 @@
 # Avatar Rigging Guide
 
+## What's in place now (automated, 2026-10-24)
+
+`public/models/EfraimBaruh-rigged.glb` is produced by a headless, scripted
+Blender pipeline. Re-run it whenever the rig, the pose or the idle changes:
+
+```bash
+# 0. Decode the source scan for Blender (kept out of public/).
+npx @gltf-transform/cli@4 copy assets/source/EfraimBaruh-scan.glb /tmp/avatar-raw.glb
+npx @gltf-transform/cli@4 dequantize /tmp/avatar-raw.glb /tmp/avatar-edit.glb
+# 1. Rig, relax the A-pose, add Idle, export (optional preview renders).
+blender -b --factory-startup -P scripts/avatar/rig_avatar.py -- /tmp/avatar-edit.glb /tmp/avatar-rigged.glb /tmp/preview
+# 2. Compress for the web.
+npx @gltf-transform/cli@4 optimize /tmp/avatar-rigged.glb public/models/EfraimBaruh-rigged.glb \
+  --compress meshopt --texture-compress webp --texture-size 2048 --simplify false
+```
+
+How it works (details in the script's docstring):
+- **22-bone skeleton** with Mixamo-style names (`Hips` … `Head`,
+  `LeftArm`, …), placed from slices measured through the scan.
+- **Volumetric weights.** The scan has 282 islands and open edges, so
+  bone-heat weighting is unreliable. Each bone is a tapered capsule with a
+  thickness, plus a reach cutoff so torso bones can't leak into the hands.
+  Verified: 0 edges stretch more than 2.5× in the relaxed pose.
+- **The relaxed pose is the rest pose** (arms down, slight elbow bend). The
+  web default is the relaxed stance, and the point-cloud intro samples the
+  correct surface.
+- **`Idle`**: a 4 s seamless loop of breathing and weight shift. **Head
+  tracking** is code (`src/components/scene/useHostBehavior.ts`): the neck
+  takes 40% and the head 60% of the turn, clamped. Head turns are verified
+  clean to about 28° combined.
+- Result: 3.1 MB, 1 skin, 22 joints, the same extensions as before.
+
+Tweak the pose or idle through the constants at the top of
+`scripts/avatar/rig_avatar.py` (`ARM_DROP`, `ELBOW_BEND`, the `motion` table).
+
+Known limits: there are no finger bones, and the `Neck` bone owns no
+vertices (neck skin follows `Head`/`Spine2`), which is fine for look-at.
+Bigger gestures (wave, point) need either Mixamo clips (Track B below) or
+hand-keyed actions added to the script.
+
+---
+
+## Manual alternatives
+
 Goal: turn the static 3D scan (`public/models/EfraimBaruh-compressed.glb`, a
 T-pose with no skeleton) into a web-ready host with a relaxed pose and a few
 animation clips, without blowing the size budget (target under ~4 MB).
@@ -19,7 +63,7 @@ decode the web file. These steps were verified on this exact file with
 
 ```bash
 # 1. Decode meshopt (3.1 MB → 3.7 MB)
-npx @gltf-transform/cli@4 copy public/models/EfraimBaruh-compressed.glb /tmp/avatar-raw.glb
+npx @gltf-transform/cli@4 copy assets/source/EfraimBaruh-scan.glb /tmp/avatar-raw.glb
 # 2. Remove quantization so Blender imports plain floats (→ 4.4 MB)
 npx @gltf-transform/cli@4 dequantize /tmp/avatar-raw.glb /tmp/avatar-edit.glb
 ```

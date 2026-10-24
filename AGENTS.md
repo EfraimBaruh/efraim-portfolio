@@ -29,8 +29,9 @@ visual change, review **every** page (desktop and 375px), not just the one
 you touched.
 
 ## What we are building
-- **The 3D-scan avatar is the host.** `public/models/EfraimBaruh-compressed.glb` is
-  a real 3D scan of Efraim. It greets visitors on arrival and guides them through
+- **The 3D-scan avatar is the host.** `public/models/EfraimBaruh-rigged.glb` is
+  a real 3D scan of Efraim, rigged by `scripts/avatar/rig_avatar.py` (see
+  `docs/RIGGING.md`). The unrigged source lives in `assets/source/` (not served). It greets visitors on arrival and guides them through
   the site (head tracking, turning toward sections, gestures). It's the
   centerpiece, so treat it like a product feature, not a background.
 - **The 3D work is the proof of skill.** Shader work, lighting, interaction, and
@@ -58,9 +59,12 @@ skills) · Writing (MDX blog) · Contact.
   client-only.
 - The avatar GLB needs `EXT_meshopt_compression`, `KHR_mesh_quantization`, and
   `EXT_texture_webp`. Use a meshopt decoder and make sure it's ready before parsing.
-- The avatar is currently **static (no rig, no animations)**. Any host behavior
-  beyond whole-body transforms needs a rigged re-export. Don't fake skeletal
-  motion on the static mesh.
+- The avatar is **rigged** (22 bones, relaxed rest pose, `Idle` clip). Host
+  behaviour lives in `useHostBehavior.ts` (idle plus head and neck look-at),
+  starting after the intro, and is disabled under reduced motion. It's a
+  `SkinnedMesh`: anything that samples or measures it must use skinned rest
+  positions (`sampleSurface.ts` → `restGeometry`), not the raw position
+  attribute. Regenerate the GLB with the script; never hand-edit it.
 - Required quality bar: a real loading state, 60 fps on a mid-range laptop, a
   `prefers-reduced-motion` path, a non-WebGL fallback (a static render of the
   avatar), mobile layout at 375px, and a Lighthouse performance score of 90+ on
@@ -78,8 +82,10 @@ src/
 ├── components/scene/    # SceneRoot → Experience (Canvas, lights) → Avatar
 └── content/             # typed content (profile.ts); MDX later
 public/
-├── models/EfraimBaruh-compressed.glb   # the avatar (static scan)
+├── models/EfraimBaruh-rigged.glb       # the avatar (rigged scan, served)
 └── images/logos/                       # company logos
+assets/source/           # unrigged source scan (input to the rig script)
+scripts/avatar/          # Blender rig + preview scripts (headless)
 docs/                    # knowledge, design, IA, stack, rigging guide
 ```
 Runtime: **Node 24 LTS** (`.nvmrc`, `engines`), installed through Homebrew `node@24`.

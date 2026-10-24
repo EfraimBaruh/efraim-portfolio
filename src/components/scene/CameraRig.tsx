@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useThree } from "@react-three/fiber";
 
-// Pull back on narrow (portrait) screens so the full figure fits the width.
+// Pull back slightly on narrow (portrait) screens so the figure fits the width.
 const LOOK_AT_Y = 0.95;
 
 export default function CameraRig() {
@@ -11,7 +11,7 @@ export default function CameraRig() {
   const aspect = useThree((state) => state.size.width / state.size.height);
 
   useEffect(() => {
-    const distance = aspect < 0.75 ? 6.6 : 5.2;
+    const distance = aspect < 0.75 ? 5.8 : 5.2;
     camera.position.set(0, 1.15, distance);
     camera.lookAt(0, LOOK_AT_Y, 0);
   }, [camera, aspect]);

@@ -1,6 +1,30 @@
 import * as THREE from "three";
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
 
+/**
+ * Geometry as it is actually rendered at rest, in the mesh's local space.
+ * A skinned mesh is positioned through its bones (not its node transform),
+ * so its raw position attribute can sit far from where it's drawn; bake the
+ * bone-transformed positions into a plain geometry instead.
+ */
+function restGeometry(mesh: THREE.Mesh): THREE.BufferGeometry {
+  if (!(mesh as THREE.SkinnedMesh).isSkinnedMesh) return mesh.geometry;
+  const skinned = mesh as THREE.SkinnedMesh;
+  const source = skinned.geometry;
+  const count = source.attributes.position.count;
+  const positions = new Float32Array(count * 3);
+  const v = new THREE.Vector3();
+  for (let i = 0; i < count; i++) {
+    skinned.getVertexPosition(i, v);
+    v.toArray(positions, i * 3);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  if (source.index) g.setIndex(source.index);
+  g.computeVertexNormals();
+  return g;
+}
+
 export type SurfaceSamples = {
   positions: Float32Array;
   normals: Float32Array;
@@ -23,7 +47,8 @@ export function sampleSurface(root: THREE.Object3D, count: number): SurfaceSampl
   root.traverse((node) => {
     if (!(node as THREE.Mesh).isMesh) return;
     const mesh = node as THREE.Mesh;
-    const sampler = new MeshSurfaceSampler(mesh).build();
+    const geometry = restGeometry(mesh);
+    const sampler = new MeshSurfaceSampler(new THREE.Mesh(geometry)).build();
     const matrix = rootInverse.clone().multiply(mesh.matrixWorld);
     // Area is measured in mesh space; scale it into root space so meshes with
     // different transforms (quantization offsets) are weighted correctly.
@@ -70,8 +95,9 @@ export function localBounds(root: THREE.Object3D): THREE.Box3 {
   root.traverse((node) => {
     const mesh = node as THREE.Mesh;
     if (!mesh.isMesh) return;
-    if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
-    meshBox.copy(mesh.geometry.boundingBox!).applyMatrix4(rootInverse.clone().multiply(mesh.matrixWorld));
+    const geometry = restGeometry(mesh);
+    if (!geometry.boundingBox) geometry.computeBoundingBox();
+    meshBox.copy(geometry.boundingBox!).applyMatrix4(rootInverse.clone().multiply(mesh.matrixWorld));
     box.union(meshBox);
   });
   return box;
