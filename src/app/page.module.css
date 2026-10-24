@@ -1,0 +1,30 @@
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--gutter);
+  pointer-events: none;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.name span {
+  display: block;
+}
+
+.role {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

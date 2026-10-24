@@ -1,0 +1,50 @@
+/* Studio Noir — see docs/DESIGN_DIRECTIONS.md */
+:root {
+  --ink: #0b0b0c;
+  --surface: #16161a;
+  --bone: #edebe6;
+  --muted: #8a8a8e;
+  --accent: #c8b89a;
+  --hairline: rgb(237 235 230 / 0.12);
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--ink);
+}
