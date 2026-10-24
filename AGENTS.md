@@ -21,7 +21,12 @@ carry over.
   Router, static export) + React Three Fiber + drei + TypeScript**, because search
   visibility matters.
 
-Read these before doing any design, content, or scaffolding work.
+- How information is presented on each page: [`docs/INFORMATION_ARCHITECTURE.md`](docs/INFORMATION_ARCHITECTURE.md)
+- Avatar rigging pipeline: [`docs/RIGGING.md`](docs/RIGGING.md)
+
+Read these before doing any design, content, or scaffolding work. After any
+visual change, review **every** page (desktop and 375px), not just the one
+you touched.
 
 ## What we are building
 - **The 3D-scan avatar is the host.** `public/models/EfraimBaruh-compressed.glb` is
@@ -75,8 +80,9 @@ src/
 public/
 ├── models/EfraimBaruh-compressed.glb   # the avatar (static scan)
 └── images/logos/                       # company logos
-docs/                    # knowledge, design, stack decisions
+docs/                    # knowledge, design, IA, stack, rigging guide
 ```
+Runtime: **Node 24 LTS** (`.nvmrc`, `engines`), installed through Homebrew `node@24`.
 Scripts: `npm run dev`, `npm run build` (static site in `out/`), `npm run lint`.
 
 ## Open questions (ask Efraim; don't guess)

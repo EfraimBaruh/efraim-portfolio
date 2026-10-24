@@ -26,7 +26,16 @@ function setUniforms(uniforms: { value: number }[], value: number) {
   for (const u of uniforms) u.value = value;
 }
 
-export default function Avatar() {
+// Placement per page mode (desktop). Content pages: step further right and
+// turn toward the text column. Mobile stays centered and dims via CSS.
+const POSES = {
+  hero: { x: 0.6, rotY: -0.35 },
+  content: { x: 1.1, rotY: -0.8 },
+} as const;
+
+export type AvatarMode = keyof typeof POSES;
+
+export default function Avatar({ mode }: { mode: AvatarMode }) {
   // useGLTF wires up the meshopt decoder; draco is unused by this asset.
   const { scene } = useGLTF(AVATAR_URL, false);
   // Desktop: portrait sits right of the name. Mobile: centered behind it.
@@ -39,6 +48,10 @@ export default function Avatar() {
   const reveal = useRef(playIntro ? REVEAL_HIDDEN : REVEAL_SHOWN);
   const revealUniforms = useRef<{ value: number }[]>([]);
   const sweepElapsed = useRef<number | null>(null);
+  const rig = useRef<THREE.Group>(null);
+  // Initial placement only; afterwards useFrame damps toward the active pose,
+  // so props must not change with `mode` (R3F would snap them).
+  const [initialPose] = useState(() => POSES[mode]);
 
   // Normalize: feet on the ground, centered, ~1.8 m tall.
   const { scale, offset } = useMemo(() => {
@@ -64,6 +77,13 @@ export default function Avatar() {
   }, [scene]);
 
   useFrame((_, delta) => {
+    if (rig.current) {
+      const pose = POSES[mode];
+      const targetX = offset.x + (wide ? pose.x : 0);
+      const targetRot = wide ? pose.rotY : POSES.hero.rotY;
+      rig.current.position.x = THREE.MathUtils.damp(rig.current.position.x, targetX, 2.2, delta);
+      rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, targetRot, 2.2, delta);
+    }
     setUniforms(revealUniforms.current, reveal.current);
     if (sweepElapsed.current === null) return;
     sweepElapsed.current += Math.min(delta, 1 / 30);
@@ -79,7 +99,11 @@ export default function Avatar() {
   });
 
   return (
-    <group position={[offset.x + (wide ? 0.6 : 0), offset.y, offset.z]} rotation={[0, -0.35, 0]}>
+    <group
+      ref={rig}
+      position={[offset.x + (wide ? initialPose.x : 0), offset.y, offset.z]}
+      rotation={[0, wide ? initialPose.rotY : POSES.hero.rotY, 0]}
+    >
       <primitive object={scene} scale={scale} />
       {!introFinished && (
         <group scale={scale}>

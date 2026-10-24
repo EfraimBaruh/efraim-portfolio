@@ -1,0 +1,122 @@
+.page {
+  composes: column from "../../content.module.css";
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.back:hover {
+  color: var(--bone);
+}
+
+.title {
+  margin-top: 32px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(40px, 6.4vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin-top: 40px;
+  padding: 24px 0;
+  border-block: 1px solid var(--hairline);
+}
+
+.meta dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.meta dd {
+  margin-top: 4px;
+}
+
+.company {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  border-radius: 4px;
+  filter: grayscale(1);
+}
+
+.summary {
+  margin-top: 32px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 24px);
+  line-height: 1.45;
+}
+
+.section {
+  margin-top: 56px;
+}
+
+.heading {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.list {
+  list-style: none;
+  margin-top: 16px;
+  border-top: 1px solid var(--hairline);
+}
+
+.list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 72px;
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.pager a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: color 0.3s var(--ease-out);
+}
+
+.pager a:hover {
+  color: var(--accent);
+}
+
+.next {
+  text-align: right;
+  margin-left: auto;
+}
+
+.pagerLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

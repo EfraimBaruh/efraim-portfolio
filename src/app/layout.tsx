@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist_Mono, Inter } from "next/font/google";
 import { profile } from "@/content/profile";
 import SceneRoot from "@/components/scene/SceneRoot";
+import SiteHeader from "@/components/site/SiteHeader";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {/* Lives in the root layout so the avatar persists across routes. */}
         <SceneRoot />
+        <SiteHeader />
         {children}
       </body>
     </html>

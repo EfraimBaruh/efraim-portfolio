@@ -1,0 +1,37 @@
+.page {
+  composes: column from "./content.module.css";
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(40px, 6.4vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.links {
+  margin-top: 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.links a {
+  color: var(--bone);
+}
+
+.links a:hover {
+  color: var(--accent);
+}

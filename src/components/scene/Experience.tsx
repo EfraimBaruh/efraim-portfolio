@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import { usePathname } from "next/navigation";
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
 import Avatar from "./Avatar";
@@ -10,9 +11,12 @@ import { palette } from "@/content/palette";
 import styles from "./Experience.module.css";
 
 export default function Experience() {
+  // Home presents the portrait; every other page is reading-first.
+  const mode = usePathname() === "/" ? "hero" : "content";
+
   return (
     <>
-      <div className={styles.canvas} aria-hidden="true">
+      <div className={styles.canvas} data-mode={mode} aria-hidden="true">
         <Canvas
           dpr={[1, 2]}
           camera={{ fov: 26 }}
@@ -32,7 +36,7 @@ export default function Experience() {
           </Environment>
 
           <Suspense fallback={null}>
-            <Avatar />
+            <Avatar mode={mode} />
             <ContactShadows position={[0, 0, 0]} scale={6} blur={2.4} far={1.2} opacity={0.6} resolution={512} />
           </Suspense>
         </Canvas>

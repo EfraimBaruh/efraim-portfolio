@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
+  // A stray lockfile in the home directory would otherwise be picked as root.
+  turbopack: { root: import.meta.dirname },
 };
 
 export default nextConfig;
