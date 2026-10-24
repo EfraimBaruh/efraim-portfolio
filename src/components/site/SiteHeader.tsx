@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile";
@@ -10,12 +11,14 @@ const NAV = [{ href: "/work/", label: "Work" }];
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const home = pathname === "/";
+  const scrolled = useScrolled(home);
 
   return (
-    <header className={styles.header}>
-      <Link href="/" className={styles.wordmark}>
-        <span className={styles.name}>{profile.shortName}</span>
-        <span className={styles.role}>{profile.title}</span>
+    <header className={styles.header} data-home={home || undefined} data-scrolled={scrolled || undefined}>
+      {/* On home the hero H1 carries the name; the wordmark returns on scroll. */}
+      <Link href="/" className={styles.wordmark} aria-hidden={home && !scrolled ? true : undefined} tabIndex={home && !scrolled ? -1 : undefined}>
+        {profile.shortName}
       </Link>
       <nav className={styles.nav} aria-label="Main">
         {NAV.map((item) => (
@@ -31,14 +34,29 @@ export default function SiteHeader() {
         <a href={`mailto:${profile.email}`} className={styles.link}>
           Email
         </a>
-        <span className={styles.divider} aria-hidden="true" />
-        <a href={profile.links.linkedin} className={styles.link} target="_blank" rel="noopener noreferrer">
-          LinkedIn<span className={styles.arrow}> ↗</span>
+        <span className={`${styles.divider} ${styles.external}`} aria-hidden="true" />
+        <a href={profile.links.linkedin} className={`${styles.link} ${styles.external}`} target="_blank" rel="noopener noreferrer">
+          LinkedIn<span aria-hidden="true"> ↗</span>
         </a>
-        <a href={profile.links.github} className={styles.link} target="_blank" rel="noopener noreferrer">
-          GitHub<span className={styles.arrow}> ↗</span>
+        <a href={profile.links.github} className={`${styles.link} ${styles.external}`} target="_blank" rel="noopener noreferrer">
+          GitHub<span aria-hidden="true"> ↗</span>
         </a>
       </nav>
     </header>
   );
+}
+
+// Home only: past the hero name, the header becomes a band with the wordmark.
+function useScrolled(enabled: boolean) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const update = () => setScrolled(window.scrollY > window.innerHeight * 0.5);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [enabled]);
+
+  return enabled && scrolled;
 }

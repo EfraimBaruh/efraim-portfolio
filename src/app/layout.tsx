@@ -27,8 +27,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${geistMono.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${fraunces.variable} ${inter.variable} ${geistMono.variable}`}>
       <body>
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         {/* Lives in the root layout so the avatar persists across routes. */}
         <SceneRoot />
         <SiteHeader />

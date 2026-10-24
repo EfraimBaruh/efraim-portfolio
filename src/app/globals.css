@@ -50,3 +50,38 @@ a {
   background: var(--accent);
   color: var(--ink);
 }
+
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Visually hidden until focused: the first stop for keyboard users. */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: var(--gutter);
+  z-index: 10;
+  padding: 10px 14px;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

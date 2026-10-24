@@ -33,7 +33,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   const count = String(projects.length).padStart(2, "0");
 
   return (
-    <main className={styles.page}>
+    <main id="content" className={styles.page}>
       <nav className={styles.top} aria-label="Case study">
         <Link href="/work/" className={styles.back}>
           ← All work
