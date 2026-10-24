@@ -86,6 +86,6 @@ Runtime: **Node 24 LTS** (`.nvmrc`, `engines`), installed through Homebrew `node
 Scripts: `npm run dev`, `npm run build` (static site in `out/`), `npm run lint`.
 
 ## Open questions (ask Efraim; don't guess)
-The final job title, the public email address, the location wording, and the
+The final job title, the location wording, and the
 missing role dates are listed in `docs/KNOWLEDGE.md` under "Inconsistencies to
 resolve".

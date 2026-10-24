@@ -142,8 +142,8 @@ Both are short and could be revived as MDX posts.
 ## Inconsistencies to resolve
 1. **Title:** "Unity Developer | AR & VR Specialist" (Home), "Senior Unity
    Developer" (projects data), or "Senior Software Engineer" (résumé/CLAUDE.md)?
-2. **Email:** yahoo address on the site vs. `efraimbaruhbolukbasi@gmail.com` on the
-   git account. Which one is public?
+2. ~~**Email**~~ **Resolved (2026-10-24):** public address is
+   `efraimbaruh.bolukbasi@yahoo.com`.
 3. **Location:** Stockholm on the Contact page, remote for Rapsodo Singapore.
    Confirm how to present it.
 4. **Dates** for Gleechi, Leke Games, ADASTEC.

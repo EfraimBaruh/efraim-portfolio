@@ -5,17 +5,40 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: var(--gutter) var(--gutter) calc(var(--gutter) + 16px);
-  /* Content scrolls under a soft fade instead of colliding with the nav. */
-  background: linear-gradient(var(--ink) 55%, transparent);
+  gap: 24px;
+  padding: 20px var(--gutter) 18px;
+  /* A grounded band with a hairline, so the wordmark doesn't float. */
+  background: var(--ink);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  color: var(--bone);
+  white-space: nowrap;
+}
+
+.role,
+.nav {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.mark {
-  color: var(--bone);
+.role {
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 .nav {
@@ -24,22 +47,28 @@
   gap: 20px;
 }
 
-.link,
-.external {
+.link {
   color: var(--muted);
+  white-space: nowrap;
   transition: color 0.3s var(--ease-out);
 }
 
 .link:hover,
-.external:hover,
 .link[aria-current="page"] {
   color: var(--bone);
 }
 
 .divider {
+  align-self: center;
   width: 1px;
   height: 10px;
   background: var(--hairline);
+}
+
+@media (max-width: 900px) {
+  .role {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -47,7 +76,8 @@
     gap: 14px;
   }
 
-  .divider {
+  .divider,
+  .arrow {
     display: none;
   }
 }

@@ -13,8 +13,9 @@ export default function SiteHeader() {
 
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.mark} aria-label={`${profile.name}, home`}>
-        E.B.B.
+      <Link href="/" className={styles.wordmark}>
+        <span className={styles.name}>{profile.shortName}</span>
+        <span className={styles.role}>{profile.title}</span>
       </Link>
       <nav className={styles.nav} aria-label="Main">
         {NAV.map((item) => (
@@ -27,12 +28,15 @@ export default function SiteHeader() {
             {item.label}
           </Link>
         ))}
-        <span className={styles.divider} aria-hidden="true" />
-        <a href={profile.links.linkedin} className={styles.external} target="_blank" rel="noopener noreferrer">
-          LinkedIn ↗
+        <a href={`mailto:${profile.email}`} className={styles.link}>
+          Email
         </a>
-        <a href={profile.links.github} className={styles.external} target="_blank" rel="noopener noreferrer">
-          GitHub ↗
+        <span className={styles.divider} aria-hidden="true" />
+        <a href={profile.links.linkedin} className={styles.link} target="_blank" rel="noopener noreferrer">
+          LinkedIn<span className={styles.arrow}> ↗</span>
+        </a>
+        <a href={profile.links.github} className={styles.link} target="_blank" rel="noopener noreferrer">
+          GitHub<span className={styles.arrow}> ↗</span>
         </a>
       </nav>
     </header>

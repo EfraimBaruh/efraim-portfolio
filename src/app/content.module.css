@@ -3,5 +3,5 @@
   position: relative;
   z-index: 1;
   width: min(640px, 100%);
-  padding: calc(var(--gutter) + 96px) var(--gutter) 120px;
+  padding: calc(var(--gutter) + 112px) var(--gutter) 120px;
 }
