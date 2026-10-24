@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Geist_Mono, Inter } from "next/font/google";
 import { profile } from "@/content/profile";
 import SceneRoot from "@/components/scene/SceneRoot";
 import "./globals.css";
@@ -14,6 +14,11 @@ const inter = Inter({
   subsets: ["latin", "latin-ext"],
 });
 
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: `${profile.name} — ${profile.title}`,
   description: `${profile.name}, ${profile.title}. ${profile.focus}.`,
@@ -21,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${geistMono.variable}`}>
       <body>
         {/* Lives in the root layout so the avatar persists across routes. */}
         <SceneRoot />
