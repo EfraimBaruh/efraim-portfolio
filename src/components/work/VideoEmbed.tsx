@@ -24,7 +24,8 @@ export default function VideoEmbed({ id, title }: { id: string; title: string })
             className={styles.media}
             src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
             alt=""
-            loading="lazy"
+            // Media sits in the first screen of a case study (its LCP).
+            fetchPriority="high"
           />
           <span className={styles.play}>Play video</span>
         </button>

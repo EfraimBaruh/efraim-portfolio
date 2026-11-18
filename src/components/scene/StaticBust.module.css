@@ -1,0 +1,48 @@
+/* Mirrors the live framing from CameraRig/Avatar, measured at 1440×900:
+   the bust fits the viewport height, so the still is sized in vh. */
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.bust {
+  position: absolute;
+  top: 11vh;
+  left: 77.5%;
+  width: auto;
+  height: 82vh;
+  transform: translateX(-50%);
+}
+
+.layer[data-mode="content"] .bust {
+  left: 75%;
+}
+
+/* Case studies: behind the text column, turned toward the media. */
+.layer[data-mode="detail"] {
+  opacity: 0.2;
+}
+
+.layer[data-mode="detail"] .bust {
+  left: 25%;
+  transform: translateX(-50%) scaleX(-1);
+}
+
+@media (max-width: 767px) {
+  .bust,
+  .layer[data-mode] .bust {
+    top: 9.5vh;
+    left: 50%;
+    height: 46vh;
+    transform: translateX(-50%);
+  }
+
+  .layer[data-mode="content"],
+  .layer[data-mode="detail"] {
+    opacity: 0.22;
+  }
+}

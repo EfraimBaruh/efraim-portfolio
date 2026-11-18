@@ -1,12 +1,14 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { use, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import PointCloudIntro from "./PointCloudIntro";
 import { applyReveal } from "./revealMaterial";
 import { localBounds } from "./sampleSurface";
+import { prepareScan } from "./prepareScan";
+import { withMeshopt } from "./meshopt";
 import { markIntroSeen, shouldPlayIntro } from "./introState";
 import { useHostBehavior } from "./useHostBehavior";
 import { useTurntable } from "./useTurntable";
@@ -45,13 +47,19 @@ const POSES = {
 export type AvatarMode = keyof typeof POSES;
 
 export default function Avatar({ mode }: { mode: AvatarMode }) {
-  // useGLTF wires up the meshopt decoder; draco is unused by this asset.
-  const { scene, animations } = useGLTF(AVATAR_URL, false);
+  // Meshopt decoded in workers (meshopt.ts); draco is unused by this asset.
+  const { scene, animations } = useGLTF(AVATAR_URL, false, false, withMeshopt);
   // Desktop: portrait sits right of the name. Mobile: centered behind it.
   const wide = useThree((state) => state.size.width >= 768);
 
   const [playIntro] = useState(shouldPlayIntro);
   const [introFinished, setIntroFinished] = useState(!playIntro);
+  // Skinning bake, texture uploads and shader compiles happen before the
+  // first frame, in slices (prepareScan.ts); the scan suspends until then.
+  const gl = useThree((state) => state.gl);
+  const camera = useThree((state) => state.camera);
+  const stage = useThree((state) => state.scene);
+  use(prepareScan(scene, { gl, camera, stage }, playIntro ? REVEAL_HIDDEN : REVEAL_SHOWN));
   const [count] = useState(particleBudget);
   // Dissolve height in world Y; copied into the shader uniforms every frame.
   const reveal = useRef(playIntro ? REVEAL_HIDDEN : REVEAL_SHOWN);
@@ -143,4 +151,4 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
   );
 }
 
-useGLTF.preload(AVATAR_URL, false);
+useGLTF.preload(AVATAR_URL, false, false, withMeshopt);

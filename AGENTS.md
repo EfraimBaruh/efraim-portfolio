@@ -77,6 +77,17 @@ skills) · Writing (MDX blog) · Contact.
 - Palette lives in `src/app/globals.css` (CSS tokens) and `src/content/palette.ts`
   (hex values for the 3D scene). Change both together; no hardcoded colors.
 - Content lives in typed data files or MDX, not hard-coded in components.
+- **SEO:** every page exports `pageMetadata({ title, description, path })`
+  (`src/content/seo.ts`) for its canonical URL and social card, and new routes
+  go in `staticRoutes` for the sitemap. Set `NEXT_PUBLIC_SITE_URL` at build
+  time once the domain exists (until then URLs point at localhost).
+- **Stills** (no-WebGL poster, OG card, icons) are rendered from the live site
+  by `scripts/capture/stills.mjs`; re-run it after avatar, lighting or palette
+  changes.
+- **Scene startup** is time-sliced (`prepareScan.ts`, `sampleSurface.ts`):
+  keep heavy CPU work in `Work` generators and shader compiles in
+  `compileAsync`, so the first frame isn't one long task. Lighthouse mobile
+  perf is ~80–85 with the 3D layer; accessibility, best practices, SEO 100.
 - Don't ship placeholder content (missing images, lorem ipsum, fake cards).
 - Third-party models need CC-BY attribution, or better, don't use them.
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { type RefObject, useEffect, useMemo, useRef } from "react";
+import { type RefObject, use, useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { palette } from "@/content/palette";
-import { sampleSurface } from "./sampleSurface";
+import { runSliced, sampleSurfaceWork, type Work } from "./sampleSurface";
 import { BUST_BAND, BUST_CUT } from "./bust";
 
 // Timeline in seconds from the moment the scan finishes loading.
@@ -80,8 +80,8 @@ const fragmentShader = /* glsl */ `
 `;
 
 /** Targets on the scan surface plus random start positions in a loose column around the figure. */
-function buildGeometry(source: THREE.Object3D, count: number, floorY: number) {
-  const { positions, normals, minY, maxY } = sampleSurface(source, count, floorY);
+function* buildGeometry(source: THREE.Object3D, count: number, floorY: number): Work<THREE.BufferGeometry> {
+  const { positions, normals, minY, maxY } = yield* sampleSurfaceWork(source, count, floorY);
   count = positions.length / 3;
   const height = maxY - minY;
   const starts = new Float32Array(count * 3);
@@ -93,6 +93,7 @@ function buildGeometry(source: THREE.Object3D, count: number, floorY: number) {
     starts[i * 3 + 1] = minY + Math.random() * height * 1.05;
     starts[i * 3 + 2] = Math.sin(a) * r;
     seeds[i] = Math.random();
+    if ((i & 4095) === 4095) yield;
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
@@ -101,6 +102,55 @@ function buildGeometry(source: THREE.Object3D, count: number, floorY: number) {
   g.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 1));
   g.userData.height = [minY, maxY];
   return g;
+}
+
+function createMaterial(geometry: THREE.BufferGeometry) {
+  return new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    transparent: true,
+    depthWrite: false,
+    uniforms: {
+      uTime: { value: 0 },
+      uAssemble: { value: 0 },
+      uReveal: { value: -1 },
+      uOpacity: { value: 0 },
+      uSize: { value: 0 },
+      uPixelRatio: { value: 1 },
+      uHeight: { value: new THREE.Vector2(...(geometry.userData.height as [number, number])) },
+      uKeyDir: { value: new THREE.Vector3(-2.5, 3, 2.5).normalize() },
+      uColor: { value: new THREE.Color(palette.bone) },
+      uBustCut: { value: BUST_CUT },
+      uBustBand: { value: BUST_BAND },
+    },
+  });
+}
+
+type Stage = { gl: THREE.WebGLRenderer; camera: THREE.Camera; scene: THREE.Scene };
+type Intro = { geometry: THREE.BufferGeometry; material: THREE.ShaderMaterial };
+
+/** Samples in slices, then compiles the points shader in parallel, all before the first frame. */
+async function buildIntro(source: THREE.Object3D, count: number, floorY: number, stage: Stage): Promise<Intro> {
+  const geometry = await runSliced(buildGeometry(source, count, floorY));
+  const material = createMaterial(geometry);
+  try {
+    await stage.gl.compileAsync(new THREE.Points(geometry, material), stage.camera, stage.scene);
+  } catch {
+    // Compiles on the first frame instead.
+  }
+  return { geometry, material };
+}
+
+// Keyed so React's use() gets a stable promise across renders.
+const builds = new WeakMap<THREE.Object3D, Map<string, Promise<Intro>>>();
+
+function introFor(source: THREE.Object3D, count: number, floorY: number, stage: Stage) {
+  let bySource = builds.get(source);
+  if (!bySource) builds.set(source, (bySource = new Map()));
+  const key = `${count}:${floorY}`;
+  let promise = bySource.get(key);
+  if (!promise) bySource.set(key, (promise = buildIntro(source, count, floorY, stage)));
+  return promise;
 }
 
 type Props = {
@@ -115,39 +165,20 @@ type Props = {
 };
 
 export default function PointCloudIntro({ source, count, floorY, revealRef, onAssembled }: Props) {
-  const { gl } = useThree();
+  const gl = useThree((state) => state.gl);
+  const camera = useThree((state) => state.camera);
+  const scene = useThree((state) => state.scene);
   const points = useRef<THREE.Points<THREE.BufferGeometry, THREE.ShaderMaterial>>(null);
   const elapsed = useRef(0);
   const assembledFired = useRef(false);
 
-  const geometry = useMemo(() => buildGeometry(source, count, floorY), [source, count, floorY]);
-
-  const material = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        vertexShader,
-        fragmentShader,
-        transparent: true,
-        depthWrite: false,
-        uniforms: {
-          uTime: { value: 0 },
-          uAssemble: { value: 0 },
-          uReveal: { value: -1 },
-          uOpacity: { value: 0 },
-          uSize: { value: 0 },
-          uPixelRatio: { value: 1 },
-          uHeight: { value: new THREE.Vector2(...(geometry.userData.height as [number, number])) },
-          uKeyDir: { value: new THREE.Vector3(-2.5, 3, 2.5).normalize() },
-          uColor: { value: new THREE.Color(palette.bone) },
-          uBustCut: { value: BUST_CUT },
-          uBustBand: { value: BUST_BAND },
-        },
-      }),
-    [geometry],
-  );
+  // Suspends (the scan stays hidden) until the cloud is sampled and compiled.
+  const { geometry, material } = use(introFor(source, count, floorY, { gl, camera, scene }));
 
   useEffect(
     () => () => {
+      // GPU buffers only; the cached arrays stay so a re-render (or React's
+      // dev remount) never resamples and restarts the intro.
       geometry.dispose();
       material.dispose();
     },

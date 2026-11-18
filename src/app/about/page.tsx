@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { about } from "@/content/about";
 import { profile } from "@/content/profile";
+import { pageMetadata } from "@/content/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: `About — ${profile.name}`,
   description: `${profile.name}: career, skills and background in real-time 3D, AR/VR and simulation.`,
-};
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (

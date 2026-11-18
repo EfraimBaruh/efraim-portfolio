@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/content/projects";
 import { profile } from "@/content/profile";
+import { pageMetadata } from "@/content/seo";
 import ProjectMedia from "@/components/work/ProjectMedia";
 import styles from "./page.module.css";
 
@@ -16,10 +17,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
-  return {
+  return pageMetadata({
     title: `${project.title} — ${profile.name}`,
     description: project.summary,
-  };
+    path: `/work/${project.slug}/`,
+  });
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {

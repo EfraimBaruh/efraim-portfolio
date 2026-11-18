@@ -21,6 +21,18 @@
         "out"
       ],
       "port": 3001
+    },
+    {
+      "name": "static-gzip",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "--yes",
+        "serve@14",
+        "out",
+        "-l",
+        "3002"
+      ],
+      "port": 3002
     }
   ]
 }

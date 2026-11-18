@@ -11,7 +11,7 @@ const CHROME =
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export async function launch() {
+export async function launch(extraArgs = []) {
   const profile = mkdtempSync(join(tmpdir(), "capture-"));
   const port = 9300 + Math.floor(Math.random() * 500);
   const proc = spawn(
@@ -24,6 +24,7 @@ export async function launch() {
       "--hide-scrollbars",
       "--enable-gpu",
       "--use-angle=metal",
+      ...extraArgs,
       "about:blank",
     ],
     { stdio: "ignore" },
@@ -48,7 +49,8 @@ export async function launch() {
     if (msg.id && pending.has(msg.id)) {
       const { resolve, reject } = pending.get(msg.id);
       pending.delete(msg.id);
-      msg.error ? reject(new Error(msg.error.message)) : resolve(msg.result);
+      if (msg.error) reject(new Error(msg.error.message));
+      else resolve(msg.result);
     }
   };
   const send = (method, params = {}) =>
