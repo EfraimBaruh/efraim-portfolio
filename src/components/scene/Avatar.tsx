@@ -36,6 +36,8 @@ function setUniforms(uniforms: { value: number }[], value: number) {
 const POSES = {
   hero: { x: 0.42, rotY: -0.3 },
   content: { x: 0.36, rotY: -0.6 },
+  // Case studies: behind the text column, turned toward the media on the right.
+  detail: { x: -0.38, rotY: 0.25 },
 } as const;
 
 export type AvatarMode = keyof typeof POSES;
@@ -61,7 +63,10 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
   // Idle + head tracking start once the scan has fully assembled.
   useHostBehavior({ scene, animations, body: rig, active: introFinished });
   // Visitor can drag to turn the bust (±45°), once it has assembled.
-  const { turn } = useTurntable(rig, introFinished);
+  // Not where it sits faded behind text: a drag there would fight text
+  // selection and turn something barely visible.
+  const behindText = mode === "detail" || (!wide && mode !== "hero");
+  const { turn } = useTurntable(rig, introFinished && !behindText);
 
   // Normalize: feet on the ground, centered, ~1.8 m tall.
   const { scale, offset } = useMemo(() => {

@@ -53,12 +53,24 @@ For each project, in this order:
 - The whole row links to the case study.
 
 ### Case study `/work/[slug]`
-How deep it goes. Fixed section order, so all case studies read the same:
+How deep it goes.
+
+**Layout (decided 2026-11-18).** At 1200px and wider there are two columns.
+The text column is on the left, with the bust faded behind it (about 20%
+opacity), turned toward the media. The **media column** (videos, images, any
+similar content) is on the right and pinned while the text scrolls. Narrower
+screens use a single column, with media inline after the summary and the bust
+faded behind. Drag-to-turn is off wherever the bust is faded behind text.
+Media comes from each project's `media` list in `src/content/projects.ts`
+(`youtube` or `image` items).
+
+Fixed section order, so all case studies read the same:
 1. Back link · index `01 / 03`
 2. Title
 3. Metadata table: Company · Role · Period · Stack
 4. Summary (2–3 sentences)
-5. Video (click to load, privacy-friendly YouTube embed; no autoplay)
+5. Media: videos (click to load, privacy-friendly YouTube embed, no autoplay)
+   and images, in the right-hand column on wide screens
 6. **What I did:** concrete responsibilities, one line each
 7. *(later, when written)* Challenge → Approach → Outcome
 8. Previous / next project

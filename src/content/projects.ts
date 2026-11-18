@@ -1,5 +1,10 @@
 // Case studies. Source: v1 site data (docs/KNOWLEDGE.md). Copy still needs
 // Efraim's review — especially roles/dates flagged as open questions there.
+/** Media shown in a case study's media column (desktop) or inline (mobile). */
+export type ProjectMedia =
+  | { type: "youtube"; id: string; title?: string }
+  | { type: "image"; src: string; alt: string; width: number; height: number; caption?: string };
+
 export type Project = {
   slug: string;
   title: string;
@@ -8,7 +13,7 @@ export type Project = {
   role: string;
   period: string;
   stack: string[];
-  youtubeId: string;
+  media: ProjectMedia[];
   responsibilities: string[];
 };
 
@@ -22,7 +27,7 @@ export const projects: Project[] = [
     role: "Senior Unity Developer",
     period: "2023 – present",
     stack: ["Unity", "C#", "Physics", "3D"],
-    youtubeId: "yKx0g9ECHBI",
+    media: [{ type: "youtube", id: "yKx0g9ECHBI" }],
     responsibilities: [
       "Led the real-time physics simulation of golf ball trajectory",
       "Built 3D modeling and texturing workflows for golf courses",
@@ -39,7 +44,7 @@ export const projects: Project[] = [
     role: "VR Developer",
     period: "2020 – 2022",
     stack: ["Unity", "C#", "VR", "Simulation"],
-    youtubeId: "4ju-EpsM97Q",
+    media: [{ type: "youtube", id: "4ju-EpsM97Q" }],
     responsibilities: [
       "Designed and built interactive VR laboratory environments",
       "Simulated chemical reactions and physical experiments in real time",
@@ -56,7 +61,7 @@ export const projects: Project[] = [
     role: "AR/VR Developer",
     period: "2019 – 2020",
     stack: ["Unity", "AR/VR", "3D scanning", "Networking", "Shaders"],
-    youtubeId: "KpMGg58Wa2U",
+    media: [{ type: "youtube", id: "KpMGg58Wa2U" }],
     responsibilities: [
       "Developed real-time 3D scanning and reconstruction",
       "Synchronized multi-user holographic sessions over the network",

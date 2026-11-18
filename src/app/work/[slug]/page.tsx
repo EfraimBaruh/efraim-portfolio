@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/content/projects";
 import { profile } from "@/content/profile";
-import VideoEmbed from "@/components/work/VideoEmbed";
+import ProjectMedia from "@/components/work/ProjectMedia";
 import styles from "./page.module.css";
 
 export const dynamicParams = false;
@@ -69,9 +69,11 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
       <p className={styles.summary}>{project.summary}</p>
 
-      <section className={styles.section} aria-label="Video">
-        <VideoEmbed id={project.youtubeId} title={`${project.title} — video`} />
-      </section>
+      {/* Desktop: its own column on the right, pinned while the text scrolls.
+          Mobile: inline after the summary. */}
+      <aside className={styles.media} aria-label="Media">
+        <ProjectMedia items={project.media} title={project.title} />
+      </aside>
 
       <section className={styles.section}>
         <h2 className={styles.heading}>What I did</h2>

@@ -2,15 +2,18 @@
   position: fixed;
   inset: 0;
   z-index: 0;
+  transition: opacity 0.8s var(--ease-out);
 }
 
-/* On narrow screens the avatar sits behind text pages; let reading win. */
-@media (max-width: 767px) {
-  .canvas {
-    transition: opacity 0.8s var(--ease-out);
-  }
+/* Case studies: the bust sits behind the text column; let reading win. */
+.canvas[data-mode="detail"] {
+  opacity: 0.2;
+}
 
-  .canvas[data-mode="content"] {
+/* On narrow screens the avatar sits behind every text page. */
+@media (max-width: 767px) {
+  .canvas[data-mode="content"],
+  .canvas[data-mode="detail"] {
     opacity: 0.22;
   }
 }

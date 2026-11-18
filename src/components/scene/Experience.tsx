@@ -11,8 +11,10 @@ import { palette } from "@/content/palette";
 import styles from "./Experience.module.css";
 
 export default function Experience() {
-  // Home presents the portrait; every other page is reading-first.
-  const mode = usePathname() === "/" ? "hero" : "content";
+  // Home presents the portrait; the Work list keeps it beside the list; case
+  // studies put it faded behind the text so the media column has the right.
+  const path = usePathname().replace(/\/$/, "");
+  const mode = path === "" ? "hero" : /^\/work\/[^/]+$/.test(path) ? "detail" : "content";
 
   return (
     <>

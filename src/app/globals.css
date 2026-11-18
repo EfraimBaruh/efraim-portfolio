@@ -25,10 +25,12 @@
   padding: 0;
 }
 
+/* clip, not hidden: hidden makes body a scroll container, which silently
+   breaks position: sticky (the case-study media column). */
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* The browser keeps vertical scrolling and pinch-zoom; horizontal swipes
