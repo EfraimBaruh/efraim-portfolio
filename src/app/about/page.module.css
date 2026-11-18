@@ -1,0 +1,133 @@
+.page {
+  composes: column from "../content.module.css";
+}
+
+.eyebrow,
+.heading,
+.period,
+.meta,
+.list dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  font-size: clamp(17px, 1.4vw, 19px);
+  line-height: 1.6;
+  max-width: 58ch;
+}
+
+.section {
+  margin-top: 88px;
+}
+
+.heading {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Experience: period in a narrow left column, the role beside it. */
+.role {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 16px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.period {
+  padding-top: 9px;
+}
+
+.roleBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.company {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(24px, 2.8vw, 30px);
+  line-height: 1.15;
+}
+
+.line {
+  opacity: 0.86;
+  max-width: 52ch;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.links a {
+  color: var(--bone);
+  transition: color 0.3s var(--ease-out);
+}
+
+.links a:hover,
+.links a:focus-visible {
+  color: var(--accent);
+}
+
+/* Skills, education, languages: label left, value right. */
+.row {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.list dt {
+  padding-top: 4px;
+}
+
+.sub {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .role,
+  .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .period {
+    padding-top: 0;
+  }
+
+  /* Short labels (languages) stay side by side. */
+  .row.compact {
+    grid-template-columns: 72px 1fr;
+    gap: 16px;
+  }
+}

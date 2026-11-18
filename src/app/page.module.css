@@ -212,7 +212,7 @@
 }
 
 /* Matches the header breakpoint where LinkedIn/GitHub leave the nav. */
-@media (max-width: 479px) {
+@media (max-width: 599px) {
   .external {
     display: inline-block;
   }

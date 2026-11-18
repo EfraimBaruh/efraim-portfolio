@@ -77,7 +77,7 @@
 }
 
 /* Narrow: LinkedIn/GitHub move into the hero and the contact links. */
-@media (max-width: 479px) {
+@media (max-width: 599px) {
   .nav {
     gap: 20px;
   }

@@ -1,5 +1,5 @@
-// Canonical profile data. Open questions (title, public email, location)
-// are tracked in docs/KNOWLEDGE.md — confirm before publishing changes.
+// Canonical profile data. Open question (location wording)
+// is tracked in docs/KNOWLEDGE.md — confirm before publishing changes.
 export const profile = {
   name: "Efraim Baruh Bölükbaşı",
   shortName: "Efraim Baruh",

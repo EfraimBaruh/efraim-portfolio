@@ -75,12 +75,21 @@ Fixed section order, so all case studies read the same:
 7. *(later, when written)* Challenge → Approach → Outcome
 8. Previous / next project
 
-### About `/about` *(blocked: needs the open questions answered)*
-Bio paragraph → career timeline (company · role · period · one line) →
-skills grouped by area → languages.
+### About `/about` *(built 2026-11-18, from the CV)*
+Bio → experience timeline (period · company · role · place · one line, with
+case-study and proof links) → skills by area → education & certifications →
+languages. Content: `src/content/about.ts`. Location is left out until it's
+confirmed.
+
+### "How this site is built" *(planned: optional, opened from Home)*
+Not a page and not in the nav. A quiet button on Home brings the bust into
+focus (camera moves in, the text column steps aside) and opens an explanation
+beside it: the 3D scan, the rigging pipeline, the point-cloud intro, head
+tracking, and the shader/fade work. Closing it returns to the hero. The
+explanation must also exist as HTML so it's crawlable.
 
 ### Contact `/contact` *(blocked: needs the public email confirmed)*
 One line of invitation → email → LinkedIn · GitHub → location and timezone.
 
-### Writing `/writing` *(later)*
+### Writing `/writing` *(later; MDX)*
 Date · title · one-line summary list → MDX article pages.

@@ -24,7 +24,7 @@ export const projects: Project[] = [
     summary:
       "An immersive golf simulation built in Unity, with realistic ball physics and course environments, running on mobile.",
     company: { name: "Rapsodo", logo: "/images/logos/rapsodo-logo.png" },
-    role: "Senior Unity Developer",
+    role: "Senior Software Engineer",
     period: "2023 – present",
     stack: ["Unity", "C#", "Physics", "3D"],
     media: [{ type: "youtube", id: "yKx0g9ECHBI" }],

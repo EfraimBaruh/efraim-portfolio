@@ -6,8 +6,11 @@ import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile";
 import styles from "./SiteHeader.module.css";
 
-// Only pages that exist. About/Contact join once their content is confirmed.
-const NAV = [{ href: "/work/", label: "Work" }];
+// Only pages that exist. Contact joins once its content is confirmed.
+const NAV = [
+  { href: "/work/", label: "Work" },
+  { href: "/about/", label: "About" },
+];
 
 export default function SiteHeader() {
   const pathname = usePathname();
