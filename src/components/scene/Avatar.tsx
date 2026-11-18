@@ -61,7 +61,7 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
   // Idle + head tracking start once the scan has fully assembled.
   useHostBehavior({ scene, animations, body: rig, active: introFinished });
   // Visitor can drag to turn the bust (±45°), once it has assembled.
-  const { turn, dragging } = useTurntable(rig, introFinished);
+  const { turn } = useTurntable(rig, introFinished);
 
   // Normalize: feet on the ground, centered, ~1.8 m tall.
   const { scale, offset } = useMemo(() => {
@@ -95,9 +95,8 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
       // Phones: square to the viewer, no three-quarter turn.
       const targetRot = (wide ? pose.rotY : 0) + turn.current;
       rig.current.position.x = THREE.MathUtils.damp(rig.current.position.x, targetX, 2.2, delta);
-      // Track the finger/mouse closely while dragging; ease gently otherwise.
-      const follow = dragging.current ? 14 : 2.2;
-      rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, targetRot, follow, delta);
+      // Eases after the drag too: the lag suits swipe-style touch input.
+      rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, targetRot, 2.2, delta);
     }
     setUniforms(revealUniforms.current, reveal.current);
     if (sweepElapsed.current === null) return;
