@@ -30,6 +30,12 @@ body {
   overflow-x: hidden;
 }
 
+/* The browser keeps vertical scrolling and pinch-zoom; horizontal swipes
+   reach the page, so the bust can be turned by touch (useTurntable). */
+html {
+  touch-action: pan-y pinch-zoom;
+}
+
 body {
   min-height: 100svh;
   background: var(--ink);

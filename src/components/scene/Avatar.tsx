@@ -9,6 +9,7 @@ import { applyReveal } from "./revealMaterial";
 import { localBounds } from "./sampleSurface";
 import { markIntroSeen, shouldPlayIntro } from "./introState";
 import { useHostBehavior } from "./useHostBehavior";
+import { useTurntable } from "./useTurntable";
 import { BUST_CUT, FIGURE_HEIGHT } from "./bust";
 
 // Efraim's 3D scan, rigged by scripts/avatar/rig_avatar.py: relaxed rest pose,
@@ -59,6 +60,8 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
 
   // Idle + head tracking start once the scan has fully assembled.
   useHostBehavior({ scene, animations, body: rig, active: introFinished });
+  // Visitor can drag to turn the bust (±45°), once it has assembled.
+  const turn = useTurntable(rig, introFinished);
 
   // Normalize: feet on the ground, centered, ~1.8 m tall.
   const { scale, offset } = useMemo(() => {
@@ -90,7 +93,7 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
       const pose = POSES[mode];
       const targetX = offset.x + (wide ? pose.x : 0);
       // Phones: square to the viewer, no three-quarter turn.
-      const targetRot = wide ? pose.rotY : 0;
+      const targetRot = (wide ? pose.rotY : 0) + turn.current;
       rig.current.position.x = THREE.MathUtils.damp(rig.current.position.x, targetX, 2.2, delta);
       rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, targetRot, 2.2, delta);
     }

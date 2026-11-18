@@ -13,6 +13,8 @@ const NECK_SHARE = 0.4;
 const HEAD_SHARE = 0.6;
 const LOOK_DAMPING = 4;
 const WAKE_SECONDS = 1.2;
+/** Touch devices: no tracking; the head rests looking slightly down. */
+const REST_PITCH = -THREE.MathUtils.degToRad(5);
 
 const UP = new THREE.Vector3(0, 1, 0);
 const RIGHT = new THREE.Vector3(1, 0, 0);
@@ -22,8 +24,8 @@ type Bones = { neck: THREE.Object3D; head: THREE.Object3D };
 /**
  * Brings the rigged scan to life once `active`: plays the Idle loop and, on
  * devices with a mouse, turns head + neck toward the pointer. Touch devices
- * keep the head straight forward (no look-at). Inert until active, and
- * entirely under reduced motion.
+ * don't track; the head rests straight ahead, tilted 5° down. Under reduced
+ * motion there is no idle or tracking, and the rest tilt applies instantly.
  */
 export function useHostBehavior({
   scene,
@@ -43,7 +45,11 @@ export function useHostBehavior({
   const bones = useRef<Bones | null>(null);
   const pointer = useRef(new THREE.Vector2(0, 0));
   const look = useRef({ yaw: 0, pitch: 0, weight: 0 });
-  const enabled = useRef(false);
+  // "track": follow the mouse. "rest": fixed look. "off": untouched.
+  const lookMode = useRef<"off" | "track" | "rest">("off");
+  const restPitch = useRef(0);
+  const animated = useRef(false);
+  const restPose = useRef<THREE.Quaternion[]>([]);
   const scratch = useRef({
     raycaster: new THREE.Raycaster(),
     headPos: new THREE.Vector3(),
@@ -61,6 +67,7 @@ export function useHostBehavior({
     const neck = scene.getObjectByName("Neck");
     const head = scene.getObjectByName("Head");
     bones.current = neck && head ? { neck, head } : null;
+    restPose.current = neck && head ? [neck.quaternion.clone(), head.quaternion.clone()] : [];
     // Skinned bounds don't follow animation; avoid wrong culling.
     scene.traverse((node) => {
       if ((node as THREE.SkinnedMesh).isSkinnedMesh) node.frustumCulled = false;
@@ -69,10 +76,14 @@ export function useHostBehavior({
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!active || reduce) return;
+    if (!active) return;
     // Look-at only where there is a hovering pointer to follow.
-    enabled.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const idle = actions.Idle;
+    const mouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    lookMode.current = mouse && !reduce ? "track" : "rest";
+    restPitch.current = mouse ? 0 : REST_PITCH;
+    animated.current = !reduce;
+    if (reduce) look.current.weight = 1;
+    const idle = reduce ? undefined : actions.Idle;
     idle?.reset().fadeIn(WAKE_SECONDS).play();
 
     // Window-level: page content sits above the canvas and would swallow
@@ -85,7 +96,7 @@ export function useHostBehavior({
     window.addEventListener("pointermove", onMove);
     document.documentElement.addEventListener("pointerleave", onLeave);
     return () => {
-      enabled.current = false;
+      lookMode.current = "off";
       idle?.fadeOut(0.3);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
@@ -94,30 +105,45 @@ export function useHostBehavior({
 
   useFrame((_, delta) => {
     const b = bones.current;
-    if (!enabled.current || !b || !body.current) return;
+    if (lookMode.current === "off" || !b || !body.current) return;
     const s = scratch.current;
     const l = look.current;
 
-    // Where the pointer is, at the head's distance from the camera.
-    b.head.getWorldPosition(s.headPos);
-    s.raycaster.setFromCamera(pointer.current, camera);
-    const dist = camera.position.distanceTo(s.headPos);
-    s.target.copy(s.raycaster.ray.direction).multiplyScalar(dist).add(s.raycaster.ray.origin);
-
-    // Direction in the body's frame (the scan faces +Z).
+    // Without the mixer nothing resets the bones each frame; start from rest
+    // so the look doesn't accumulate.
+    if (!animated.current) {
+      b.neck.quaternion.copy(restPose.current[0]);
+      b.head.quaternion.copy(restPose.current[1]);
+    }
     body.current.getWorldQuaternion(s.bodyQ);
     s.bodyQInv.copy(s.bodyQ).invert();
-    s.target.sub(s.headPos).applyQuaternion(s.bodyQInv);
-    const yaw = THREE.MathUtils.clamp(Math.atan2(s.target.x, s.target.z), -MAX_YAW, MAX_YAW);
-    const pitch = THREE.MathUtils.clamp(
-      Math.atan2(s.target.y, Math.hypot(s.target.x, s.target.z)),
-      -MAX_PITCH_DOWN,
-      MAX_PITCH_UP,
-    );
+
+    let yaw = 0;
+    let pitch = restPitch.current;
+    if (lookMode.current === "track") {
+      // Where the pointer is, at the head's distance from the camera.
+      b.head.getWorldPosition(s.headPos);
+      s.raycaster.setFromCamera(pointer.current, camera);
+      const dist = camera.position.distanceTo(s.headPos);
+      s.target.copy(s.raycaster.ray.direction).multiplyScalar(dist).add(s.raycaster.ray.origin);
+      // Direction in the body's frame (the scan faces +Z).
+      s.target.sub(s.headPos).applyQuaternion(s.bodyQInv);
+      yaw = THREE.MathUtils.clamp(Math.atan2(s.target.x, s.target.z), -MAX_YAW, MAX_YAW);
+      pitch = THREE.MathUtils.clamp(
+        Math.atan2(s.target.y, Math.hypot(s.target.x, s.target.z)),
+        -MAX_PITCH_DOWN,
+        MAX_PITCH_UP,
+      );
+    }
 
     l.weight = Math.min(l.weight + delta / WAKE_SECONDS, 1);
-    l.yaw = THREE.MathUtils.damp(l.yaw, yaw * l.weight, LOOK_DAMPING, delta);
-    l.pitch = THREE.MathUtils.damp(l.pitch, pitch * l.weight, LOOK_DAMPING, delta);
+    if (animated.current) {
+      l.yaw = THREE.MathUtils.damp(l.yaw, yaw * l.weight, LOOK_DAMPING, delta);
+      l.pitch = THREE.MathUtils.damp(l.pitch, pitch * l.weight, LOOK_DAMPING, delta);
+    } else {
+      l.yaw = yaw;
+      l.pitch = pitch;
+    }
 
     // Layer the look on top of the Idle pose: neck first, then head.
     for (const [bone, share] of [
