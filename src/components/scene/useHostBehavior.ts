@@ -11,7 +11,12 @@ const MAX_PITCH_UP = 0.3;
 const MAX_PITCH_DOWN = 0.35;
 const NECK_SHARE = 0.4;
 const HEAD_SHARE = 0.6;
-const LOOK_DAMPING = 4;
+/** Two damping stages in series: an eased start and a soft settle. */
+const LOOK_DAMPING = 3;
+/** The head ignores pointer moves until its gaze would change by this much. */
+const GAZE_THRESHOLD = THREE.MathUtils.degToRad(8);
+/** Once following, the pointer resting this long fixes the new gaze. */
+const SETTLE_MS = 300;
 const WAKE_SECONDS = 1.2;
 /** Touch devices: no tracking; the head rests looking slightly down. */
 const REST_PITCH = -THREE.MathUtils.degToRad(5);
@@ -44,7 +49,10 @@ export function useHostBehavior({
 
   const bones = useRef<Bones | null>(null);
   const pointer = useRef(new THREE.Vector2(0, 0));
-  const look = useRef({ yaw: 0, pitch: 0, weight: 0 });
+  // Smoothed look (two stages), and the committed gaze it eases toward.
+  const look = useRef({ yaw: 0, pitch: 0, midYaw: 0, midPitch: 0, weight: 0 });
+  const gaze = useRef({ yaw: 0, pitch: 0, following: false });
+  const lastMove = useRef(0);
   // "track": follow the mouse. "rest": fixed look. "off": untouched.
   const lookMode = useRef<"off" | "track" | "rest">("off");
   const restPitch = useRef(0);
@@ -91,6 +99,7 @@ export function useHostBehavior({
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       pointer.current.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+      lastMove.current = performance.now();
     };
     const onLeave = () => pointer.current.set(0, 0);
     window.addEventListener("pointermove", onMove);
@@ -128,18 +137,34 @@ export function useHostBehavior({
       s.target.copy(s.raycaster.ray.direction).multiplyScalar(dist).add(s.raycaster.ray.origin);
       // Direction in the body's frame (the scan faces +Z).
       s.target.sub(s.headPos).applyQuaternion(s.bodyQInv);
-      yaw = THREE.MathUtils.clamp(Math.atan2(s.target.x, s.target.z), -MAX_YAW, MAX_YAW);
-      pitch = THREE.MathUtils.clamp(
+      const wantYaw = THREE.MathUtils.clamp(Math.atan2(s.target.x, s.target.z), -MAX_YAW, MAX_YAW);
+      const wantPitch = THREE.MathUtils.clamp(
         Math.atan2(s.target.y, Math.hypot(s.target.x, s.target.z)),
         -MAX_PITCH_DOWN,
         MAX_PITCH_UP,
       );
+
+      // Hysteresis: small moves around the current gaze are ignored. Past the
+      // threshold the gaze follows the pointer until it rests, then re-anchors.
+      const g = gaze.current;
+      if (!g.following && Math.hypot(wantYaw - g.yaw, wantPitch - g.pitch) > GAZE_THRESHOLD) {
+        g.following = true;
+      }
+      if (g.following) {
+        g.yaw = wantYaw;
+        g.pitch = wantPitch;
+        if (performance.now() - lastMove.current > SETTLE_MS) g.following = false;
+      }
+      yaw = g.yaw;
+      pitch = g.pitch;
     }
 
     l.weight = Math.min(l.weight + delta / WAKE_SECONDS, 1);
     if (animated.current) {
-      l.yaw = THREE.MathUtils.damp(l.yaw, yaw * l.weight, LOOK_DAMPING, delta);
-      l.pitch = THREE.MathUtils.damp(l.pitch, pitch * l.weight, LOOK_DAMPING, delta);
+      l.midYaw = THREE.MathUtils.damp(l.midYaw, yaw * l.weight, LOOK_DAMPING, delta);
+      l.midPitch = THREE.MathUtils.damp(l.midPitch, pitch * l.weight, LOOK_DAMPING, delta);
+      l.yaw = THREE.MathUtils.damp(l.yaw, l.midYaw, LOOK_DAMPING, delta);
+      l.pitch = THREE.MathUtils.damp(l.pitch, l.midPitch, LOOK_DAMPING, delta);
     } else {
       l.yaw = yaw;
       l.pitch = pitch;
