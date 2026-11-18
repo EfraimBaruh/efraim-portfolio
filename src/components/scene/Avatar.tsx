@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -72,7 +72,9 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
     };
   }, [scene]);
 
-  useEffect(() => {
+  // Layout effect, not a passive one: it must run before the first frame is
+  // drawn, or slow devices briefly show the full bust before the intro hides it.
+  useLayoutEffect(() => {
     const uniforms: { value: number }[] = [];
     scene.traverse((node) => {
       const mesh = node as THREE.Mesh;
