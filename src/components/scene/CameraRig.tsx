@@ -24,10 +24,10 @@ function solveShot(fov: number, width: number, height: number, focus: boolean): 
     // Closer, on the head. Desktop: the bust sits right of the text panel.
     // Mobile: the head takes the top of the screen above the sheet.
     const viewHeight = wide ? 0.7 : 0.5;
-    const viewWidth = wide ? 0.9 : 0.48;
+    const viewWidth = wide ? 0.9 : 0.56;
     const distance = Math.max(viewHeight / perMetre, viewWidth / (perMetre * aspect));
     const visible = perMetre * distance;
-    const fromTop = wide ? 0.45 : 0.27;
+    const fromTop = wide ? 0.45 : 0.3;
     const y = HEAD_Y - (0.5 - fromTop) * visible;
     const screenX = wide ? 0.7 : 0.5;
     const x = (wide ? HERO_X : 0) - (screenX - 0.5) * visible * aspect;
@@ -36,12 +36,13 @@ function solveShot(fov: number, width: number, height: number, focus: boolean): 
 
   // Desktop: crown ~14% from the top, fade ending above the hero floor line;
   // the bust sits right of centre, so leave room for it horizontally.
-  // Mobile: the bust owns the top half; the text stacks below it.
-  const viewHeight = wide ? BUST_SPAN / 0.74 : BUST_SPAN / 0.46;
+  // Mobile: the bust owns the top half (crown 9% down, cut at most ~49%,
+  // where the hero text starts at 50svh); the text stacks below it.
+  const viewHeight = wide ? BUST_SPAN / 0.74 : BUST_SPAN / 0.4;
   const viewWidth = wide ? 1.5 : 0.78;
   const distance = Math.max(viewHeight / perMetre, viewWidth / (perMetre * aspect));
   const visible = perMetre * distance;
-  const topMargin = wide ? 0.14 : 0.11;
+  const topMargin = wide ? 0.14 : 0.09;
   const centerY = BUST_TOP + 0.02 - (0.5 - topMargin) * visible;
   return { position: new THREE.Vector3(0, centerY + 0.05, distance), target: new THREE.Vector3(0, centerY, 0) };
 }

@@ -181,21 +181,25 @@
 
 /* Mobile: stack. The top of the hero is the avatar's; text never covers it. */
 @media (max-width: 767px) {
+  /* The bust owns the top of the screen (CameraRig keeps it in the top
+     half); text starts below it and the hero grows to fit, so long
+     copy scrolls instead of climbing over the face on short phones. */
   .hero {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding-top: 0;
+    justify-content: flex-start;
+    padding-top: 50svh;
   }
 
-  /* Scrim under the text, in case the figure ever reaches into it. */
+  /* Scrim that travels with the text: as it scrolls up over the fixed
+     canvas, the bust disappears under it instead of showing through. */
   .hero::after {
-    inset: 50svh 0 0;
+    inset: calc(50svh - 48px) 0 0;
     border: 0;
     background: linear-gradient(
       to bottom,
       color-mix(in srgb, var(--ink) 0%, transparent),
-      var(--ink) 25%
+      var(--ink) 48px
     );
   }
 

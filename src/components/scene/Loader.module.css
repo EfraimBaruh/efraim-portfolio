@@ -35,3 +35,12 @@
   transform-origin: left;
   transition: transform 0.3s var(--ease-out);
 }
+
+/* Mobile: text runs to the bottom edge, so the label sits in the empty band
+   under the header instead (above the bust on Home, above titles elsewhere). */
+@media (max-width: 767px) {
+  .loader {
+    top: calc(var(--gutter) + 60px);
+    bottom: auto;
+  }
+}

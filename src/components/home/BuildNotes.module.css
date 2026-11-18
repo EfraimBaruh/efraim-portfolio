@@ -3,7 +3,8 @@
 .trigger {
   position: absolute;
   right: var(--gutter);
-  bottom: calc(var(--gutter) + 12px);
+  /* Clear of the loading label, which shares this corner on desktop. */
+  bottom: calc(var(--gutter) + 40px);
   z-index: 1;
   padding: 14px 0;
   background: none;
@@ -139,9 +140,12 @@
 
 /* Mobile: the head keeps the top of the screen; the notes are a sheet below. */
 @media (max-width: 767px) {
+  /* In the text flow, after the hero actions: nothing sits on the bust. */
   .trigger {
-    top: calc(var(--gutter) + 52px);
-    bottom: auto;
+    position: relative;
+    inset: auto;
+    align-self: flex-start;
+    margin-top: 4px;
   }
 
   .panel {
