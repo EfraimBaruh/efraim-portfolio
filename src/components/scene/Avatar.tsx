@@ -89,7 +89,8 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
     if (rig.current) {
       const pose = POSES[mode];
       const targetX = offset.x + (wide ? pose.x : 0);
-      const targetRot = wide ? pose.rotY : POSES.hero.rotY;
+      // Phones: square to the viewer, no three-quarter turn.
+      const targetRot = wide ? pose.rotY : 0;
       rig.current.position.x = THREE.MathUtils.damp(rig.current.position.x, targetX, 2.2, delta);
       rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, targetRot, 2.2, delta);
     }
@@ -111,7 +112,7 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
     <group
       ref={rig}
       position={[offset.x + (wide ? initialPose.x : 0), offset.y, offset.z]}
-      rotation={[0, wide ? initialPose.rotY : POSES.hero.rotY, 0]}
+      rotation={[0, wide ? initialPose.rotY : 0, 0]}
     >
       <primitive object={scene} scale={scale} />
       {!introFinished && (

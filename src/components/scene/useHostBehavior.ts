@@ -20,9 +20,10 @@ const RIGHT = new THREE.Vector3(1, 0, 0);
 type Bones = { neck: THREE.Object3D; head: THREE.Object3D };
 
 /**
- * Brings the rigged scan to life once `active`: plays the Idle loop and turns
- * head + neck toward the pointer (toward the viewer on touch devices).
- * Inert until active, and entirely under reduced motion.
+ * Brings the rigged scan to life once `active`: plays the Idle loop and, on
+ * devices with a mouse, turns head + neck toward the pointer. Touch devices
+ * keep the head straight forward (no look-at). Inert until active, and
+ * entirely under reduced motion.
  */
 export function useHostBehavior({
   scene,
@@ -69,7 +70,8 @@ export function useHostBehavior({
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!active || reduce) return;
-    enabled.current = true;
+    // Look-at only where there is a hovering pointer to follow.
+    enabled.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const idle = actions.Idle;
     idle?.reset().fadeIn(WAKE_SECONDS).play();
 
