@@ -140,12 +140,15 @@
 
 /* Mobile: the head keeps the top of the screen; the notes are a sheet below. */
 @media (max-width: 767px) {
-  /* In the text flow, after the hero actions: nothing sits on the bust. */
+  /* Top-left, beside the bust's head (the loading label takes top-right). */
   .trigger {
-    position: relative;
-    inset: auto;
-    align-self: flex-start;
-    margin-top: 4px;
+    top: calc(var(--gutter) + 52px);
+    right: auto;
+    bottom: auto;
+    left: var(--gutter);
+    max-width: 10ch;
+    line-height: 1.5;
+    text-align: left;
   }
 
   .panel {

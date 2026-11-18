@@ -22,6 +22,15 @@ export default function Home() {
               <span key={word}>{word}</span>
             ))}
           </h1>
+          {/* Narrow screens only: the header drops these, so they sit under the name. */}
+          <p className={styles.socials}>
+            <a href={profile.links.linkedin} className={styles.secondary} target="_blank" rel="noopener noreferrer">
+              LinkedIn<span aria-hidden="true"> ↗</span>
+            </a>
+            <a href={profile.links.github} className={styles.secondary} target="_blank" rel="noopener noreferrer">
+              GitHub<span aria-hidden="true"> ↗</span>
+            </a>
+          </p>
           <p className={styles.positioning}>{profile.positioning}</p>
           <p className={styles.actions}>
             <a href="#work" className={styles.primary}>
@@ -29,13 +38,6 @@ export default function Home() {
             </a>
             <a href={`mailto:${profile.email}`} className={`${styles.secondary} ${styles.email}`}>
               Email
-            </a>
-            {/* Mobile swaps Email (already in the header) for the links the header drops. */}
-            <a href={profile.links.linkedin} className={`${styles.secondary} ${styles.external}`} target="_blank" rel="noopener noreferrer">
-              LinkedIn<span aria-hidden="true"> ↗</span>
-            </a>
-            <a href={profile.links.github} className={`${styles.secondary} ${styles.external}`} target="_blank" rel="noopener noreferrer">
-              GitHub<span aria-hidden="true"> ↗</span>
             </a>
           </p>
         </div>

@@ -130,8 +130,15 @@
   background-size: 100% 1px;
 }
 
-.external {
+/* LinkedIn/GitHub under the name: narrow screens only (see below). */
+.socials {
   display: none;
+  column-gap: 24px;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 /* Selected work: one reading column beside the avatar. */
@@ -234,8 +241,14 @@
 
 /* Matches the header breakpoint where LinkedIn/GitHub leave the nav. */
 @media (max-width: 599px) {
-  .external {
-    display: inline-block;
+  .socials {
+    display: flex;
+    margin-top: 4px;
+  }
+
+  /* The links' own 14px hit padding already spaces them from the text. */
+  .positioning {
+    margin-top: 6px;
   }
 
   .email {
