@@ -89,6 +89,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* "How it's built" view on Home: the page holds still behind the notes. */
+html[data-focus] {
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

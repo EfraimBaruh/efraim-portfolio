@@ -101,21 +101,20 @@ Scripts: `npm run dev`, `npm run build` (static site in `out/`), `npm run lint`.
 soon as possible; deep polish happens in one pass across the whole site at the
 end. Don't stall a section on polish.
 
-Done: Home, Work + case studies, About.
+Done: Home, Work + case studies, About, "How this site is built" (the
+optional focus view on Home: `src/components/home/BuildNotes.tsx`, copy in
+`src/content/build.ts`, scene state in `sceneFocus.ts`).
 Next / later (don't forget these):
-1. **"How this site is built"**: an optional button on Home that focuses the
-   bust and shows the explanation beside it (spec in
-   `docs/INFORMATION_ARCHITECTURE.md`).
-2. **Contact page** (`/contact`), blocked on how to present location.
-3. **Case-study depth** *(final polish)*: Challenge → Approach → Outcome for
+1. **Contact page** (`/contact`), blocked on how to present location.
+2. **Case-study depth** *(final polish)*: Challenge → Approach → Outcome for
    every case study, with real numbers and constraints. Needs Efraim's answers;
    never invent details. Also new case studies: ADASTEC, Leke Games, Gleechi.
-4. **Self-assembly experiment** *(later)*: a small interactive in-browser
+3. **Self-assembly experiment** *(later)*: a small interactive in-browser
    simulation where particles build structures from simple local rules. Supports
    the move toward molecular self-assembly. Don't write "nanotech" in copy.
-5. **Writing** *(later)*: MDX blog; revive the two v1 posts (UPM/Verdaccio,
+4. **Writing** *(later)*: MDX blog; revive the two v1 posts (UPM/Verdaccio,
    ScriptableObject events).
-6. **Final polish pass** over every page.
+5. **Final polish pass** over every page.
 
 ## Open questions (ask Efraim; don't guess)
 The location wording is listed in `docs/KNOWLEDGE.md` under "Inconsistencies to

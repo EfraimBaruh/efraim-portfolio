@@ -1,0 +1,167 @@
+/* Trigger: desktop, bottom-right of the hero under the bust, above the floor
+   line. Mobile: top-right, beside the bust's shoulder. */
+.trigger {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + 12px);
+  z-index: 1;
+  padding: 14px 0;
+  background: none;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.3s var(--ease-out);
+}
+
+.trigger:hover,
+.trigger:focus-visible {
+  color: var(--bone);
+}
+
+.trigger[hidden] {
+  display: none;
+}
+
+/* Panel: a reading column on the left, the focused bust on the right. Its
+   background matches the canvas, so there is no visible edge. */
+.panel {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: min(600px, 48vw);
+  padding: calc(var(--gutter) + 88px) var(--gutter) 64px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-16px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.8s var(--ease-out),
+    visibility 0s linear 0.6s;
+}
+
+.panel[data-open] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.8s var(--ease-out) 0.25s,
+    transform 1s var(--ease-out) 0.25s,
+    visibility 0s;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.eyebrow,
+.close,
+.index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.close {
+  padding: 14px 0;
+  background: none;
+  border: 0;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.3s var(--ease-out);
+}
+
+.close:hover,
+.close:focus-visible {
+  color: var(--bone);
+}
+
+.title {
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.intro {
+  margin-top: 20px;
+  max-width: 44ch;
+  opacity: 0.86;
+}
+
+.list {
+  list-style: none;
+  margin-top: 40px;
+  border-top: 1px solid var(--hairline);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.index {
+  padding-top: 7px;
+}
+
+.itemTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.body {
+  margin-top: 8px;
+  max-width: 52ch;
+  font-size: 15px;
+  opacity: 0.86;
+}
+
+/* Mobile: the head keeps the top of the screen; the notes are a sheet below. */
+@media (max-width: 767px) {
+  .trigger {
+    top: calc(var(--gutter) + 52px);
+    bottom: auto;
+  }
+
+  .panel {
+    inset: 48svh 0 0 0;
+    width: auto;
+    padding: 8px var(--gutter) 48px;
+    border-top: 1px solid var(--hairline);
+    transform: translateY(24px);
+  }
+
+  .item {
+    grid-template-columns: 28px 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .close,
+  .panel,
+  .panel[data-open] {
+    transition: none;
+  }
+}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import ProjectRow from "@/components/work/ProjectRow";
+import BuildNotes from "@/components/home/BuildNotes";
 import styles from "./page.module.css";
 
 const FEATURED = projects.slice(0, 3);
@@ -38,6 +39,7 @@ export default function Home() {
             </a>
           </p>
         </div>
+        <BuildNotes />
       </section>
 
       <section id="work" className={styles.work} aria-labelledby="work-title">

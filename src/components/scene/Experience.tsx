@@ -7,6 +7,7 @@ import { Environment, Lightformer } from "@react-three/drei";
 import Avatar from "./Avatar";
 import CameraRig from "./CameraRig";
 import Loader from "./Loader";
+import { useSceneFocus } from "./sceneFocus";
 import { palette } from "@/content/palette";
 import styles from "./Experience.module.css";
 
@@ -14,7 +15,8 @@ export default function Experience() {
   // Home presents the portrait; the Work list keeps it beside the list; case
   // studies put it faded behind the text so the media column has the right.
   const path = usePathname().replace(/\/$/, "");
-  const mode = path === "" ? "hero" : /^\/work\/[^/]+$/.test(path) ? "detail" : "content";
+  const focus = useSceneFocus() && path === "";
+  const mode = focus ? "focus" : path === "" ? "hero" : /^\/work\/[^/]+$/.test(path) ? "detail" : "content";
 
   return (
     <>
@@ -25,7 +27,7 @@ export default function Experience() {
           gl={{ antialias: true }}
         >
           <color attach="background" args={[palette.ink]} />
-          <CameraRig />
+          <CameraRig focus={focus} />
 
           {/* Studio rig: soft key from front-left, thin rim from behind, faint fill. */}
           <directionalLight position={[-2.5, 3, 2.5]} intensity={3} />

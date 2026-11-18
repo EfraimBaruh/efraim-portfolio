@@ -81,12 +81,15 @@ case-study and proof links) → skills by area → education & certifications �
 languages. Content: `src/content/about.ts`. Location is left out until it's
 confirmed.
 
-### "How this site is built" *(planned: optional, opened from Home)*
+### "How this site is built" *(built 2026-11-18: optional, opened from Home)*
 Not a page and not in the nav. A quiet button on Home brings the bust into
 focus (camera moves in, the text column steps aside) and opens an explanation
 beside it: the 3D scan, the rigging pipeline, the point-cloud intro, head
-tracking, and the shader/fade work. Closing it returns to the hero. The
-explanation must also exist as HTML so it's crawlable.
+tracking, and the shader/fade work. Closing it (button or Esc) returns to the
+hero. The explanation is always in the HTML, so it's crawlable.
+Desktop: notes on the left, the camera moves in on the head, bust at ~70% of
+the width. Mobile: the head fills the top, the notes are a sheet below it.
+Under reduced motion the camera cuts instead of gliding.
 
 ### Contact `/contact` *(blocked: needs the public email confirmed)*
 One line of invitation → email → LinkedIn · GitHub → location and timezone.

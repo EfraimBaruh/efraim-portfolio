@@ -35,6 +35,8 @@ function setUniforms(uniforms: { value: number }[], value: number) {
 // column. Mobile stays centered and dims via CSS.
 const POSES = {
   hero: { x: 0.42, rotY: -0.3 },
+  // "How this site is built": same spot, turned nearly to face the viewer.
+  focus: { x: 0.42, rotY: -0.12 },
   content: { x: 0.36, rotY: -0.6 },
   // Case studies: behind the text column, turned toward the media on the right.
   detail: { x: -0.38, rotY: 0.25 },

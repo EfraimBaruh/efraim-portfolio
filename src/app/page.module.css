@@ -43,6 +43,23 @@
   padding-bottom: 32px;
 }
 
+/* "How it's built" open: the hero text steps aside for the notes panel. */
+.eyebrow,
+.intro {
+  transition:
+    opacity 0.5s var(--ease-out),
+    visibility 0s linear 0s;
+}
+
+:global(html[data-focus]) .eyebrow,
+:global(html[data-focus]) .intro {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s var(--ease-out),
+    visibility 0s linear 0.4s;
+}
+
 .name {
   font-family: var(--font-display);
   font-weight: 300;
