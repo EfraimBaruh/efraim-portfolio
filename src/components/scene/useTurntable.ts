@@ -1,14 +1,18 @@
 "use client";
 
 import { type RefObject, useEffect, useRef } from "react";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { BUST_CUT, BUST_TOP } from "./bust";
 
 /** How far the visitor may turn the bust from its default angle. */
 const MAX_TURN = THREE.MathUtils.degToRad(45);
 /** Dragging across this fraction of the viewport width turns it fully. */
-const DRAG_SPAN = 0.3;
+const DRAG_SPAN = 0.19;
+/** After this long without a drag, the bust eases back to its default angle. */
+const IDLE_RETURN_SECONDS = 30;
+/** Damping for that return: low, so it drifts back slowly. */
+const RETURN_DAMPING = 0.6;
 /** Bust half-extents around its vertical axis (metres), for hit-testing. */
 const HALF_WIDTH = 0.34;
 const HALF_DEPTH = 0.25;
@@ -21,11 +25,15 @@ const INTERACTIVE = "a, button, input, textarea, select, label, [role='button']"
  * canvas, so this listens on the window and only claims drags that start over
  * the bust's on-screen area (and not on links or buttons). Vertical touch
  * swipes still scroll: the page uses `touch-action: pan-y` (globals.css).
+ * Left alone for 30 s, it slowly eases back to its default angle.
  *
- * Returns the current turn offset in radians; the caller adds it to the pose.
+ * Returns the turn offset in radians (the caller adds it to the pose) and
+ * whether a drag is in progress (so the caller can follow it tightly).
  */
 export function useTurntable(target: RefObject<THREE.Object3D | null>, enabled: boolean) {
   const turn = useRef(0);
+  const dragging = useRef(false);
+  const lastDrag = useRef(0);
   const camera = useThree((state) => state.camera);
 
   useEffect(() => {
@@ -67,6 +75,7 @@ export function useTurntable(target: RefObject<THREE.Object3D | null>, enabled: 
     const onDown = (e: PointerEvent) => {
       if (!e.isPrimary || e.button !== 0 || !grabbable(e)) return;
       drag = { id: e.pointerId, x: e.clientX, start: turn.current };
+      dragging.current = true;
       if (e.pointerType === "mouse") {
         e.preventDefault(); // no text selection while turning
         root.style.cursor = "grabbing";
@@ -83,6 +92,8 @@ export function useTurntable(target: RefObject<THREE.Object3D | null>, enabled: 
     const onUp = (e: PointerEvent) => {
       if (!drag || e.pointerId !== drag.id) return;
       drag = null;
+      dragging.current = false;
+      lastDrag.current = performance.now();
       if (e.pointerType === "mouse") root.style.cursor = grabbable(e) ? "grab" : "";
     };
 
@@ -99,5 +110,12 @@ export function useTurntable(target: RefObject<THREE.Object3D | null>, enabled: 
     };
   }, [enabled, camera, target]);
 
-  return turn;
+  useFrame((_, delta) => {
+    if (dragging.current || turn.current === 0) return;
+    if (performance.now() - lastDrag.current < IDLE_RETURN_SECONDS * 1000) return;
+    turn.current = THREE.MathUtils.damp(turn.current, 0, RETURN_DAMPING, delta);
+    if (Math.abs(turn.current) < 1e-4) turn.current = 0;
+  });
+
+  return { turn, dragging };
 }
