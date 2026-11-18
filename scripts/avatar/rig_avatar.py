@@ -16,8 +16,13 @@ Approach
 - The relaxed pose becomes the rest pose, so the web default is the
   relaxed stance and animations are small offsets from it. The point-cloud
   intro samples the bind pose, which then matches what is displayed.
+- The tie (its own material in the scan) is recoloured to a solid
+  `palette.tie` from src/content/palette.ts. Its striped colour texture is
+  dropped; the normal and specular maps stay so it still reads as fabric.
 """
 import math
+import pathlib
+import re
 import sys
 
 import bpy
@@ -71,6 +76,10 @@ HEAD_TILT = 2.0
 FPS = 30
 IDLE_SECONDS = 4
 
+# The scan's tie material (a narrow front strip, red/white striped texture).
+TIE_MATERIAL = "Material.003"
+PALETTE_TS = pathlib.Path(__file__).resolve().parents[2] / "src/content/palette.ts"
+
 
 def log(*args):
     print("[rig]", *args, flush=True)
@@ -94,6 +103,35 @@ def import_scan(path):
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
     mesh.name = "EfraimBaruh"
     return mesh
+
+
+def palette_hex(key):
+    match = re.search(rf'\b{key}:\s*"#([0-9a-fA-F]{{6}})"', PALETTE_TS.read_text())
+    if not match:
+        raise SystemExit(f"palette.ts has no '{key}' colour")
+    return match.group(1)
+
+
+def srgb_to_linear(c):
+    return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+
+def recolor_tie():
+    mat = bpy.data.materials.get(TIE_MATERIAL)
+    if mat is None or not mat.use_nodes:
+        raise SystemExit(f"tie material {TIE_MATERIAL!r} not found")
+    hexv = palette_hex("tie")
+    rgb = [srgb_to_linear(int(hexv[i : i + 2], 16) / 255) for i in (0, 2, 4)]
+    bsdf = next(n for n in mat.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
+    base = bsdf.inputs["Base Color"]
+    for link in list(base.links):
+        mat.node_tree.links.remove(link)
+    base.default_value = (*rgb, 1.0)
+    # Drop the now-unused colour texture node so it isn't exported.
+    for node in list(mat.node_tree.nodes):
+        if node.type == "TEX_IMAGE" and not any(o.links for o in node.outputs):
+            mat.node_tree.nodes.remove(node)
+    log("tie recoloured to", "#" + hexv)
 
 
 def build_armature():
@@ -258,6 +296,7 @@ def main():
     preview = argv[2] if len(argv) > 2 else None
 
     mesh = import_scan(src)
+    recolor_tie()
     rig = build_armature()
     volumetric_weights(mesh)
     bind(mesh, rig)

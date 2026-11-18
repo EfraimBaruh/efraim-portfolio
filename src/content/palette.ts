@@ -6,4 +6,7 @@ export const palette = {
   bone: "#f5f4ee",
   muted: "#a3a29c",
   accent: "#c8b89a",
+  // Baked into the avatar GLB by scripts/avatar/rig_avatar.py (the tie).
+  // Regenerate the GLB after changing it.
+  tie: "#111110",
 } as const;

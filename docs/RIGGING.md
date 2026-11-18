@@ -30,6 +30,9 @@ How it works (details in the script's docstring):
   tracking** is code (`src/components/scene/useHostBehavior.ts`): the neck
   takes 40% and the head 60% of the turn, clamped. Head turns are verified
   clean to about 28° combined.
+- **Black tie** (2026-11-18): the scan's tie (`Material.003`) is recoloured
+  to a solid `tie` from `src/content/palette.ts`. Its striped texture is
+  dropped; normal and specular maps stay. Change the colour there and re-run.
 - Result: 3.1 MB, 1 skin, 22 joints, the same extensions as before.
 
 Tweak the pose or idle through the constants at the top of

@@ -6,6 +6,7 @@
   --bone: #f5f4ee;
   --muted: #a3a29c;
   --accent: #c8b89a;
+  --tie: #111110; /* baked into the avatar GLB */
   --hairline: rgb(245 244 238 / 0.12);
 
   --font-display: var(--font-fraunces), Georgia, serif;
