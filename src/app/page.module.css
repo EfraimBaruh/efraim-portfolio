@@ -1,5 +1,6 @@
 /* Home: an editorial hero with a shared floor line, then selected work.
-   Desktop: text in the left columns, the avatar stands on the floor at right.
+   Desktop: text in the left columns, the avatar's bust at right fades out
+   just above the floor line, like a bust on a plinth.
    Mobile: the avatar takes the top of the hero, text stacks below it. */
 
 .main {
@@ -17,7 +18,7 @@
   padding: calc(var(--gutter) + 72px) var(--gutter) var(--gutter);
 }
 
-/* The floor: the avatar stands on it, and it closes the hero. */
+/* The floor: the bust fades out just above it, and it closes the hero. */
 .hero::after {
   content: "";
   position: absolute;

@@ -76,6 +76,14 @@ assets load, then hand off to the lit portrait. That gives a technical "wow"
 moment once, and elegance everywhere else. Keep strictly monochrome, with one warm
 bone accent.
 
+### Bust presentation (decided 2026-11-18)
+The avatar is shown as a **bust**, not full-length: head, shoulders and upper
+chest, fading softly into the charcoal like a lit sculpture bust (*büst*). The
+reasons: the scan's detail is in the face, head tracking reads far better at
+portrait size, and it hides the rig's weakest areas (hands, hips). The
+point-cloud intro stays, assembling the bust only (chest up), which makes it
+denser and finer.
+
 ### Host behavior (the avatar as guide)
 | Moment | Behavior | Needs rig? |
 |---|---|---|

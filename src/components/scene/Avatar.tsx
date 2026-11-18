@@ -9,12 +9,13 @@ import { applyReveal } from "./revealMaterial";
 import { localBounds } from "./sampleSurface";
 import { markIntroSeen, shouldPlayIntro } from "./introState";
 import { useHostBehavior } from "./useHostBehavior";
+import { BUST_CUT, FIGURE_HEIGHT } from "./bust";
 
 // Efraim's 3D scan, rigged by scripts/avatar/rig_avatar.py: relaxed rest pose,
 // 22-bone skeleton, "Idle" loop. Meshopt + quantized + WebP.
 const AVATAR_URL = "/models/EfraimBaruh-rigged.glb";
-const TARGET_HEIGHT = 1.8;
-const SWEEP_DURATION = 1.7;
+const TARGET_HEIGHT = FIGURE_HEIGHT;
+const SWEEP_DURATION = 1.4;
 const REVEAL_HIDDEN = -0.2;
 const REVEAL_SHOWN = 100;
 
@@ -28,11 +29,12 @@ function setUniforms(uniforms: { value: number }[], value: number) {
   for (const u of uniforms) u.value = value;
 }
 
-// Placement per page mode (desktop). Content pages: step further right and
-// turn toward the text column. Mobile stays centered and dims via CSS.
+// Placement per page mode (desktop), sized for the bust framing in
+// CameraRig. Content pages: a touch further right, turned toward the text
+// column. Mobile stays centered and dims via CSS.
 const POSES = {
-  hero: { x: 0.6, rotY: -0.35 },
-  content: { x: 1.1, rotY: -0.8 },
+  hero: { x: 0.42, rotY: -0.3 },
+  content: { x: 0.36, rotY: -0.6 },
 } as const;
 
 export type AvatarMode = keyof typeof POSES;
@@ -94,7 +96,7 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
     sweepElapsed.current += Math.min(delta, 1 / 30);
     const t = Math.min(sweepElapsed.current / SWEEP_DURATION, 1);
     const eased = 1 - Math.pow(1 - t, 3);
-    reveal.current = THREE.MathUtils.lerp(REVEAL_HIDDEN, TARGET_HEIGHT + 0.1, eased);
+    reveal.current = THREE.MathUtils.lerp(BUST_CUT, TARGET_HEIGHT + 0.1, eased);
     if (t >= 1) {
       sweepElapsed.current = null;
       reveal.current = REVEAL_SHOWN;
@@ -115,6 +117,7 @@ export default function Avatar({ mode }: { mode: AvatarMode }) {
           <PointCloudIntro
             source={scene}
             count={count}
+            floorY={(BUST_CUT - offset.y) / scale}
             revealRef={reveal}
             onAssembled={() => {
               sweepElapsed.current = 0;

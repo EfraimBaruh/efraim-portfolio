@@ -34,6 +34,11 @@ you touched.
   `docs/RIGGING.md`). The unrigged source lives in `assets/source/` (not served). It greets visitors on arrival and guides them through
   the site (head tracking, turning toward sections, gestures). It's the
   centerpiece, so treat it like a product feature, not a background.
+- **It's presented as a bust** (head, shoulders, upper chest; decided
+  2026-11-18). Below `BUST_CUT` in `src/components/scene/bust.ts` the surface
+  fades into the background and isn't drawn. The point-cloud intro samples the
+  bust only. `CameraRig` frames it as a portrait from the aspect ratio. Change
+  the crop in `bust.ts` only.
 - **The 3D work is the proof of skill.** Shader work, lighting, interaction, and
   performance are all part of what's being showcased. Polish matters more than
   quantity.

@@ -37,9 +37,10 @@ export type SurfaceSamples = {
  * Samples `count` points across every mesh under `root`, distributed by
  * surface area, in `root`'s local space. Area weighting matters for scans:
  * the face has far more triangles than the body, so per-triangle sampling
- * would crowd the head.
+ * would crowd the head. With `floorY`, only surface above it is sampled
+ * (rejection sampling keeps the density uniform across meshes).
  */
-export function sampleSurface(root: THREE.Object3D, count: number): SurfaceSamples {
+export function sampleSurface(root: THREE.Object3D, count: number, floorY = -Infinity): SurfaceSamples {
   root.updateWorldMatrix(true, true);
   const rootInverse = root.matrixWorld.clone().invert();
 
@@ -66,21 +67,26 @@ export function sampleSurface(root: THREE.Object3D, count: number): SurfaceSampl
   let minY = Infinity;
   let maxY = -Infinity;
 
+  // Pick meshes by area, then reject samples below the floor.
+  const cumulative: number[] = [];
+  entries.reduce((sum, e) => (cumulative.push(sum + e.area), sum + e.area), 0);
+  const maxAttempts = count * 40;
   let written = 0;
-  entries.forEach((entry, i) => {
-    const share = i === entries.length - 1 ? count - written : Math.round((entry.area / totalArea) * count);
-    for (let k = 0; k < share; k++, written++) {
-      entry.sampler.sample(p, n);
-      p.applyMatrix4(entry.matrix);
-      n.applyMatrix3(entry.normalMatrix).normalize();
-      p.toArray(positions, written * 3);
-      n.toArray(normals, written * 3);
-      if (p.y < minY) minY = p.y;
-      if (p.y > maxY) maxY = p.y;
-    }
-  });
+  for (let attempt = 0; written < count && attempt < maxAttempts; attempt++) {
+    const r = Math.random() * totalArea;
+    const entry = entries[Math.min(cumulative.findIndex((c) => r <= c), entries.length - 1)];
+    entry.sampler.sample(p, n);
+    p.applyMatrix4(entry.matrix);
+    if (p.y < floorY) continue;
+    n.applyMatrix3(entry.normalMatrix).normalize();
+    p.toArray(positions, written * 3);
+    n.toArray(normals, written * 3);
+    if (p.y < minY) minY = p.y;
+    if (p.y > maxY) maxY = p.y;
+    written++;
+  }
 
-  return { positions, normals, minY, maxY };
+  return { positions: positions.subarray(0, written * 3), normals: normals.subarray(0, written * 3), minY, maxY };
 }
 
 /**

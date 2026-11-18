@@ -5,6 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { palette } from "@/content/palette";
 import { sampleSurface } from "./sampleSurface";
+import { BUST_BAND, BUST_CUT } from "./bust";
 
 // Timeline in seconds from the moment the scan finishes loading.
 const FADE_IN = 0.6;
@@ -19,6 +20,8 @@ const vertexShader = /* glsl */ `
   uniform float uPixelRatio;
   uniform vec2 uHeight;
   uniform vec3 uKeyDir;
+  uniform float uBustCut;
+  uniform float uBustBand;
 
   attribute vec3 aStart;
   attribute vec3 aNormal;
@@ -56,7 +59,8 @@ const vertexShader = /* glsl */ `
     // Points dissolve as the solid surface sweeps up past them.
     float worldTargetY = (modelMatrix * vec4(position, 1.0)).y;
     float revealFade = smoothstep(uReveal - 0.1, uReveal + 0.02, worldTargetY);
-    vAlpha = mix(0.3, 1.0, p) * revealFade;
+    float bustFade = smoothstep(uBustCut, uBustCut + uBustBand, worldTargetY);
+    vAlpha = mix(0.3, 1.0, p) * revealFade * bustFade;
   }
 `;
 
@@ -76,8 +80,9 @@ const fragmentShader = /* glsl */ `
 `;
 
 /** Targets on the scan surface plus random start positions in a loose column around the figure. */
-function buildGeometry(source: THREE.Object3D, count: number) {
-  const { positions, normals, minY, maxY } = sampleSurface(source, count);
+function buildGeometry(source: THREE.Object3D, count: number, floorY: number) {
+  const { positions, normals, minY, maxY } = sampleSurface(source, count, floorY);
+  count = positions.length / 3;
   const height = maxY - minY;
   const starts = new Float32Array(count * 3);
   const seeds = new Float32Array(count);
@@ -102,18 +107,20 @@ type Props = {
   /** The loaded scan; points are sampled in its local space. */
   source: THREE.Object3D;
   count: number;
+  /** Only the surface above this local-space Y is sampled (the bust). */
+  floorY: number;
   /** Current dissolve height in world Y, owned by the avatar. */
   revealRef: RefObject<number>;
   onAssembled: () => void;
 };
 
-export default function PointCloudIntro({ source, count, revealRef, onAssembled }: Props) {
+export default function PointCloudIntro({ source, count, floorY, revealRef, onAssembled }: Props) {
   const { gl } = useThree();
   const points = useRef<THREE.Points<THREE.BufferGeometry, THREE.ShaderMaterial>>(null);
   const elapsed = useRef(0);
   const assembledFired = useRef(false);
 
-  const geometry = useMemo(() => buildGeometry(source, count), [source, count]);
+  const geometry = useMemo(() => buildGeometry(source, count, floorY), [source, count, floorY]);
 
   const material = useMemo(
     () =>
@@ -132,6 +139,8 @@ export default function PointCloudIntro({ source, count, revealRef, onAssembled 
           uHeight: { value: new THREE.Vector2(...(geometry.userData.height as [number, number])) },
           uKeyDir: { value: new THREE.Vector3(-2.5, 3, 2.5).normalize() },
           uColor: { value: new THREE.Color(palette.bone) },
+          uBustCut: { value: BUST_CUT },
+          uBustBand: { value: BUST_BAND },
         },
       }),
     [geometry],
@@ -154,7 +163,7 @@ export default function PointCloudIntro({ source, count, revealRef, onAssembled 
     u.uTime.value = t;
     u.uPixelRatio.value = gl.getPixelRatio();
     // Point size in world-ish units; denser clouds get finer points.
-    u.uSize.value = 3.2 * Math.sqrt(140000 / count);
+    u.uSize.value = 1.6 * Math.sqrt(140000 / count);
     u.uOpacity.value = Math.min(t / FADE_IN, 1);
     u.uAssemble.value = THREE.MathUtils.clamp((t - ASSEMBLE_START) / (ASSEMBLE_END - ASSEMBLE_START), 0, 1);
     if (!assembledFired.current && u.uAssemble.value > 0.82) {

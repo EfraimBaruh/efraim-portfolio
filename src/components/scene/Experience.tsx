@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { usePathname } from "next/navigation";
 import { Canvas } from "@react-three/fiber";
-import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
+import { Environment, Lightformer } from "@react-three/drei";
 import Avatar from "./Avatar";
 import CameraRig from "./CameraRig";
 import Loader from "./Loader";
@@ -37,7 +37,6 @@ export default function Experience() {
 
           <Suspense fallback={null}>
             <Avatar mode={mode} />
-            <ContactShadows position={[0, 0, 0]} scale={6} blur={2.4} far={1.2} opacity={0.6} resolution={512} />
           </Suspense>
         </Canvas>
       </div>
