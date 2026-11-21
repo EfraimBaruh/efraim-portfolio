@@ -2,9 +2,15 @@
 
 ## What this repo is
 The personal portfolio of **Efraim Baruh Bölükbaşı**, a Senior Software Engineer
-(Unity, C#/.NET, AR/VR, real-time 3D, mobile games), currently at Rapsodo. The
-audience is recruiters, hiring managers, and collaborators. They should come away
-thinking *"this person is excellent at real-time 3D"* within the first 10 seconds.
+(Unity, C#/.NET, AR/VR, real-time 3D, mobile games), currently at Rapsodo. There
+are two audiences (decided 2026-11-21): recruiters and hiring managers, and the
+admissions readers of Efraim's **nanotechnology graduate program** application.
+Within the first 10 seconds they should come away thinking *"this person is
+excellent at real-time 3D and simulation, and is heading into molecular
+self-assembly"*. Home's positioning (`profile.positioning`: a punchline lead, then a
+detail paragraph) is Efraim's own copy and carries both: concrete projects,
+the frame-rate constraint, and the self-assembly direction. Don't replace it with a generic
+one-liner; change it only with his wording.
 
 ## Status
 **v1 is deprecated and is being rebuilt from scratch.** v1 (CRA + React 19 +
@@ -131,7 +137,8 @@ Next / later (don't forget these):
    never invent details. Also new case studies: ADASTEC, Leke Games, Gleechi.
 3. **Self-assembly experiment** *(later)*: a small interactive in-browser
    simulation where particles build structures from simple local rules. Supports
-   the move toward molecular self-assembly. Don't write "nanotech" in copy.
+   the move toward molecular self-assembly. Write "nanotechnology" where it's
+   accurate, never the buzzword "nanotech" (a content test enforces this).
 4. **Writing** *(later)*: MDX blog; revive the two v1 posts (UPM/Verdaccio,
    ScriptableObject events).
 5. **Final polish pass** over every page.

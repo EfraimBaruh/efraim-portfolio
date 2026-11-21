@@ -53,6 +53,11 @@ test("each case study's company appears in the About timeline", () => {
   }
 });
 
+test("nanotech appears only as 'nanotechnology'", () => {
+  const all = JSON.stringify({ projects, about, profile });
+  assert.doesNotMatch(all, /nanotech(?!nology)/i, "use 'nanotechnology', not 'nanotech'");
+});
+
 test("no placeholder text in content", () => {
   const all = JSON.stringify({ projects, about, profile });
   assert.doesNotMatch(all, /lorem ipsum|TODO|TBD|FIXME|example\.com/i);

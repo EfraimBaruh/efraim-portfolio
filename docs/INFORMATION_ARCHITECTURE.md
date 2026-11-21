@@ -39,10 +39,15 @@ order, and how the avatar host takes part. Visual system: see
 ## Pages
 
 ### Home `/`
-Who is this, in five seconds.
-1. Name (display serif)
-2. Title · focus line (mono)
-3. *(later)* One-sentence positioning statement plus "See work →"
+Who is this, in five seconds, for both audiences (recruiters and the
+nanotechnology graduate application).
+1. Title · company (mono eyebrow)
+2. Name (display serif)
+3. Positioning (`profile.positioning`, Efraim's own copy), two paragraphs:
+   a punchline lead (display serif: seven years of real-time 3D → molecular
+   self-assembly), then the detail (the concrete work, the frame-rate
+   constraint, the simulation tools)
+4. "Selected work ↓" (in-page) and Email; the featured work list follows
 
 ### Work `/work`
 What he has built. A numbered editorial index, not a card grid.

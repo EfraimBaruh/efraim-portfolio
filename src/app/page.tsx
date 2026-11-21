@@ -39,7 +39,8 @@ export default function Home() {
               GitHub<span aria-hidden="true"> ↗</span>
             </a>
           </p>
-          <p className={styles.positioning}>{profile.positioning}</p>
+          <p className={styles.lead}>{profile.positioning[0]}</p>
+          <p className={styles.detail}>{profile.positioning[1]}</p>
           <p className={styles.actions}>
             <a href="#work" className={styles.primary}>
               Selected work<span aria-hidden="true"> ↓</span>
