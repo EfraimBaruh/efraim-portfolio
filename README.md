@@ -26,7 +26,7 @@ Open http://localhost:3000.
 | `npm run build` | Static site in `out/` |
 | `npm run serve:out` | Serve `out/` on :3001 |
 | `npm run lint` | ESLint |
-| `npm run typecheck` | `tsc --noEmit` |
+| `npm run typecheck` | Generate route types, then `tsc --noEmit` |
 | `npm test` | Content checks (`tests/content.test.mjs`) |
 | `npm run test:build` | Checks the export in `out/`: sitemap, metadata, broken links (`tests/build.test.mjs`) |
 | `npm run check` | Lint, typecheck and content tests |
