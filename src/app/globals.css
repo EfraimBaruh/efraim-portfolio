@@ -1,13 +1,16 @@
-/* Studio Noir, warm charcoal — see docs/DESIGN_DIRECTIONS.md.
+/* Neon trial (branch theme-neon): deep indigo, violet neon, cyan rim.
    Keep in sync with src/content/palette.ts. */
 :root {
-  --ink: #262624;
-  --surface: #30302e;
-  --bone: #f5f4ee;
-  --muted: #a3a29c;
-  --accent: #c8b89a;
+  --ink: #0c0a1d;
+  --surface: #15122f;
+  --bone: #ece8ff;
+  --muted: #9b94c8;
+  --accent: #b57bff;
+  --accent-2: #4de3ff;
   --tie: #111110; /* baked into the avatar GLB */
-  --hairline: rgb(245 244 238 / 0.12);
+  --hairline: rgb(181 123 255 / 0.22);
+  --glow-text: 0 0 18px rgb(181 123 255 / 0.55), 0 0 42px rgb(181 123 255 / 0.25);
+  --glow-soft: 0 0 28px rgb(181 123 255 / 0.3);
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
@@ -53,6 +56,34 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  transition: text-shadow 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+a:hover,
+a:focus-visible,
+button:hover {
+  color: var(--bone);
+  text-shadow: var(--glow-text);
+}
+
+/* Neon: display headings carry a soft violet bloom. */
+h1,
+h2 {
+  text-shadow: var(--glow-soft);
+}
+
+/* Atmosphere above the canvas, under the page: violet bloom top-right,
+   cyan haze bottom-left. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 85% 10%, rgb(181 123 255 / 0.16), transparent 70%),
+    radial-gradient(50% 45% at 5% 95%, rgb(77 227 255 / 0.1), transparent 70%);
+  mix-blend-mode: screen;
 }
 
 ::selection {

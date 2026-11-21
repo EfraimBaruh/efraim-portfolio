@@ -31,8 +31,9 @@ export default function Experience() {
 
           {/* Studio rig: soft key from front-left, thin rim from behind, faint fill. */}
           <directionalLight position={[-2.5, 3, 2.5]} intensity={3} />
-          <directionalLight position={[2.5, 2.5, -3]} intensity={4} color={palette.bone} />
-          <hemisphereLight args={[palette.bone, palette.ink, 0.6]} />
+          <directionalLight position={[2.5, 2.5, -3]} intensity={5} color={palette.accent2} />
+          <directionalLight position={[-3, 1.5, -2.5]} intensity={3} color={palette.accent} />
+          <hemisphereLight args={[palette.accent, palette.ink, 0.5]} />
 
           <Environment resolution={256} environmentIntensity={0.8}>
             <Lightformer form="rect" intensity={2} position={[-3, 2, 2]} scale={[2, 3, 1]} />

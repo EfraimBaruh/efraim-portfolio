@@ -119,7 +119,7 @@ function createMaterial(geometry: THREE.BufferGeometry) {
       uPixelRatio: { value: 1 },
       uHeight: { value: new THREE.Vector2(...(geometry.userData.height as [number, number])) },
       uKeyDir: { value: new THREE.Vector3(-2.5, 3, 2.5).normalize() },
-      uColor: { value: new THREE.Color(palette.bone) },
+      uColor: { value: new THREE.Color(palette.accent2) },
       uBustCut: { value: BUST_CUT },
       uBustBand: { value: BUST_BAND },
     },
