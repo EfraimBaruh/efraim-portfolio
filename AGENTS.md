@@ -143,7 +143,11 @@ Next / later (don't forget these):
    accurate, never the buzzword "nanotech" (a content test enforces this).
 4. **Writing** *(later)*: MDX blog; revive the two v1 posts (UPM/Verdaccio,
    ScriptableObject events).
-5. **Final polish pass** over every page.
+5. **Avatar gestures** *(post-launch, decided 2026-11-21)*: the planned Greet
+   (wave) and Point clips need hands, which the bust crops out. A hands-free
+   proposal (nod greeting + turning toward hovered items) was demoed on a
+   clay stand-in and not liked; revisit the direction after launch.
+6. **Final polish pass** over every page.
 
 ## Known bugs (not yet fixed)
 - **Bust sometimes missing on iPad Safari** (seen 2026-11-21, iPadOS, Stage
