@@ -9,7 +9,16 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 0 24px calc(var(--gutter) * 0.5);
+  /* Text can run under the cue (narrow desktop windows, long first
+     screens), so it carries its own soft backdrop: an ellipse of the page
+     colour that fades out before the corners, where the peek and the
+     "How it's built" button live. */
+  padding: 64px min(30vw, 320px) calc(var(--gutter) * 0.5);
+  background: radial-gradient(
+    ellipse 50% 100% at 50% 100%,
+    var(--ink) 30%,
+    color-mix(in srgb, var(--ink) 0%, transparent) 100%
+  );
   transform: translateX(-50%);
   pointer-events: none;
   opacity: 0;
@@ -79,6 +88,7 @@
     left: 0;
     right: 0;
     padding-top: 40px;
+    padding-inline: 0;
     transform: none;
     background: linear-gradient(
       to bottom,

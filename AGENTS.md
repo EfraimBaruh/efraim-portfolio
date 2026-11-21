@@ -159,8 +159,6 @@ Next / later (don't forget these):
   `requestAnimationFrame`. Next time it happens, capture evidence on the
   iPad (Web Inspector, or an on-screen diagnostics overlay in a local build)
   before changing code.
-- **Scroll cue overlaps text** at narrow desktop widths (~800px wide): it
-  sits bottom-centre on top of the Home paragraph.
 
 ## Open questions (ask Efraim; don't guess)
 See `docs/KNOWLEDGE.md` under "Inconsistencies to resolve".
