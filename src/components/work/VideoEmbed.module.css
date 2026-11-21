@@ -57,6 +57,6 @@
 .play {
   color: var(--accent-2);
   border: 1px solid var(--accent-2);
-  box-shadow: var(--glow-cyan), inset 0 0 10px rgb(77 227 255 / 0.2);
+  box-shadow: var(--glow-cyan), inset 0 0 10px rgb(var(--accent-2-rgb) / 0.2);
   text-shadow: var(--glow-cyan);
 }
