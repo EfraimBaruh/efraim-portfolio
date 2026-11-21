@@ -34,7 +34,7 @@ order, and how the avatar host takes part. Visual system: see
   - The canvas persists across navigation, so the avatar *moves* between
     states instead of reloading.
 - **Footer:** none for now. There's no Contact page (decided 2026-11-19); the
-  Email button on Home is the contact route.
+  header's Email link (every page) is the contact route.
 
 ## Pages
 
@@ -47,7 +47,8 @@ nanotechnology graduate application).
    a punchline lead (display serif: seven years of real-time 3D → molecular
    self-assembly), then the detail (the concrete work, the frame-rate
    constraint, the simulation tools)
-4. "Selected work ↓" (in-page) and Email; the featured work list follows
+4. "Selected work ↓" (in-page); the featured work list follows. Email lives
+   in the header only (one email link per screen).
 
 ### Work `/work`
 What he has built. A numbered editorial index, not a card grid.

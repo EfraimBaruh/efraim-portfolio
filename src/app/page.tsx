@@ -45,9 +45,6 @@ export default function Home() {
             <a href="#work" className={styles.primary}>
               Selected work<span aria-hidden="true"> ↓</span>
             </a>
-            <a href={`mailto:${profile.email}`} className={`${styles.secondary} ${styles.email}`}>
-              Email
-            </a>
           </p>
         </div>
         <BuildNotes />

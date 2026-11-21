@@ -55,8 +55,8 @@ you touched.
 
 ## Sections
 Home (avatar host) · Work / Projects (case studies) · About (bio, timeline,
-skills) · Writing (MDX blog). No Contact page (decided 2026-11-19): the Email
-button on Home (`mailto:`) is the contact route.
+skills) · Writing (MDX blog). No Contact page (decided 2026-11-19): the header's
+Email link (`mailto:`, on every page) is the contact route.
 
 ## Technical rules
 - **Next.js 16** with `output: "export"`, so every route is static HTML. Partial

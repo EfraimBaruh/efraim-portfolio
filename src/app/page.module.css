@@ -264,9 +264,6 @@
     margin-top: 6px;
   }
 
-  .email {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

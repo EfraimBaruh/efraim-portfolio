@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile";
 import styles from "./SiteHeader.module.css";
 
-// Only pages that exist. There's no Contact page; Email on Home covers it.
+// Only pages that exist. There's no Contact page; the Email link here is the
+// contact route on every page.
 const NAV = [
   { href: "/work/", label: "Work" },
   { href: "/about/", label: "About" },
