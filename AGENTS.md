@@ -23,6 +23,7 @@ carry over.
 
 - How information is presented on each page: [`docs/INFORMATION_ARCHITECTURE.md`](docs/INFORMATION_ARCHITECTURE.md)
 - Avatar rigging pipeline: [`docs/RIGGING.md`](docs/RIGGING.md)
+- Going live (build URL, stills, deploy): [`docs/LAUNCH.md`](docs/LAUNCH.md)
 
 Read these before doing any design, content, or scaffolding work. After any
 visual change, review **every** page (desktop and 375px), not just the one
@@ -118,7 +119,8 @@ optional focus view on Home: `src/components/home/BuildNotes.tsx`, copy in
 `src/content/build.ts`, scene state in `sceneFocus.ts`).
 Next / later (don't forget these):
 1. **Go live**: choose domain and host, build with `NEXT_PUBLIC_SITE_URL` set,
-   re-run `scripts/capture/stills.mjs` against the live build.
+   re-run `scripts/capture/stills.mjs` against the live build. Steps in
+   `docs/LAUNCH.md`.
 2. **Case-study depth** *(final polish)*: Challenge → Approach → Outcome for
    every case study, with real numbers and constraints. Needs Efraim's answers;
    never invent details. Also new case studies: ADASTEC, Leke Games, Gleechi.
