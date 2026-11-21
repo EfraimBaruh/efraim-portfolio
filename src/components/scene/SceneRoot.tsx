@@ -21,9 +21,9 @@ function afterPageIdle() {
     };
     if (document.readyState === "complete") return idle();
     window.addEventListener("load", idle, { once: true });
-    // `load` waits for every resource; one that stalls (seen with Safari
-    // restoring a page from cache) would otherwise keep the scene from ever
-    // starting. Past this cap, start anyway.
+    // `load` waits for every resource; one that stalls (a slow image or
+    // font) would otherwise keep the scene from ever starting. Past this
+    // cap, start anyway.
     setTimeout(idle, LOAD_CAP_MS);
   });
 }

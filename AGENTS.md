@@ -144,5 +144,18 @@ Next / later (don't forget these):
    ScriptableObject events).
 5. **Final polish pass** over every page.
 
+## Known bugs (not yet fixed)
+- **Bust sometimes missing on iPad Safari** (seen 2026-11-21, iPadOS, Stage
+  Manager): after closing the tab and opening the site in a new tab, the
+  page text loaded but no bust, no "Loading scan" label and no Scroll cue
+  appeared, even after 2 minutes. Not reproducible since, nor in Mac Safari
+  or headless Chrome. The page had finished loading, so the `load` gate in
+  `SceneRoot` isn't the cause. Lead: both the bust and the cue depend on
+  `requestAnimationFrame`. Next time it happens, capture evidence on the
+  iPad (Web Inspector, or an on-screen diagnostics overlay in a local build)
+  before changing code.
+- **Scroll cue overlaps text** at narrow desktop widths (~800px wide): it
+  sits bottom-centre on top of the Home paragraph.
+
 ## Open questions (ask Efraim; don't guess)
 See `docs/KNOWLEDGE.md` under "Inconsistencies to resolve".
