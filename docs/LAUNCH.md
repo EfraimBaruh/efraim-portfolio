@@ -22,15 +22,17 @@ Without it, all of these point at `http://localhost:3000`.
    ```bash
    NEXT_PUBLIC_SITE_URL=https://example.com npm run build
    ```
-2. **Check the output** in `out/`:
-   - `out/sitemap.xml` and `out/robots.txt` use the real origin
-   - `out/index.html` has `<link rel="canonical" href="https://…/">`
+2. **Check the output** (sitemap, robots, canonicals, broken links, and no
+   `localhost` left anywhere):
+   ```bash
+   NEXT_PUBLIC_SITE_URL=https://example.com npm run test:build
+   ```
 3. **Re-capture the stills** (no-WebGL poster, OG card, icons) from that build:
    ```bash
-   python3 -m http.server 3001 -d out
+   npm run serve:out
    ```
    ```bash
-   node scripts/capture/stills.mjs http://localhost:3001
+   npm run stills
    ```
    Then rebuild (step 1) so the new images are in `out/`.
 4. **Deploy** the contents of `out/` to the host.

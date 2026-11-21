@@ -104,10 +104,15 @@ public/
 └── images/logos/                       # company logos
 assets/source/           # unrigged source scan (input to the rig script)
 scripts/avatar/          # Blender rig + preview scripts (headless)
+scripts/capture/         # stills renderer (poster, OG card, icons)
+tests/                   # content + build-output tests (node:test)
 docs/                    # knowledge, design, IA, stack, rigging guide
 ```
 Runtime: **Node 24 LTS** (`.nvmrc`, `engines`), installed through Homebrew `node@24`.
-Scripts: `npm run dev`, `npm run build` (static site in `out/`), `npm run lint`.
+Scripts: `npm run dev`, `npm run build` (static site in `out/`), `npm run check`
+(lint, typecheck, content tests), `npm run test:build` (checks `out/`),
+`npm run stills`. CI runs all of them (`.github/workflows/ci.yml`). Content
+changes must keep `npm test` green; add a check there for new content rules.
 
 ## Roadmap (decided 2026-11-18)
 **Ship first, polish last.** Get every main section live with real content as
