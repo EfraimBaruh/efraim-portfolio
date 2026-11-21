@@ -1,3 +1,44 @@
+/* Mount: a hairline mat 8px out from the picture, with viewfinder-style
+   corner brackets that brighten on hover. */
+.mount {
+  --bracket: 14px;
+  --bracket-color: rgb(var(--accent-rgb) / 0.55);
+  position: relative;
+  padding: 8px;
+  border: 1px solid var(--hairline);
+  background: rgb(var(--accent-2-rgb) / 0.02);
+  transition: border-color 0.5s var(--ease-out);
+}
+
+.mount::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--bracket-color), var(--bracket-color)) top left / var(--bracket) 1px,
+    linear-gradient(var(--bracket-color), var(--bracket-color)) top left / 1px var(--bracket),
+    linear-gradient(var(--bracket-color), var(--bracket-color)) top right / var(--bracket) 1px,
+    linear-gradient(var(--bracket-color), var(--bracket-color)) top right / 1px var(--bracket),
+    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom left / var(--bracket) 1px,
+    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom left / 1px var(--bracket),
+    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom right / var(--bracket) 1px,
+    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom right / 1px var(--bracket);
+  background-repeat: no-repeat;
+  transition: filter 0.5s var(--ease-out);
+}
+
+.mount:hover,
+.mount:focus-within {
+  --bracket-color: var(--accent);
+  border-color: rgb(var(--accent-rgb) / 0.28);
+}
+
+.mount:hover::before,
+.mount:focus-within::before {
+  filter: drop-shadow(0 0 4px rgb(var(--accent-rgb) / 0.6));
+}
+
 .frame {
   position: relative;
   aspect-ratio: 16 / 9;
