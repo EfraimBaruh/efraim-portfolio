@@ -25,7 +25,7 @@ order, and how the avatar host takes part. Visual system: see
    of cards. Numbers (01, 02, 03) give order.
 
 ## Global
-- **Header:** monogram (home) · Work · About · Contact, with LinkedIn and
+- **Header:** monogram (home) · Work · About, with LinkedIn and
   GitHub as quiet external links. Only show links to pages that exist.
 - **Avatar states:**
   - `hero` (Home): the portrait right of the name
@@ -33,7 +33,8 @@ order, and how the avatar host takes part. Visual system: see
     toward the text column
   - The canvas persists across navigation, so the avatar *moves* between
     states instead of reloading.
-- **Footer:** none for now. Contact lives in the header and on its own page.
+- **Footer:** none for now. There's no Contact page (decided 2026-11-19); the
+  Email button on Home is the contact route.
 
 ## Pages
 
@@ -90,9 +91,6 @@ hero. The explanation is always in the HTML, so it's crawlable.
 Desktop: notes on the left, the camera moves in on the head, bust at ~70% of
 the width. Mobile: the head fills the top, the notes are a sheet below it.
 Under reduced motion the camera cuts instead of gliding.
-
-### Contact `/contact` *(blocked: needs the public email confirmed)*
-One line of invitation → email → LinkedIn · GitHub → location and timezone.
 
 ### Writing `/writing` *(later; MDX)*
 Date · title · one-line summary list → MDX article pages.

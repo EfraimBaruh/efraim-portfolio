@@ -146,8 +146,8 @@ Both are short and could be revived as MDX posts.
    including for the Rapsodo role (the CV's "Unity Developer" is outdated).
 2. ~~**Email**~~ **Resolved (2026-10-24):** public address is
    `efraimbaruh.bolukbasi@yahoo.com`.
-3. **Location:** Stockholm on the Contact page, remote for Rapsodo Singapore.
-   Confirm how to present it.
+3. ~~**Location**~~ **Dropped (2026-11-19):** no Contact page, so no location
+   line is needed. The About timeline already says "Singapore · remote".
 4. ~~**Dates**~~ **Resolved (2026-11-18)** from the CV: Gleechi 09–11.2023,
    Leke Games 06.2022–06.2023, ADASTEC 12.2021–06.2022. Full timeline lives in
    `src/content/about.ts`.

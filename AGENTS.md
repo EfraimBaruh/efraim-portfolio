@@ -48,7 +48,8 @@ you touched.
 
 ## Sections
 Home (avatar host) · Work / Projects (case studies) · About (bio, timeline,
-skills) · Writing (MDX blog) · Contact.
+skills) · Writing (MDX blog). No Contact page (decided 2026-11-19): the Email
+button on Home (`mailto:`) is the contact route.
 
 ## Technical rules
 - **Next.js 16** with `output: "export"`, so every route is static HTML. Partial
@@ -116,7 +117,8 @@ Done: Home, Work + case studies, About, "How this site is built" (the
 optional focus view on Home: `src/components/home/BuildNotes.tsx`, copy in
 `src/content/build.ts`, scene state in `sceneFocus.ts`).
 Next / later (don't forget these):
-1. **Contact page** (`/contact`), blocked on how to present location.
+1. **Go live**: choose domain and host, build with `NEXT_PUBLIC_SITE_URL` set,
+   re-run `scripts/capture/stills.mjs` against the live build.
 2. **Case-study depth** *(final polish)*: Challenge → Approach → Outcome for
    every case study, with real numbers and constraints. Needs Efraim's answers;
    never invent details. Also new case studies: ADASTEC, Leke Games, Gleechi.
@@ -128,5 +130,4 @@ Next / later (don't forget these):
 5. **Final polish pass** over every page.
 
 ## Open questions (ask Efraim; don't guess)
-The location wording is listed in `docs/KNOWLEDGE.md` under "Inconsistencies to
-resolve".
+See `docs/KNOWLEDGE.md` under "Inconsistencies to resolve".

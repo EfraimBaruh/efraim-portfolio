@@ -76,7 +76,7 @@
   background: var(--hairline);
 }
 
-/* Narrow: LinkedIn/GitHub move into the hero and the contact links. */
+/* Narrow: LinkedIn/GitHub move into the hero. */
 @media (max-width: 599px) {
   .nav {
     gap: 20px;

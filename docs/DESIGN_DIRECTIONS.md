@@ -91,7 +91,7 @@ denser and finer.
 | Idle | subtle breathing, weight shift | yes |
 | Cursor | head and eyes track the pointer, clamped | yes (neck/head bones) |
 | Scroll to section | camera orbits; avatar turns toward the content | partially |
-| Contact | avatar faces the visitor, small wave or nod | yes |
+| Contact | *(dropped: no Contact page)* | — |
 
 **Prerequisite:** the current GLB is a static mesh. Rig it (Mixamo/AccuRig →
 Blender cleanup), add 3–5 short clips (idle, look, wave, point), then re-compress

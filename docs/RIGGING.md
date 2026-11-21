@@ -111,7 +111,7 @@ Pick one:
 | `Idle` | breathing and weight shift, always on | Mixamo "Breathing Idle" |
 | `Greet` | small wave or nod after the intro | Mixamo "Waving" (trim) |
 | `Point` | turning or gesturing toward content | Mixamo "Pointing" (trim) |
-| `Listen` | Contact page | Mixamo "Standing Idle 2" |
+| `Listen` | unused (no Contact page) | Mixamo "Standing Idle 2" |
 
 Download each clip **Without Skin** to keep files small. In Blender, import
 the rigged FBX plus the clip FBXs, then move each action onto the main

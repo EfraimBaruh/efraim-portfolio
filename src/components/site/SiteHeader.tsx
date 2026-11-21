@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile";
 import styles from "./SiteHeader.module.css";
 
-// Only pages that exist. Contact joins once its content is confirmed.
+// Only pages that exist. There's no Contact page; Email on Home covers it.
 const NAV = [
   { href: "/work/", label: "Work" },
   { href: "/about/", label: "About" },
