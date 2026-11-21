@@ -25,7 +25,7 @@ export const about = {
       role: "Senior Software Engineer",
       place: "Singapore · remote",
       period: "12.2023 – present",
-      line: "A Unity SuperApp that hosts many golf mini-games.",
+      line: "Golf mini-games, plus the MiniApp SDK and the Unity SuperApp that hosts them: device communication and SIL simulation workflows.",
       caseStudy: "golf-simulation",
     },
     {

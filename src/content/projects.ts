@@ -1,5 +1,5 @@
-// Case studies. Source: v1 site data (docs/KNOWLEDGE.md). Copy still needs
-// Efraim's review — especially roles/dates flagged as open questions there.
+// Case studies. Source: v1 site data (docs/KNOWLEDGE.md); roles and periods
+// match the CV (src/content/about.ts).
 /** Media shown in a case study's media column (desktop) or inline (mobile). */
 export type ProjectMedia =
   | { type: "youtube"; id: string; title?: string }
@@ -33,6 +33,7 @@ export const projects: Project[] = [
       "Built 3D modeling and texturing workflows for golf courses",
       "Optimized rendering and simulation performance for mobile devices",
       "Worked with the design team on intuitive in-game interfaces",
+      "Works on the MiniApp SDK and the SuperApp that hosts the golf mini-games, including device communication layers and SIL simulation workflows",
     ],
   },
   {
@@ -41,8 +42,8 @@ export const projects: Project[] = [
     summary:
       "Virtual-reality versions of university physics and chemistry lab experiments, making hands-on science accessible without a physical lab.",
     company: { name: "VRLabAcademy", logo: "/images/logos/vr-lab-logo.png" },
-    role: "VR Developer",
-    period: "2020 – 2022",
+    role: "Unity VR Developer",
+    period: "2020 – 2021",
     stack: ["Unity", "C#", "VR", "Simulation"],
     media: [{ type: "youtube", id: "4ju-EpsM97Q" }],
     responsibilities: [
@@ -58,7 +59,7 @@ export const projects: Project[] = [
     summary:
       "A real-time communication platform that captures people in 3D and streams them as holograms to remote participants in AR and VR.",
     company: { name: "Scalar Vision", logo: "/images/logos/scalar-vision-logo.png" },
-    role: "AR/VR Developer",
+    role: "AR & VR Developer",
     period: "2019 – 2020",
     stack: ["Unity", "AR/VR", "3D scanning", "Networking", "Shaders"],
     media: [{ type: "youtube", id: "KpMGg58Wa2U" }],

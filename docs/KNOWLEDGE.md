@@ -17,7 +17,7 @@ do not.**
 | Name | Efraim Baruh Bölükbaşı (v1 wrote it without diacritics: "Bolukbasi") |
 | Title | Senior Software Engineer — Unity, C#/.NET, AR/VR, mobile games |
 | Current role | Senior Software Engineer (Remote) at **Rapsodo**, Singapore — MiniApp SDK and the `SuperApp` golf application (device communication layers, SIL simulation workflows) |
-| Location | Vasastaden, Stockholm, Sweden |
+| Location | *Not shown on the site (decided 2026-11-19).* |
 | Has lived/worked in | Turkey, the UK, Sweden |
 | Languages (Social page) | Turkish, English, Russian, Chinese |
 | Email (v1 Contact page) | efraimbaruh.bolukbasi@yahoo.com |
@@ -33,16 +33,17 @@ do not.**
 
 ## 2. Career timeline
 
+Resolved against the CV (2026-11-18). The source of truth is
+`src/content/about.ts`; this table is a summary.
+
 | Company | Role | Period | Focus |
 |---|---|---|---|
-| **Rapsodo** (Singapore, remote) | Senior Unity Developer → Senior Software Engineer | 2023 – present | Golf simulation, golf mini-games, MiniApp SDK, SuperApp, device comms, SIL simulation |
-| **Gleechi AB** (Sweden) | Senior VR Developer | ? | VR industrial training simulations (hand interaction) |
-| **Leke Games** (Turkey) | Developer | ? | Multiplayer mobile games — *TDZ: Traffic Driving Zone*, *Defense of the Kings* |
-| **ADASTEC** (Turkey) | Developer | ? | Unity + ROS2 simulation for Level 4 autonomous vehicles |
-| **VRLabAcademy** | VR Developer | 2020 – 2022 | VR university physics/chemistry lab experiments |
-| **Scalar Vision** | AR/VR Developer | 2019 – 2020 | 3D holographic communication, 3D scanning |
-
-Gaps marked `?` need dates from the résumé.
+| **Rapsodo** (Singapore, remote) | Senior Software Engineer | 12.2023 – present | Both stories (decided 2026-11-21): the golf mini-games, and the MiniApp SDK / SuperApp that hosts them (device comms, SIL simulation) |
+| **Gleechi** (Stockholm) | Senior VR Developer | 09.2023 – 11.2023 | VR training simulations; the company closed |
+| **Leke Games** (Istanbul) | Mid-Senior Game Developer | 06.2022 – 06.2023 | Multiplayer mobile games: *TDZ: Traffic Driving Zone*, *Defense of the Kings* |
+| **ADASTEC** (Istanbul) | Unity Developer | 12.2021 – 06.2022 | Unity + ROS simulation for level 4 autonomous vehicles |
+| **VRLabAcademy** (London) | Unity VR Developer | 09.2020 – 12.2021 | University physics/chemistry lab experiments in VR |
+| **Scalar Vision** (Istanbul) | AR & VR Developer | 09.2019 – 09.2020 | AR telepresence (teleporter), 3D scanning, Mismos Design app |
 
 ## 3. Project case studies (from `src/data/projects.js`)
 
@@ -151,5 +152,5 @@ Both are short and could be revived as MDX posts.
 4. ~~**Dates**~~ **Resolved (2026-11-18)** from the CV: Gleechi 09–11.2023,
    Leke Games 06.2022–06.2023, ADASTEC 12.2021–06.2022. Full timeline lives in
    `src/content/about.ts`.
-5. The v1 About page says Rapsodo work is "golf-based mini-games", while the
-   résumé says MiniApp SDK / SuperApp. Present both?
+5. ~~**Rapsodo focus**~~ **Resolved (2026-11-21):** present both: the golf
+   mini-games and the MiniApp SDK / SuperApp.
