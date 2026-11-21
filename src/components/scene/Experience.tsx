@@ -24,16 +24,19 @@ export default function Experience() {
         <Canvas
           dpr={[1, 2]}
           camera={{ fov: 26 }}
-          gl={{ antialias: true }}
+          gl={{ antialias: true, alpha: true }}
         >
-          <color attach="background" args={[palette.ink]} />
+          {/* Neon trial: transparent canvas, so the page's gradient
+              atmosphere sits behind the bust instead of tinting it. */}
           <CameraRig focus={focus} />
 
           {/* Studio rig: soft key from front-left, thin rim from behind, faint fill. */}
           <directionalLight position={[-2.5, 3, 2.5]} intensity={3} />
-          <directionalLight position={[2.5, 2.5, -3]} intensity={5} color={palette.accent2} />
-          <directionalLight position={[-3, 1.5, -2.5]} intensity={3} color={palette.accent} />
-          <hemisphereLight args={[palette.accent, palette.ink, 0.5]} />
+          {/* Neon trial: the face keeps neutral light; colour only rims the
+              silhouette, from well behind so it doesn't spill onto the front. */}
+          <directionalLight position={[3.5, 2.2, -4.5]} intensity={6} color={palette.accent2} />
+          <directionalLight position={[-2.5, 3.5, -5]} intensity={3} color={palette.accent} />
+          <hemisphereLight args={[palette.bone, palette.ink, 0.6]} />
 
           <Environment resolution={256} environmentIntensity={0.8}>
             <Lightformer form="rect" intensity={2} position={[-3, 2, 2]} scale={[2, 3, 1]} />

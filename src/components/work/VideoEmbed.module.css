@@ -52,3 +52,11 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* Neon trial (branch theme-neon). */
+.play {
+  color: var(--accent-2);
+  border: 1px solid var(--accent-2);
+  box-shadow: var(--glow-cyan), inset 0 0 10px rgb(77 227 255 / 0.2);
+  text-shadow: var(--glow-cyan);
+}

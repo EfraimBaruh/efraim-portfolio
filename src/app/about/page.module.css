@@ -139,3 +139,10 @@
     margin-top: 56px;
   }
 }
+
+/* Neon trial (branch theme-neon). */
+.eyebrow,
+.heading {
+  color: var(--accent-2);
+  text-shadow: var(--glow-cyan);
+}

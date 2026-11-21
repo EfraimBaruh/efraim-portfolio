@@ -94,3 +94,10 @@
     transition: none;
   }
 }
+
+/* Neon trial (branch theme-neon). */
+.link[aria-current="page"] {
+  color: var(--accent-2);
+  text-decoration-color: var(--accent-2);
+  text-shadow: var(--glow-cyan);
+}

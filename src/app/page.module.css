@@ -278,3 +278,24 @@
     transition: none;
   }
 }
+
+/* Neon trial (branch theme-neon). */
+.eyebrow {
+  color: var(--accent-2);
+  text-shadow: var(--glow-cyan);
+}
+
+.primary {
+  color: var(--accent-2);
+  text-shadow: var(--glow-cyan);
+  background-image: linear-gradient(var(--accent-2), var(--accent-2)),
+    linear-gradient(currentColor, currentColor);
+}
+
+/* Desktop only: on phones this element is the text backdrop, not a line. */
+@media (min-width: 768px) {
+  .hero::after {
+    border-bottom-color: rgb(181 123 255 / 0.45);
+    box-shadow: 0 1px 14px rgb(181 123 255 / 0.35);
+  }
+}

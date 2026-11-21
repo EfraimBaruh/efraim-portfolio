@@ -72,3 +72,28 @@
     display: none;
   }
 }
+
+/* Neon trial (branch theme-neon). */
+.index {
+  color: var(--accent-2);
+}
+
+.item {
+  transition: border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+.item:hover,
+.item:focus-within {
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 16px rgb(181 123 255 / 0.4);
+}
+
+.link:hover .projectTitle,
+.link:focus-visible .projectTitle {
+  text-shadow: var(--glow-text);
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  color: var(--accent-2);
+}

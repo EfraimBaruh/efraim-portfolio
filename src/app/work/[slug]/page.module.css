@@ -153,3 +153,9 @@
   text-transform: uppercase;
   color: var(--muted);
 }
+
+/* Neon trial (branch theme-neon). */
+.heading {
+  color: var(--accent-2);
+  text-shadow: var(--glow-cyan);
+}

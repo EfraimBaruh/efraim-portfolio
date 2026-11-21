@@ -172,3 +172,9 @@
     transition: none;
   }
 }
+
+/* Neon trial (branch theme-neon). */
+.trigger {
+  color: var(--accent);
+  text-shadow: var(--glow-text);
+}
