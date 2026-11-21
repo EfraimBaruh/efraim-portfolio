@@ -2,7 +2,7 @@
 
 **Status: decided (2026-10-24): Next.js + R3F + drei + TypeScript, static export.**
 Search visibility is a requirement. The chosen design is **A + C hybrid**
-(Studio Noir with a one-time point-cloud intro). See `DESIGN_DIRECTIONS.md`.
+(Studio Noir layout in the Slate palette, with a one-time point-cloud intro). See `DESIGN_DIRECTIONS.md`.
 
 ## What the stack has to support
 These come from the design, so they drive the choice:

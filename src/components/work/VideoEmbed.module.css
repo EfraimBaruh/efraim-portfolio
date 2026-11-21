@@ -45,7 +45,7 @@
   text-transform: uppercase;
 }
 
-/* Neon trial (branch theme-neon). */
+/* Slate: accent labels, glows and hover states. */
 .play {
   color: var(--accent-2);
   border: 1px solid var(--accent-2);

@@ -140,7 +140,7 @@
   }
 }
 
-/* Neon trial (branch theme-neon). */
+/* Slate: accent labels, glows and hover states. */
 .eyebrow,
 .heading {
   color: var(--accent-2);

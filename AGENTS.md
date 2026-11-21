@@ -20,9 +20,11 @@ carry over.
 
 - Extracted content, career data, and asset specs: [`docs/KNOWLEDGE.md`](docs/KNOWLEDGE.md)
 - Design directions: [`docs/DESIGN_DIRECTIONS.md`](docs/DESIGN_DIRECTIONS.md).
-  **Chosen: A + C hybrid.** "Studio Noir" (warm charcoal `#262624`, not near-black; rim-lit portrait,
-  serif/grotesk, bone-colored text) is the site-wide system. The "Point Cloud"
-  assembly of the avatar is used **once**, as the intro and loading sequence.
+  **Chosen: A + C hybrid, in the "Slate" palette** (decided 2026-11-21,
+  replacing Studio Noir's warm charcoal): cool charcoal `#191d23`, off-white
+  text, a muted ice-cyan accent (`#84d8ec`) with faint glows, a rim-lit
+  portrait, serif/grotesk type. The "Point Cloud" assembly of the avatar is
+  used **once**, as the intro and loading sequence.
 - Tech stack: [`docs/TECH_STACK.md`](docs/TECH_STACK.md). **Chosen: Next.js (App
   Router, static export) + React Three Fiber + drei + TypeScript**, because search
   visibility matters.
@@ -49,9 +51,12 @@ you touched.
 - **The 3D work is the proof of skill.** Shader work, lighting, interaction, and
   performance are all part of what's being showcased. Polish matters more than
   quantity.
-- **Visual language:** sleek, elegant, pure, low-color. Monochrome palette with at
-  most one restrained accent. Generous whitespace, slow physical motion. No neon,
-  no glitch or flicker effects, no "hacker terminal" look (v1 tried all of these).
+- **Visual language:** sleek, elegant, pure, low-color. A cool monochrome base
+  with one restrained ice-cyan accent whose glows stay faint (Efraim tuned the
+  level on 2026-11-21: brighter read as cheap, dimmer hid it). Neon lives on
+  the bust's rim light and small accents, never on the face or in large
+  areas. Generous whitespace, slow physical motion. No glitch or flicker
+  effects, no "hacker terminal" look (v1 tried these).
 
 ## Sections
 Home (avatar host) · Work / Projects (case studies) · About (bio, timeline,

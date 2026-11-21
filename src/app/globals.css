@@ -1,5 +1,5 @@
-/* Theme trial (branch theme-neon): "Slate", between Studio Noir and Ice.
-   Cool charcoal, a muted ice-cyan accent, glows kept faint.
+/* "Slate" (chosen 2026-11-21): cool charcoal, a muted ice-cyan accent,
+   glows kept faint. Successor to Studio Noir; see docs/DESIGN_DIRECTIONS.md.
    Keep in sync with src/content/palette.ts. */
 :root {
   --ink: #191d23;
@@ -50,7 +50,7 @@ html {
 
 body {
   min-height: 100svh;
-  /* Theme trial: a faint ice haze top-right, behind the (transparent)
+  /* A faint ice haze top-right, behind the (transparent)
      3D canvas. */
   background:
     radial-gradient(60% 50% at 85% 10%, rgb(var(--accent-rgb) / 0.11), transparent 70%) fixed,

@@ -113,7 +113,7 @@
   }
 }
 
-/* Neon trial (branch theme-neon). */
+/* Slate: accent labels, glows and hover states. */
 .label {
   color: var(--accent-2);
   text-shadow: var(--glow-cyan);

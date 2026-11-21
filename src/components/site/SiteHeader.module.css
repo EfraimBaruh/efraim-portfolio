@@ -95,7 +95,7 @@
   }
 }
 
-/* Neon trial (branch theme-neon). */
+/* Slate: accent labels, glows and hover states. */
 .link[aria-current="page"] {
   color: var(--accent-2);
   text-decoration-color: var(--accent-2);

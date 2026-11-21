@@ -12,7 +12,7 @@ Shared principles (apply to every direction):
 - **Restraint in type.** Two typefaces at most, a large scale contrast, generous
   whitespace.
 - **Slow, physical motion.** Eased camera moves and damped springs. No flicker, no
-  glitch, no neon.
+  glitch. Neon only as a faint accent glow (see Slate below).
 - **Performance is part of the portfolio.** Show a loading state with real progress,
   target 60 fps on a mid-range laptop, and provide a static fallback for no-WebGL
   and `prefers-reduced-motion`.
@@ -69,12 +69,30 @@ Shared principles (apply to every direction):
 
 ---
 
+## ✅ Palette: "Slate" (decided by Efraim, 2026-11-21)
+Replaces Studio Noir's warm charcoal. Tried on a branch against a violet neon
+look and four alternatives (Ember, Ice, Mint, Lime); Efraim chose a calmer
+point between Studio Noir and Ice, then raised the glow slightly.
+
+- **Tokens** (`globals.css` + `palette.ts`): `#191d23` ink · `#222730` surface
+  · `#eef1f3` text · `#9aa2ab` muted · `#84d8ec` ice-cyan accent · `#c5dde4`
+  pale-ice second accent (labels, the main rim light, the point-cloud intro).
+  Glows derive from `--accent-rgb` / `--accent-2-rgb`.
+- **3D rig:** neutral key and sky light, so the face keeps its own skin tone;
+  colour only rims the silhouette from well behind (pale ice right, ice-cyan
+  left-back). The canvas is transparent and the page paints a faint haze
+  behind it. Never put a tinted layer over the canvas: it tints the face.
+- **Accents:** cyan eyebrows and labels, a cyan underline on the main link and
+  current nav item, a soft oval wash plus a 6px title shift on project-row
+  hover, a faint neon halo on case-study videos (always in colour,
+  click-to-play).
+
 ## ✅ Chosen: A + C hybrid (decided by Efraim, 2026-10-24)
 Use **Studio Noir** as the overall system, with the **Point Cloud assembly** used
 *once*, as the intro and loading sequence. Particles form the avatar while the
 assets load, then hand off to the lit portrait. That gives a technical "wow"
-moment once, and elegance everywhere else. Keep strictly monochrome, with one warm
-bone accent.
+moment once, and elegance everywhere else. Keep strictly monochrome, with one
+accent (now the Slate ice-cyan; originally a warm bone).
 
 ### Bust presentation (decided 2026-11-18)
 The avatar is shown as a **bust**, not full-length: head, shoulders and upper

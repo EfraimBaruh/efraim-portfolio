@@ -26,13 +26,13 @@ export default function Experience() {
           camera={{ fov: 26 }}
           gl={{ antialias: true, alpha: true }}
         >
-          {/* Neon trial: transparent canvas, so the page's gradient
+          {/* Transparent canvas, so the page's gradient
               atmosphere sits behind the bust instead of tinting it. */}
           <CameraRig focus={focus} />
 
           {/* Studio rig: soft key from front-left, thin rim from behind, faint fill. */}
           <directionalLight position={[-2.5, 3, 2.5]} intensity={3} />
-          {/* Theme trial: the face keeps neutral light; colour only rims the
+          {/* Slate rig: the face keeps neutral light; colour only rims the
               silhouette, from well behind so it doesn't spill onto the front. */}
           <directionalLight position={[3.5, 2.2, -4.5]} intensity={5.2} color={palette.accent2} />
           <directionalLight position={[-2.5, 3.5, -5]} intensity={2.6} color={palette.accent} />

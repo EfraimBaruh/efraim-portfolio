@@ -1,4 +1,4 @@
-// Theme trial (branch theme-neon): "Slate", between Studio Noir and Ice.
+// "Slate" (chosen 2026-11-21): cool charcoal, muted ice-cyan accent.
 // Mirrors the CSS tokens in app/globals.css — the 3D scene needs raw hex.
 export const palette = {
   ink: "#191d23",
