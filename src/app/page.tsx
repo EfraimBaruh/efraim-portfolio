@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
-import { pageMetadata } from "@/content/seo";
+import { pageMetadata, search } from "@/content/seo";
 import ProjectRow from "@/components/work/ProjectRow";
 import BuildNotes from "@/components/home/BuildNotes";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = pageMetadata({
-  title: `${profile.name} — ${profile.title}`,
-  description: `${profile.name}, ${profile.title}. ${profile.focus}.`,
+  title: search.home.title,
+  description: search.home.description,
   path: "/",
 });
 

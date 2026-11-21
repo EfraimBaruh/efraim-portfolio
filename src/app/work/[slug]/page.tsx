@@ -18,8 +18,9 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   const project = getProject((await params).slug);
   if (!project) return {};
   return pageMetadata({
-    title: `${project.title} — ${profile.name}`,
-    description: project.summary,
+    // e.g. "Golf Simulation, Unity and C# Case Study | Efraim Baruh Bölükbaşı"
+    title: `${project.title}, ${project.stack.slice(0, 2).join(" and ")} Case Study | ${profile.name}`,
+    description: `${project.summary} A case study by ${profile.name} (Bolukbasi), Unity and AR/VR developer.`,
     path: `/work/${project.slug}/`,
   });
 }

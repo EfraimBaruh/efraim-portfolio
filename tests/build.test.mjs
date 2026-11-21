@@ -61,6 +61,33 @@ for (const route of routes) {
   });
 }
 
+// Search visibility (decided 2026-11-21): role keywords in the Home title,
+// both surname spellings findable on every page and in the structured data.
+const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&amp;/g, "&");
+const meta = (html, re) => decode(html.match(re)?.[1] ?? "");
+
+test("Home title names the roles people search for", () => {
+  const title = meta(read("index.html"), /<title>([^<]+)<\/title>/);
+  for (const word of ["Unity", "AR/VR", "3D", "Bölükbaşı"]) assert.ok(title.includes(word), `title lacks ${word}: ${title}`);
+});
+
+test("every page carries the ASCII surname (Bolukbasi) in its description", () => {
+  for (const route of routes) {
+    const d = meta(read(join(route, "index.html")), /<meta name="description" content="([^"]+)"/);
+    assert.match(d, /Bolukbasi/, route);
+  }
+});
+
+test("structured data lists both spellings and the roles", () => {
+  const html = read("index.html");
+  const json = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(json, "no JSON-LD");
+  const person = JSON.parse(json)["@graph"].find((n) => n["@type"] === "Person");
+  assert.ok(person.name.includes("Bölükbaşı"));
+  assert.ok(person.alternateName.some((n) => n.includes("Bolukbasi")));
+  assert.ok(person.jobTitle.some((t) => /Unity/.test(t)) && person.jobTitle.some((t) => /AR\/VR/.test(t)));
+});
+
 test("public URLs use NEXT_PUBLIC_SITE_URL", { skip: !SITE && "NEXT_PUBLIC_SITE_URL not set" }, () => {
   for (const u of sitemap) assert.ok(u.startsWith(SITE), `sitemap: ${u}`);
   assert.ok(read("robots.txt").includes(`${SITE}/sitemap.xml`));

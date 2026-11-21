@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist_Mono, Inter } from "next/font/google";
 import { profile } from "@/content/profile";
 import { palette } from "@/content/palette";
-import { personJsonLd, siteUrl } from "@/content/seo";
+import { personJsonLd, search, siteUrl } from "@/content/seo";
 import SceneRoot from "@/components/scene/SceneRoot";
 import SiteHeader from "@/components/site/SiteHeader";
 import ScrollCue from "@/components/site/ScrollCue";
@@ -27,16 +27,17 @@ const geistMono = Geist_Mono({
 // the social card text through pageMetadata() in src/content/seo.ts.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${profile.name} — ${profile.title}`,
-  description: `${profile.name}, ${profile.title}. ${profile.focus}.`,
+  title: search.home.title,
+  description: search.home.description,
+  keywords: [...search.keywords],
   authors: [{ name: profile.name, url: `${siteUrl}/` }],
   creator: profile.name,
   openGraph: {
     type: "website",
     siteName: profile.name,
     locale: "en_US",
-    title: `${profile.name} — ${profile.title}`,
-    description: `${profile.name}, ${profile.title}. ${profile.focus}.`,
+    title: search.home.title,
+    description: search.home.description,
   },
   twitter: { card: "summary_large_image" },
 };

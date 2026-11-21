@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { projects } from "@/content/projects";
-import { profile } from "@/content/profile";
-import { pageMetadata } from "@/content/seo";
+import { pageMetadata, search } from "@/content/seo";
 import ProjectRow from "@/components/work/ProjectRow";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = pageMetadata({
-  title: `Work — ${profile.name}`,
-  description: `Selected real-time 3D, AR/VR and simulation projects by ${profile.name}.`,
+  title: search.work.title,
+  description: search.work.description,
   path: "/work/",
 });
 

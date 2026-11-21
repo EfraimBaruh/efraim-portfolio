@@ -93,7 +93,11 @@ Email link (`mailto:`, on every page) is the contact route.
 - Content lives in typed data files or MDX, not hard-coded in components.
 - **SEO:** every page exports `pageMetadata({ title, description, path })`
   (`src/content/seo.ts`) for its canonical URL and social card, and new routes
-  go in `staticRoutes` for the sitemap. Set `NEXT_PUBLIC_SITE_URL` at build
+  go in `staticRoutes` for the sitemap. Search text lives in `search` in
+  `seo.ts` (decided 2026-11-21): titles name the roles people search for
+  (Unity, AR/VR, real-time 3D), every description carries the ASCII surname
+  "Bolukbasi" next to "Bölükbaşı", and the JSON-LD lists both spellings.
+  Build tests enforce this; keep it factual (no claims beyond `about.ts`). Set `NEXT_PUBLIC_SITE_URL` at build
   time once the domain exists (until then URLs point at localhost).
 - **Stills** (no-WebGL poster, OG card, icons) are rendered from the live site
   by `scripts/capture/stills.mjs`; re-run it after avatar, lighting or palette
