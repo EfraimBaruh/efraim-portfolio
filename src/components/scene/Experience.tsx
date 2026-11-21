@@ -32,10 +32,10 @@ export default function Experience() {
 
           {/* Studio rig: soft key from front-left, thin rim from behind, faint fill. */}
           <directionalLight position={[-2.5, 3, 2.5]} intensity={3} />
-          {/* Neon trial: the face keeps neutral light; colour only rims the
+          {/* Theme trial: the face keeps neutral light; colour only rims the
               silhouette, from well behind so it doesn't spill onto the front. */}
-          <directionalLight position={[3.5, 2.2, -4.5]} intensity={6} color={palette.accent2} />
-          <directionalLight position={[-2.5, 3.5, -5]} intensity={3} color={palette.accent} />
+          <directionalLight position={[3.5, 2.2, -4.5]} intensity={4.5} color={palette.accent2} />
+          <directionalLight position={[-2.5, 3.5, -5]} intensity={2} color={palette.accent} />
           <hemisphereLight args={[palette.bone, palette.ink, 0.6]} />
 
           <Environment resolution={256} environmentIntensity={0.8}>

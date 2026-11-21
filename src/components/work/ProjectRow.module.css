@@ -85,7 +85,7 @@
 .item:hover,
 .item:focus-within {
   border-bottom-color: var(--accent);
-  box-shadow: 0 1px 16px rgb(var(--accent-rgb) / 0.4);
+  box-shadow: 0 1px 12px rgb(var(--accent-rgb) / 0.16);
 }
 
 .link:hover .projectTitle,
