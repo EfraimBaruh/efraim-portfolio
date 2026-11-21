@@ -5,6 +5,7 @@ import { palette } from "@/content/palette";
 import { personJsonLd, siteUrl } from "@/content/seo";
 import SceneRoot from "@/components/scene/SceneRoot";
 import SiteHeader from "@/components/site/SiteHeader";
+import ScrollCue from "@/components/site/ScrollCue";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SceneRoot />
         <SiteHeader />
         {children}
+        <ScrollCue />
         <script
           type="application/ld+json"
           // Static, build-time data from typed content; "<" is escaped.

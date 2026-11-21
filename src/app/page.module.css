@@ -10,12 +10,15 @@
 
 .hero {
   position: relative;
-  min-height: 100svh;
+  /* Desktop: the hero stops short of the fold so the top of Selected work
+     peeks in, a hint that the page continues (see ScrollCue too). */
+  --peek: 10svh;
+  min-height: calc(100svh - var(--peek));
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-template-rows: auto 1fr;
   column-gap: 24px;
-  padding: calc(var(--gutter) + 72px) var(--gutter) var(--gutter);
+  padding: calc(var(--gutter) + 56px) var(--gutter) var(--gutter);
 }
 
 /* The floor: the bust fades out just above it, and it closes the hero. */
@@ -40,7 +43,7 @@
 .intro {
   grid-column: 1 / span 6;
   align-self: end;
-  padding-bottom: 32px;
+  padding-bottom: 16px;
 }
 
 /* "How it's built" open: the hero text steps aside for the notes panel. */
@@ -63,7 +66,8 @@
 .name {
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(56px, 9vw, 144px);
+  /* Also bound by height, so the hero fits above the peek on short screens. */
+  font-size: clamp(56px, min(9vw, 13svh), 144px);
   line-height: 0.9;
   letter-spacing: -0.02em;
 }
@@ -75,8 +79,8 @@
 /* Positioning: the lead is the punchline (display serif), the detail
    paragraph follows quieter. */
 .lead {
-  margin-top: 28px;
-  max-width: 28ch;
+  margin-top: 24px;
+  max-width: 31ch;
   font-family: var(--font-display);
   font-weight: 300;
   font-size: clamp(22px, 2vw, 28px);
@@ -87,7 +91,7 @@
 
 .detail {
   margin-top: 16px;
-  max-width: 40ch;
+  max-width: 48ch;
   font-size: clamp(16px, 1.2vw, 18px);
   line-height: 1.55;
   color: var(--bone);
@@ -157,7 +161,7 @@
 /* Selected work: one reading column beside the avatar. */
 .work {
   width: min(640px, 100%);
-  padding: 120px var(--gutter) 160px;
+  padding: 32px var(--gutter) 160px;
 }
 
 .workTitle {
@@ -205,6 +209,7 @@
      half); text starts below it and the hero grows to fit, so long
      copy scrolls instead of climbing over the face on short phones. */
   .hero {
+    --peek: 0px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

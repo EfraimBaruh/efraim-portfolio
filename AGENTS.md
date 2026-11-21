@@ -73,7 +73,8 @@ Email link (`mailto:`, on every page) is the contact route.
 - The avatar GLB needs `EXT_meshopt_compression`, `KHR_mesh_quantization`, and
   `EXT_texture_webp`. Use a meshopt decoder and make sure it's ready before parsing.
 - The avatar is **rigged** (22 bones, relaxed rest pose, `Idle` clip). Host
-  behaviour lives in `useHostBehavior.ts` (idle plus head and neck look-at),
+  behaviour lives in `useHostBehavior.ts` (idle, head and neck look-at,
+  and a one-off downward glance toward the content as a scroll cue),
   starting after the intro, and is disabled under reduced motion. It's a
   `SkinnedMesh`: anything that samples or measures it must use skinned rest
   positions (`sampleSurface.ts` → `restGeometry`), not the raw position

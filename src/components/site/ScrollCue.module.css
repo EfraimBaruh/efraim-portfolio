@@ -1,0 +1,104 @@
+/* Bottom-centre of the first screen. Fades in after the page settles, out on
+   the first scroll. The hairline carries a slow light that travels down it. */
+.cue {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px calc(var(--gutter) * 0.5);
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s var(--ease-out),
+    visibility 0s linear 0.5s;
+}
+
+.cue[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 1.2s var(--ease-out) 1.6s,
+    visibility 0s linear 0s;
+}
+
+/* Hidden while "How it's built" is open: that view doesn't scroll. */
+:global(html[data-focus]) .cue {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.line {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  overflow: hidden;
+  background: var(--hairline);
+}
+
+.line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 40%;
+  background: var(--bone);
+  transform: translateY(-100%);
+  animation: travel 2.4s var(--ease-out) 2.4s infinite;
+}
+
+@keyframes travel {
+  0% {
+    transform: translateY(-100%);
+  }
+  70%,
+  100% {
+    transform: translateY(250%);
+  }
+}
+
+/* Mobile: text runs to the bottom edge, so the cue sits on a short fade of
+   the background instead of on top of the words. */
+@media (max-width: 767px) {
+  .cue {
+    left: 0;
+    right: 0;
+    padding-top: 40px;
+    transform: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--ink) 0%, transparent),
+      var(--ink) 60%
+    );
+  }
+
+  .line {
+    height: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue,
+  .cue[data-visible] {
+    transition: none;
+  }
+
+  .line::after {
+    animation: none;
+  }
+}

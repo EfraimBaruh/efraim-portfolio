@@ -131,3 +131,11 @@
     gap: 16px;
   }
 }
+
+/* Narrow: tighter gap after the bio, so the Experience heading shows at the
+   fold on a phone (a hint that the page continues). */
+@media (max-width: 767px) {
+  .section {
+    margin-top: 56px;
+  }
+}

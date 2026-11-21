@@ -33,6 +33,13 @@ order, and how the avatar host takes part. Visual system: see
     toward the text column
   - The canvas persists across navigation, so the avatar *moves* between
     states instead of reloading.
+- **Scroll affordance** (decided 2026-11-21): three layers, so first-time
+  visitors see the page continues. (1) Peek: on desktop the Home hero stops
+  10svh short of the fold so Selected work shows; on phones About's
+  Experience heading sits at the fold. (2) `ScrollCue`: a mono "Scroll" with
+  a hairline, bottom-centre, on any page that overflows; it leaves on the
+  first scroll. (3) After the intro the bust glances down toward the content
+  once. If (2) and (3) prove enough, the peek may be reverted.
 - **Footer:** none for now. There's no Contact page (decided 2026-11-19); the
   header's Email link (every page) is the contact route.
 

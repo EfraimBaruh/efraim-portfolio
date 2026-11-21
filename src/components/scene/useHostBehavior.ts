@@ -21,6 +21,15 @@ const WAKE_SECONDS = 1.2;
 /** Touch devices: no tracking; the head rests looking slightly down. */
 const REST_PITCH = -THREE.MathUtils.degToRad(5);
 
+/**
+ * Once the host wakes on a page that continues below the fold, it glances
+ * down toward the content (a scroll cue), then returns to its usual look.
+ * Screen position in NDC: bottom edge, slightly toward the text column.
+ */
+const GLANCE_AT = new THREE.Vector2(-0.2, -0.95);
+const GLANCE_DELAY_MS = 900;
+const GLANCE_HOLD_MS = 1500;
+
 const UP = new THREE.Vector3(0, 1, 0);
 const RIGHT = new THREE.Vector3(1, 0, 0);
 
@@ -53,6 +62,8 @@ export function useHostBehavior({
   const look = useRef({ yaw: 0, pitch: 0, midYaw: 0, midPitch: 0, weight: 0 });
   const gaze = useRef({ yaw: 0, pitch: 0, following: false });
   const lastMove = useRef(0);
+  // Window (performance.now ms) of the one-off downward glance; 0 = none.
+  const glance = useRef({ start: 0, end: 0, seen: false });
   // "track": follow the mouse. "rest": fixed look. "off": untouched.
   const lookMode = useRef<"off" | "track" | "rest">("off");
   const restPitch = useRef(0);
@@ -94,6 +105,13 @@ export function useHostBehavior({
     const idle = reduce ? undefined : actions.Idle;
     idle?.reset().fadeIn(WAKE_SECONDS).play();
 
+    // One glance per load, only at the top of a page that scrolls.
+    const scrolls = document.documentElement.scrollHeight - window.innerHeight > 160;
+    if (!reduce && !glance.current.seen && window.scrollY < 24 && scrolls) {
+      const start = performance.now() + GLANCE_DELAY_MS;
+      glance.current = { start, end: start + GLANCE_HOLD_MS, seen: true };
+    }
+
     // Window-level: page content sits above the canvas and would swallow
     // canvas pointer events.
     const onMove = (e: PointerEvent) => {
@@ -127,22 +145,32 @@ export function useHostBehavior({
     body.current.getWorldQuaternion(s.bodyQ);
     s.bodyQInv.copy(s.bodyQ).invert();
 
-    let yaw = 0;
-    let pitch = restPitch.current;
-    if (lookMode.current === "track") {
-      // Where the pointer is, at the head's distance from the camera.
+    // Yaw/pitch (body frame) that would face a screen point, at the head's
+    // distance from the camera.
+    const aim = (ndc: THREE.Vector2) => {
       b.head.getWorldPosition(s.headPos);
-      s.raycaster.setFromCamera(pointer.current, camera);
+      s.raycaster.setFromCamera(ndc, camera);
       const dist = camera.position.distanceTo(s.headPos);
       s.target.copy(s.raycaster.ray.direction).multiplyScalar(dist).add(s.raycaster.ray.origin);
       // Direction in the body's frame (the scan faces +Z).
       s.target.sub(s.headPos).applyQuaternion(s.bodyQInv);
-      const wantYaw = THREE.MathUtils.clamp(Math.atan2(s.target.x, s.target.z), -MAX_YAW, MAX_YAW);
-      const wantPitch = THREE.MathUtils.clamp(
-        Math.atan2(s.target.y, Math.hypot(s.target.x, s.target.z)),
-        -MAX_PITCH_DOWN,
-        MAX_PITCH_UP,
-      );
+      return [
+        THREE.MathUtils.clamp(Math.atan2(s.target.x, s.target.z), -MAX_YAW, MAX_YAW),
+        THREE.MathUtils.clamp(Math.atan2(s.target.y, Math.hypot(s.target.x, s.target.z)), -MAX_PITCH_DOWN, MAX_PITCH_UP),
+      ] as const;
+    };
+
+    let yaw = 0;
+    let pitch = restPitch.current;
+    const now = performance.now();
+    const gl = glance.current;
+    if (now >= gl.start && now < gl.end) {
+      [yaw, pitch] = aim(GLANCE_AT);
+      // Afterwards, pick the pointer up again straight away.
+      gaze.current.following = true;
+      lastMove.current = now;
+    } else if (lookMode.current === "track") {
+      const [wantYaw, wantPitch] = aim(pointer.current);
 
       // Hysteresis: small moves around the current gaze are ignored. Past the
       // threshold the gaze follows the pointer until it rests, then re-anchors.

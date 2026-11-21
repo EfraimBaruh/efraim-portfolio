@@ -34,15 +34,16 @@ function solveShot(fov: number, width: number, height: number, focus: boolean): 
     return { position: new THREE.Vector3(x, y + 0.03, distance), target: new THREE.Vector3(x, y, 0) };
   }
 
-  // Desktop: crown ~14% from the top, fade ending above the hero floor line;
+  // Desktop: crown ~13% from the top, fade ending (~84%) above the hero floor
+  // line, which sits at 90svh minus the gutter (the hero leaves a peek);
   // the bust sits right of centre, so leave room for it horizontally.
   // Mobile: the bust owns the top half (crown 9% down, cut at most ~49%,
   // where the hero text starts at 50svh); the text stacks below it.
-  const viewHeight = wide ? BUST_SPAN / 0.74 : BUST_SPAN / 0.4;
+  const viewHeight = wide ? BUST_SPAN / 0.71 : BUST_SPAN / 0.4;
   const viewWidth = wide ? 1.5 : 0.78;
   const distance = Math.max(viewHeight / perMetre, viewWidth / (perMetre * aspect));
   const visible = perMetre * distance;
-  const topMargin = wide ? 0.14 : 0.09;
+  const topMargin = wide ? 0.13 : 0.09;
   const centerY = BUST_TOP + 0.02 - (0.5 - topMargin) * visible;
   return { position: new THREE.Vector3(0, centerY + 0.05, distance), target: new THREE.Vector3(0, centerY, 0) };
 }
