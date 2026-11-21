@@ -5,7 +5,7 @@ export const palette = {
   surface: "#222730",
   bone: "#eef1f3",
   muted: "#9aa2ab",
-  accent: "#8fd4e4",
+  accent: "#84d8ec",
   // Pale ice: the main rim light and the point-cloud intro.
   accent2: "#c5dde4",
   // Baked into the avatar GLB by scripts/avatar/rig_avatar.py (the tie).

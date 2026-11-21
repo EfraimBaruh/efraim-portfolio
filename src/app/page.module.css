@@ -295,7 +295,7 @@
 /* Desktop only: on phones this element is the text backdrop, not a line. */
 @media (min-width: 768px) {
   .hero::after {
-    border-bottom-color: rgb(var(--accent-rgb) / 0.28);
-    box-shadow: 0 1px 10px rgb(var(--accent-rgb) / 0.12);
+    border-bottom-color: rgb(var(--accent-rgb) / 0.34);
+    box-shadow: 0 1px 10px rgb(var(--accent-rgb) / 0.2);
   }
 }

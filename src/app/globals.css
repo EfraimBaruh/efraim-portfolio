@@ -6,17 +6,17 @@
   --surface: #222730;
   --bone: #eef1f3;
   --muted: #9aa2ab;
-  --accent: #8fd4e4;
+  --accent: #84d8ec;
   --accent-2: #c5dde4;
   /* Channel triplets of --accent / --accent-2, for glows at any alpha. */
-  --accent-rgb: 143 212 228;
+  --accent-rgb: 132 216 236;
   --accent-2-rgb: 197 221 228;
   --tie: #111110; /* baked into the avatar GLB */
-  --hairline: rgb(var(--accent-2-rgb) / 0.14);
-  --glow-text: 0 0 12px rgb(var(--accent-rgb) / 0.3);
-  --glow-soft: 0 0 22px rgb(var(--accent-rgb) / 0.12);
-  --glow-cyan: 0 0 8px rgb(var(--accent-rgb) / 0.22);
-  --glow-line: 0 0 6px rgb(var(--accent-rgb) / 0.45);
+  --hairline: rgb(var(--accent-2-rgb) / 0.17);
+  --glow-text: 0 0 12px rgb(var(--accent-rgb) / 0.4);
+  --glow-soft: 0 0 24px rgb(var(--accent-rgb) / 0.18);
+  --glow-cyan: 0 0 8px rgb(var(--accent-rgb) / 0.32);
+  --glow-line: 0 0 6px rgb(var(--accent-rgb) / 0.6);
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
@@ -53,8 +53,8 @@ body {
   /* Theme trial: a faint ice haze top-right, behind the (transparent)
      3D canvas. */
   background:
-    radial-gradient(60% 50% at 85% 10%, rgb(var(--accent-rgb) / 0.08), transparent 70%) fixed,
-    radial-gradient(50% 45% at 5% 95%, rgb(var(--accent-2-rgb) / 0.04), transparent 70%) fixed,
+    radial-gradient(60% 50% at 85% 10%, rgb(var(--accent-rgb) / 0.11), transparent 70%) fixed,
+    radial-gradient(50% 45% at 5% 95%, rgb(var(--accent-2-rgb) / 0.06), transparent 70%) fixed,
     var(--ink);
   color: var(--bone);
   font-family: var(--font-body);
