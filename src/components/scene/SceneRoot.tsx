@@ -12,12 +12,24 @@ import StaticBust from "./StaticBust";
  */
 function afterPageIdle() {
   return new Promise<void>((resolve) => {
-    const idle = () =>
-      "requestIdleCallback" in window ? requestIdleCallback(() => resolve(), { timeout: 1500 }) : setTimeout(resolve, 200);
-    if (document.readyState === "complete") idle();
-    else window.addEventListener("load", idle, { once: true });
+    let waited = false;
+    const idle = () => {
+      if (waited) return;
+      waited = true;
+      if ("requestIdleCallback" in window) requestIdleCallback(() => resolve(), { timeout: 1500 });
+      else setTimeout(resolve, 200);
+    };
+    if (document.readyState === "complete") return idle();
+    window.addEventListener("load", idle, { once: true });
+    // `load` waits for every resource; one that stalls (seen with Safari
+    // restoring a page from cache) would otherwise keep the scene from ever
+    // starting. Past this cap, start anyway.
+    setTimeout(idle, LOAD_CAP_MS);
   });
 }
+
+/** Longest the scene waits for the page's `load` event. */
+const LOAD_CAP_MS = 4000;
 
 // WebGL is client-only; page HTML stays static and crawlable.
 const Experience = dynamic(() => afterPageIdle().then(() => import("./Experience")), { ssr: false });
