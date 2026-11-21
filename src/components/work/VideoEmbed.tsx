@@ -8,31 +8,28 @@ export default function VideoEmbed({ id, title }: { id: string; title: string })
   const [playing, setPlaying] = useState(false);
 
   return (
-    // The mount: a matted hairline frame with corner brackets (CSS).
-    <div className={styles.mount}>
-      <div className={styles.frame}>
-        {playing ? (
-          <iframe
+    <div className={styles.frame}>
+      {playing ? (
+        <iframe
+          className={styles.media}
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+          title={title}
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+        />
+      ) : (
+        <button type="button" className={styles.poster} onClick={() => setPlaying(true)}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- remote thumbnail, static export */}
+          <img
             className={styles.media}
-            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
-            title={title}
-            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
+            src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+            alt=""
+            // Media sits in the first screen of a case study (its LCP).
+            fetchPriority="high"
           />
-        ) : (
-          <button type="button" className={styles.poster} onClick={() => setPlaying(true)}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- remote thumbnail, static export */}
-            <img
-              className={styles.media}
-              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
-              alt=""
-              // Media sits in the first screen of a case study (its LCP).
-              fetchPriority="high"
-            />
-            <span className={styles.play}>Play video</span>
-          </button>
-        )}
-      </div>
+          <span className={styles.play}>Play video</span>
+        </button>
+      )}
     </div>
   );
 }

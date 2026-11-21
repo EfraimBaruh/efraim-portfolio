@@ -1,49 +1,14 @@
-/* Mount: a hairline mat 8px out from the picture, with viewfinder-style
-   corner brackets that brighten on hover. */
-.mount {
-  --bracket: 14px;
-  --bracket-color: rgb(var(--accent-rgb) / 0.55);
-  position: relative;
-  padding: 8px;
-  border: 1px solid var(--hairline);
-  background: rgb(var(--accent-2-rgb) / 0.02);
-  transition: border-color 0.5s var(--ease-out);
-}
-
-.mount::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  pointer-events: none;
-  background:
-    linear-gradient(var(--bracket-color), var(--bracket-color)) top left / var(--bracket) 1px,
-    linear-gradient(var(--bracket-color), var(--bracket-color)) top left / 1px var(--bracket),
-    linear-gradient(var(--bracket-color), var(--bracket-color)) top right / var(--bracket) 1px,
-    linear-gradient(var(--bracket-color), var(--bracket-color)) top right / 1px var(--bracket),
-    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom left / var(--bracket) 1px,
-    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom left / 1px var(--bracket),
-    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom right / var(--bracket) 1px,
-    linear-gradient(var(--bracket-color), var(--bracket-color)) bottom right / 1px var(--bracket);
-  background-repeat: no-repeat;
-  transition: filter 0.5s var(--ease-out);
-}
-
-.mount:hover,
-.mount:focus-within {
-  --bracket-color: var(--accent);
-  border-color: rgb(var(--accent-rgb) / 0.28);
-}
-
-.mount:hover::before,
-.mount:focus-within::before {
-  filter: drop-shadow(0 0 4px rgb(var(--accent-rgb) / 0.6));
-}
-
 .frame {
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--surface);
   overflow: hidden;
+  /* A faint neon halo instead of a frame: a hairline of the accent, then
+     a soft glow that falls off into the page. */
+  box-shadow:
+    0 0 0 1px rgb(var(--accent-rgb) / 0.22),
+    0 0 22px rgb(var(--accent-rgb) / 0.16),
+    0 0 64px rgb(var(--accent-rgb) / 0.08);
 }
 
 .media {
@@ -60,20 +25,6 @@
   position: absolute;
   inset: 0;
   cursor: pointer;
-}
-
-.poster .media {
-  filter: grayscale(1) contrast(1.05);
-  opacity: 0.7;
-  transition:
-    filter 0.6s var(--ease-out),
-    opacity 0.6s var(--ease-out);
-}
-
-.poster:hover .media,
-.poster:focus-visible .media {
-  filter: grayscale(0);
-  opacity: 1;
 }
 
 .poster:focus-visible {
