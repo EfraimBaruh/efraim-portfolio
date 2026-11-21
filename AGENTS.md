@@ -133,7 +133,8 @@ Next / later (don't forget these):
 1. **Go live**: choose domain and host, build with `NEXT_PUBLIC_SITE_URL` set,
    re-run `scripts/capture/stills.mjs` against the live build. Steps in
    `docs/LAUNCH.md`.
-2. **Case-study depth** *(final polish)*: Challenge → Approach → Outcome for
+2. **Case-study depth** *(post-launch, decided 2026-11-21; takes time, so it
+   doesn't block going live)*: Challenge → Approach → Outcome for
    every case study, with real numbers and constraints. Needs Efraim's answers;
    never invent details. Also new case studies: ADASTEC, Leke Games, Gleechi.
 3. **Self-assembly experiment** *(later)*: a small interactive in-browser
